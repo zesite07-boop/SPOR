@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { isTwoFactorEnabled, isTwoFactorSessionValid } from "@/lib/security/twofa";
+import { isAdminSessionValid } from "@/lib/security/twofa";
 
 const PROTECTED = ["/rayonner", "/tresor"];
 
@@ -19,11 +19,9 @@ export function TwoFactorRouteGuard() {
         if (!cancelled) setChecking(false);
         return;
       }
-      const enabled = await isTwoFactorEnabled();
-      const valid = await isTwoFactorSessionValid();
-      if (!cancelled && (!enabled || !valid)) {
-        const reason = enabled ? "expired" : "required";
-        router.replace(`/auth/2fa?next=${encodeURIComponent(pathname)}&reason=${reason}`);
+      const valid = await isAdminSessionValid();
+      if (!cancelled && !valid) {
+        router.replace(`/connexion?next=${encodeURIComponent(pathname)}&admin=required`);
         return;
       }
       if (!cancelled) setChecking(false);

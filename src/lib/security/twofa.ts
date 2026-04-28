@@ -4,7 +4,10 @@ import { db, type TwoFactorConfig } from "@/lib/db/schema";
 
 const CONFIG_ID = "primary";
 const SESSION_ID = "active";
-export const TWO_FA_SESSION_MS = 8 * 60 * 60 * 1000;
+const ADMIN_SESSION_EVENT_ID = "admin-session";
+const ADMIN_EMAIL_EVENT_ID = "admin-email";
+const SESSION_HOURS = Number(process.env.NEXT_PUBLIC_TWOFA_SESSION_HOURS ?? "8");
+export const TWO_FA_SESSION_MS = Math.max(1, SESSION_HOURS) * 60 * 60 * 1000;
 
 function encoder() {
   return new TextEncoder();
@@ -137,6 +140,56 @@ export async function clearTwoFactorSession() {
   await db?.twoFactorSession.delete(SESSION_ID);
 }
 
+export function normalizeAdminEmail(input: string) {
+  return input.trim().toLowerCase();
+}
+
+export function isAllowedAdminEmail(email: string, allowedEmails: string[]) {
+  const normalized = normalizeAdminEmail(email);
+  return allowedEmails.map(normalizeAdminEmail).includes(normalized);
+}
+
+export async function startAdminSession(email: string) {
+  if (!db) return;
+  const now = Date.now();
+  await db.events.put({
+    id: ADMIN_SESSION_EVENT_ID,
+    title: "Admin session active",
+    startAt: now,
+    cosmicNote: String(now + TWO_FA_SESSION_MS),
+    updatedAt: now,
+  });
+  await db.events.put({
+    id: ADMIN_EMAIL_EVENT_ID,
+    title: "Admin email",
+    startAt: now,
+    cosmicNote: normalizeAdminEmail(email),
+    updatedAt: now,
+  });
+}
+
+export async function readAdminSession() {
+  if (!db) return null;
+  const [sessionRow, emailRow] = await Promise.all([db.events.get(ADMIN_SESSION_EVENT_ID), db.events.get(ADMIN_EMAIL_EVENT_ID)]);
+  const expiresAt = Number(sessionRow?.cosmicNote ?? "0");
+  return {
+    expiresAt,
+    email: emailRow?.cosmicNote ?? "",
+  };
+}
+
+export async function isAdminSessionValid() {
+  const s = await readAdminSession();
+  return !!s && !!s.email && s.expiresAt > Date.now();
+}
+
+export async function clearAdminSession() {
+  if (!db) return;
+  await db.events.delete(ADMIN_SESSION_EVENT_ID);
+  await db.events.delete(ADMIN_EMAIL_EVENT_ID);
+  await clearTwoFactorSession();
+}
+
 export async function disableTwoFactorWithCode(code: string) {
   const checked = await verifyTwoFactorCode(code);
   if (!checked.ok) return checked;
@@ -147,6 +200,6 @@ export async function disableTwoFactorWithCode(code: string) {
     enabled: false,
     updatedAt: Date.now(),
   });
-  await clearTwoFactorSession();
+  await clearAdminSession();
   return { ok: true as const };
 }

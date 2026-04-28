@@ -2,15 +2,31 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { NAV_TABS } from "@/components/layout/nav-tabs";
 import { useUiStore } from "@/stores/ui-store";
+import { isAdminSessionValid } from "@/lib/security/twofa";
 
 export function BottomNav() {
   const pathname = usePathname();
   const points = useUiStore((s) => s.energyPoints);
   const badges = useUiStore((s) => s.badges);
+  const [showSensitive, setShowSensitive] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    void (async () => {
+      const valid = await isAdminSessionValid();
+      if (!cancelled) setShowSensitive(valid);
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [pathname]);
+
+  const tabs = showSensitive ? NAV_TABS : NAV_TABS.filter((t) => t.href !== "/rayonner" && t.href !== "/tresor");
 
   return (
     <nav
@@ -26,7 +42,7 @@ export function BottomNav() {
         </span>
       </div>
       <ul className="flex items-stretch justify-between gap-0.5 px-1 py-2 sm:px-2">
-        {NAV_TABS.map(({ href, label, shortLabel, Icon }) => {
+        {tabs.map(({ href, label, shortLabel, Icon }) => {
           const active =
             href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`);
           return (
