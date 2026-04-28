@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight, MapPin } from "lucide-react";
-import type { RetreatDefinition } from "@/lib/reservation/catalog";
+import { ArrowRight, Link2, MapPin } from "lucide-react";
+import { retreatSlug, type RetreatDefinition } from "@/lib/reservation/catalog";
 import type { LogisticsRetreatStatus } from "@/lib/db/schema";
 import { LogisticsStatusBadge } from "@/components/logistics/logistics-status-badge";
 
@@ -26,6 +26,12 @@ export function LogisticsRetreatCard({
   status: LogisticsRetreatStatus;
   index?: number;
 }) {
+  async function copyPublicUrl() {
+    const slug = retreatSlug(retreat);
+    const url = `${window.location.origin}/r/${slug}`;
+    await navigator.clipboard.writeText(url);
+  }
+
   return (
     <motion.article
       initial={{ opacity: 0, y: 12 }}
@@ -44,13 +50,23 @@ export function LogisticsRetreatCard({
         </div>
         <p className="text-xs text-padma-night/55 dark:text-padma-cream/58">{fmtShort(retreat.startDate, retreat.endDate)}</p>
       </div>
-      <Link
-        href={`/logistique/${retreat.id}`}
-        className="mt-4 inline-flex items-center gap-2 rounded-full border border-padma-lavender/40 bg-white/80 px-4 py-2 text-sm font-medium text-padma-night transition hover:bg-padma-champagne/15 dark:border-padma-lavender/30 dark:bg-padma-night/50 dark:text-padma-cream dark:hover:bg-padma-lavender/15"
-      >
-        Ouvrir l’espace opérationnel
-        <ArrowRight className="h-4 w-4" aria-hidden />
-      </Link>
+      <div className="mt-4 flex flex-wrap gap-2">
+        <Link
+          href={`/logistique/${retreat.id}`}
+          className="inline-flex items-center gap-2 rounded-full border border-padma-lavender/40 bg-white/80 px-4 py-2 text-sm font-medium text-padma-night transition hover:bg-padma-champagne/15 dark:border-padma-lavender/30 dark:bg-padma-night/50 dark:text-padma-cream dark:hover:bg-padma-lavender/15"
+        >
+          Ouvrir l’espace opérationnel
+          <ArrowRight className="h-4 w-4" aria-hidden />
+        </Link>
+        <button
+          type="button"
+          onClick={() => void copyPublicUrl()}
+          className="inline-flex items-center gap-2 rounded-full border border-padma-champagne/35 bg-white/75 px-4 py-2 text-sm text-padma-night dark:border-padma-lavender/30 dark:bg-padma-night/50 dark:text-padma-cream"
+        >
+          <Link2 className="h-4 w-4" aria-hidden />
+          Copier URL partage
+        </button>
+      </div>
     </motion.article>
   );
 }

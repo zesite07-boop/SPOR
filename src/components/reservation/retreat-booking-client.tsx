@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowLeft, Check, Plane, Shield, User } from "lucide-react";
+import { jsPDF } from "jspdf";
 import type { PackageDays, RetreatDefinition } from "@/lib/reservation/catalog";
 import { computeQuote, euroToCents, SOLO_ROOM_SURCHARGE_EUR, AIRPORT_TRANSFER_EUR } from "@/lib/reservation/pricing";
 import type { PaymentMode } from "@/lib/db/schema";
@@ -38,6 +39,7 @@ export function RetreatBookingClient({ retreat }: { retreat: RetreatDefinition }
   const [intentions, setIntentions] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
+  const [contractReady, setContractReady] = useState(false);
 
   const quote = useMemo(
     () =>
@@ -90,6 +92,7 @@ export function RetreatBookingClient({ retreat }: { retreat: RetreatDefinition }
         createdAt: now,
         updatedAt: now,
       });
+      setContractReady(true);
 
       if (birthDate) {
         await saveLocalProfile({ birthDate });
@@ -140,6 +143,80 @@ export function RetreatBookingClient({ retreat }: { retreat: RetreatDefinition }
     } finally {
       setLoading(false);
     }
+  }
+
+  async function generateContractPdf() {
+    const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
+    const margin = 14;
+    const w = doc.internal.pageSize.getWidth();
+    let y = 18;
+
+    try {
+      const img = new Image();
+      img.crossOrigin = "anonymous";
+      img.src = "/serey_padma_lotus.png";
+      await new Promise<void>((resolve, reject) => {
+        img.onload = () => resolve();
+        img.onerror = () => reject(new Error("image load failed"));
+      });
+      const canvas = document.createElement("canvas");
+      canvas.width = img.naturalWidth;
+      canvas.height = img.naturalHeight;
+      const ctx = canvas.getContext("2d");
+      if (ctx) {
+        ctx.drawImage(img, 0, 0);
+        const data = canvas.toDataURL("image/png");
+        doc.addImage(data, "PNG", w - margin - 18, 13, 14, 14);
+      }
+    } catch {
+      /* fallback texte uniquement */
+    }
+
+    doc.setFillColor(248, 244, 237);
+    doc.roundedRect(margin, 10, w - margin * 2, 30, 2, 2, "F");
+    doc.setDrawColor(212, 175, 136);
+    doc.roundedRect(margin, 10, w - margin * 2, 30, 2, 2, "S");
+    doc.setFont("times", "bold");
+    doc.setFontSize(16);
+    doc.text("Serey Padma by Céline", margin + 3, 18);
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(9);
+    doc.text("Reiki · Oracle · Retreats", margin + 3, 23);
+    doc.setFont("times", "bold");
+    doc.setFontSize(13);
+    doc.text("Bon de reservation", margin + 3, 31);
+    y = 48;
+
+    const lines = [
+      `Participante: ${email || "Non renseigne"}`,
+      `Retraite: ${retreat.title}`,
+      `Lieu: ${retreat.destinationLabel}`,
+      `Dates: ${fmtRange(retreat.startDate, retreat.endDate)}`,
+      `Montant total: ${quote.subtotalEuro} EUR`,
+      `Acompte verse: ${quote.dueNowEuro} EUR`,
+      `Solde restant: ${quote.balanceEuro} EUR`,
+    ];
+    doc.setFont("helvetica", "normal");
+    doc.setTextColor(44, 62, 80);
+    for (const line of lines) {
+      doc.text(line, margin, y);
+      y += 7;
+    }
+    y += 3;
+    doc.setFont("times", "bold");
+    doc.text("Conditions d'annulation", margin, y);
+    y += 6;
+    doc.setFont("helvetica", "normal");
+    const cond =
+      "Annulation possible jusqu'a 30 jours avant le debut de la retraite avec retenue de frais administratifs. Passe ce delai, l'acompte reste acquis sauf cas exceptionnel documente.";
+    const wrapped = doc.splitTextToSize(cond, w - margin * 2);
+    doc.text(wrapped, margin, y);
+    y += wrapped.length * 5 + 8;
+
+    doc.setFontSize(8);
+    doc.setTextColor(212, 175, 136);
+    doc.text(`Serey Padma by Céline · genere le ${new Date().toLocaleString("fr-FR")}`, margin, 288);
+    doc.save(`contrat-${retreat.id}.pdf`);
   }
 
   return (
@@ -332,6 +409,11 @@ export function RetreatBookingClient({ retreat }: { retreat: RetreatDefinition }
             >
               {loading ? "Redirection securisee..." : "Continuer vers le paiement"}
             </Button>
+            {contractReady && (
+              <Button type="button" variant="secondary" className="mt-3 w-full rounded-2xl" onClick={() => void generateContractPdf()}>
+                Generer le contrat PDF
+              </Button>
+            )}
 
             <p className="mt-4 flex items-start gap-2 text-[0.65rem] leading-relaxed text-padma-night/50 dark:text-padma-cream/55">
               <Shield className="mt-0.5 h-3.5 w-3.5 shrink-0" aria-hidden />

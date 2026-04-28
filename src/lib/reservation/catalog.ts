@@ -39,6 +39,16 @@ export type RetreatDefinition = {
   includedEverywhere: string[];
 };
 
+export function retreatSlug(retreat: RetreatDefinition): string {
+  const base = `${retreat.title}-${retreat.destinationLabel}`
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+  return `${base}-${retreat.id}`;
+}
+
 export const DESTINATION_OPTIONS: { id: RetreatDestinationId | "all"; label: string }[] = [
   { id: "all", label: "Toutes destinations" },
   { id: "france", label: "France" },
@@ -242,6 +252,10 @@ export const RETREAT_CATALOG: RetreatDefinition[] = [
 
 export function getRetreatById(id: string): RetreatDefinition | undefined {
   return RETREAT_CATALOG.find((r) => r.id === id);
+}
+
+export function getRetreatByPublicSlug(slug: string): RetreatDefinition | undefined {
+  return RETREAT_CATALOG.find((r) => retreatSlug(r) === slug);
 }
 
 export function listUpcomingRetreats(now = new Date()): RetreatDefinition[] {

@@ -12,13 +12,14 @@ const WHISPERS = [
   "Les autres mondes peuvent attendre : celui-ci te demande présence.",
 ];
 
-export function getDailyEnergyMessage(date: Date): string {
+export function getDailyEnergyMessage(date: Date, firstName?: string): string {
   const moon = getMoonDayInfo(date);
   const sun = getSunSign(date);
   const n = personalDayNumber(date);
   const theme = DAY_NUMBER_THEMES[n] ?? "présence au présent";
   const seed = date.getDate() + (date.getMonth() + 1) * 31;
   const whisper = WHISPERS[seed % WHISPERS.length];
+  const toYou = firstName ? `, ${firstName}` : "";
 
-  return `La ${moon.labelFr.toLowerCase()} danse avec le Soleil en ${sun}. Ton jour personnel (${n}) invite ${theme}. ${whisper}`;
+  return `La ${moon.labelFr.toLowerCase()} danse avec toi${toYou}, sous le Soleil en ${sun}. Ton jour personnel (${n}) invite ${theme}. ${whisper}`;
 }

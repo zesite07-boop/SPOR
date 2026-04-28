@@ -3,9 +3,9 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { CalendarHeart, Download } from "lucide-react";
+import { CalendarHeart, Download, Link2 } from "lucide-react";
 import { jsPDF } from "jspdf";
-import type { RetreatDefinition } from "@/lib/reservation/catalog";
+import { retreatSlug, type RetreatDefinition } from "@/lib/reservation/catalog";
 import { countDaysInclusive } from "@/lib/logistics/default-planning";
 import { ensureRetreatLogistics } from "@/lib/logistics/seed-logistics";
 import { setTaskDone, setRetreatStatus, updateParticipantRoom, updateParticipantTransfer } from "@/lib/logistics/logistics-actions";
@@ -95,6 +95,11 @@ export function LogisticsRetreatDetail({ retreat }: { retreat: RetreatDefinition
   async function changeStatus(s: LogisticsRetreatStatus) {
     await setRetreatStatus(retreat.id, s);
     await refresh();
+  }
+
+  async function copyPublicUrl() {
+    const url = `${window.location.origin}/r/${retreatSlug(retreat)}`;
+    await navigator.clipboard.writeText(url);
   }
 
   function downloadPdf() {
@@ -235,6 +240,10 @@ export function LogisticsRetreatDetail({ retreat }: { retreat: RetreatDefinition
           <Button type="button" variant="oracle" size="sm" className="print:hidden ml-auto font-cinzel rounded-full" onClick={downloadPdf}>
             <Download className="h-4 w-4" aria-hidden />
             Telecharger PDF
+          </Button>
+          <Button type="button" variant="secondary" size="sm" className="print:hidden rounded-full" onClick={() => void copyPublicUrl()}>
+            <Link2 className="h-4 w-4" aria-hidden />
+            Copier URL publique
           </Button>
         </div>
         <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>

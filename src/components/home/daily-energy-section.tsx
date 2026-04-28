@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { getDailyEnergyMessage } from "@/lib/home/daily-energy-message";
 import { db } from "@/lib/db/schema";
+import { loadLocalProfile } from "@/lib/db/profile-local";
 import { useUiStore } from "@/stores/ui-store";
 import { cn } from "@/lib/utils";
 
@@ -18,7 +19,8 @@ function dayKey() {
 
 export function DailyEnergySection() {
   const hyperfocus = useUiStore((s) => s.hyperfocus);
-  const message = useMemo(() => getDailyEnergyMessage(new Date()), []);
+  const [firstName, setFirstName] = useState<string | undefined>(undefined);
+  const message = useMemo(() => getDailyEnergyMessage(new Date(), firstName), [firstName]);
   const dk = useMemo(() => dayKey(), []);
   const [note, setNote] = useState("");
 
@@ -29,6 +31,9 @@ export function DailyEnergySection() {
       try {
         const row = await db.events.get(`home-note-${dk}`);
         if (!cancelled && row?.cosmicNote) setNote(row.cosmicNote);
+        const profile = await loadLocalProfile();
+        const name = profile?.displayName?.trim();
+        if (!cancelled && name) setFirstName(name.split(/\s+/)[0]);
       } catch {
         /* private mode */
       }

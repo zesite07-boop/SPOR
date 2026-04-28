@@ -8,13 +8,25 @@ import { VoiceHint } from "@/components/home/voice-hint";
 import { CosmicCalendarSection } from "@/components/home/cosmic-calendar-section";
 import { DailyEnergySection } from "@/components/home/daily-energy-section";
 import { DailyOracleDraw } from "@/components/home/daily-oracle-draw";
+import { TonightDashboard } from "@/components/home/tonight-dashboard";
+import { loadLocalProfile } from "@/lib/db/profile-local";
 import { useUiStore } from "@/stores/ui-store";
+import { useEffect, useState } from "react";
 
 /**
  * Accueil Serey Padma — landing vivante + calendrier cosmique, oracle du jour, énergie journalière.
  */
 export default function AccueilPage() {
   const hyperfocus = useUiStore((s) => s.hyperfocus);
+  const [firstName, setFirstName] = useState<string | null>(null);
+
+  useEffect(() => {
+    void (async () => {
+      const p = await loadLocalProfile();
+      const n = p?.displayName?.trim();
+      if (n) setFirstName(n.split(/\s+/)[0]);
+    })();
+  }, []);
 
   return (
     <>
@@ -70,12 +82,16 @@ export default function AccueilPage() {
         </p>
         <HyperfocusToolbar />
         <VoiceHint />
+        {firstName ? (
+          <p className="font-cinzel text-xl text-padma-night dark:text-padma-cream">Bonjour {firstName}</p>
+        ) : null}
       </header>
 
       <LandingPortalGrid hyperfocus={hyperfocus} />
 
       <div className="mt-14 flex flex-col gap-12 pb-12">
         <CosmicCalendarSection />
+        <TonightDashboard />
         <DailyOracleDraw />
         <DailyEnergySection />
       </div>

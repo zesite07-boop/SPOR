@@ -4,6 +4,7 @@ import { NextResponse, type NextRequest } from "next/server";
 /** Routes accessibles sans session (magic link, catalogue réservation, flux paiement). */
 function isPublicPath(pathname: string): boolean {
   if (pathname === "/landing") return true;
+  if (pathname.startsWith("/r/")) return true;
   if (pathname.startsWith("/connexion")) return true;
   if (pathname.startsWith("/auth")) return true;
   /** Invité·e : parcourir les retraites et payer sans compte Padma. */
