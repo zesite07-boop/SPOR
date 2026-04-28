@@ -11,8 +11,8 @@ const buttonVariants = cva(
         default:
           "bg-gradient-to-r from-[#c9a96e] to-[#c5b4d4] text-padma-night shadow-soft hover:shadow-glow hover:-translate-y-0.5",
         secondary:
-          "bg-oasis-cream dark:bg-oasis-night/80 text-oasis-night dark:text-oasis-cream border border-oasis-champagne/40 hover:-translate-y-0.5",
-        ghost: "hover:bg-oasis-lavender/25 dark:hover:bg-oasis-lavender/15 text-oasis-night dark:text-oasis-cream",
+          "bg-oasis-cream dark:bg-[#2a2740] text-oasis-night dark:text-[#f5f0e8] border border-oasis-champagne/40 dark:border-[#c9a96e45] hover:-translate-y-0.5",
+        ghost: "hover:bg-oasis-lavender/25 dark:hover:bg-[#2a2740] text-oasis-night dark:text-[#f5f0e8]",
         oracle:
           "bg-gradient-to-r from-[#c9a96e] via-oasis-lavender to-[#d8bfd8] text-oasis-night shadow-soft hover:shadow-glow hover:-translate-y-0.5",
       },

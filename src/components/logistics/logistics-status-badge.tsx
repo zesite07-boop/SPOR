@@ -21,10 +21,14 @@ export function LogisticsStatusBadge({
     <span
       className={cn(
         "inline-flex rounded-full border px-2.5 py-0.5 text-[0.65rem] font-medium uppercase tracking-wide",
-        status === "preparation" && "border-padma-pearl/50 bg-padma-pearl/15 text-padma-night/75 dark:border-padma-pearl/35 dark:bg-padma-pearl/10 dark:text-padma-cream/78",
-        status === "ready" && "border-padma-champagne/55 bg-padma-champagne/20 text-padma-night dark:border-padma-champagne/40 dark:bg-padma-champagne/15 dark:text-padma-cream",
-        status === "in_progress" && "border-padma-lavender/55 bg-padma-lavender/20 text-padma-night dark:border-padma-lavender/40 dark:bg-padma-lavender/15 dark:text-padma-cream",
-        status === "completed" && "border-padma-pearl/40 bg-white/60 text-padma-night/65 dark:border-padma-lavender/30 dark:bg-padma-night/50 dark:text-padma-cream/75",
+        status === "preparation" &&
+          "border-padma-pearl/50 bg-padma-pearl/15 text-padma-night/80 dark:border-padma-pearl/45 dark:bg-[#2a2740] dark:text-[#ece4d8]",
+        status === "ready" &&
+          "border-padma-champagne/55 bg-padma-champagne/20 text-padma-night dark:border-padma-champagne/50 dark:bg-[#2f2b21] dark:text-[#f0e2c2]",
+        status === "in_progress" &&
+          "border-padma-lavender/55 bg-padma-lavender/20 text-padma-night dark:border-padma-lavender/45 dark:bg-[#2a2740] dark:text-[#ece4d8]",
+        status === "completed" &&
+          "border-padma-pearl/40 bg-white/60 text-padma-night/72 dark:border-padma-lavender/35 dark:bg-[#252236] dark:text-[#ece4d8]",
         className
       )}
     >

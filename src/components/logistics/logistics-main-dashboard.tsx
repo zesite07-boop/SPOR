@@ -118,19 +118,19 @@ export function LogisticsMainDashboard() {
 
       <div
         className={cn(
-          "mb-8 grid gap-4 rounded-2xl border border-padma-pearl/35 bg-white/75 p-4 dark:border-padma-lavender/25 dark:bg-padma-night/45",
+          "mb-8 grid gap-4 rounded-2xl border border-padma-pearl/35 bg-white/75 p-4 dark:border-[#c9a96e3a] dark:bg-[#211f32]",
           hyperfocus && "mb-4 p-3",
           "print:hidden"
         )}
       >
         <p className="font-cinzel text-sm text-padma-night dark:text-padma-cream">Filtres</p>
         <div className="grid gap-3 sm:grid-cols-3">
-          <label className="flex flex-col text-[0.65rem] uppercase tracking-wide text-padma-night/55 dark:text-padma-cream/55">
+          <label className="flex flex-col text-[0.65rem] uppercase tracking-wide text-padma-night/60 dark:text-[#e7dfd2]">
             Mois
             <select
               value={monthFilter}
               onChange={(e) => setMonthFilter(e.target.value)}
-              className="mt-1 rounded-xl border border-padma-champagne/40 bg-white px-3 py-2 text-sm dark:border-padma-lavender/35 dark:bg-padma-night/60 dark:text-padma-cream"
+              className="mt-1 rounded-xl border border-padma-champagne/40 bg-white px-3 py-2 text-sm dark:border-[#c9a96e45] dark:bg-[#2a2740] dark:text-[#f5f0e8]"
             >
               <option value="all">Tous</option>
               {months.map((m) => (
@@ -140,12 +140,12 @@ export function LogisticsMainDashboard() {
               ))}
             </select>
           </label>
-          <label className="flex flex-col text-[0.65rem] uppercase tracking-wide text-padma-night/55 dark:text-padma-cream/55">
+          <label className="flex flex-col text-[0.65rem] uppercase tracking-wide text-padma-night/60 dark:text-[#e7dfd2]">
             Destination
             <select
               value={destFilter}
               onChange={(e) => setDestFilter(e.target.value as DestFilter)}
-              className="mt-1 rounded-xl border border-padma-champagne/40 bg-white px-3 py-2 text-sm dark:border-padma-lavender/35 dark:bg-padma-night/60 dark:text-padma-cream"
+              className="mt-1 rounded-xl border border-padma-champagne/40 bg-white px-3 py-2 text-sm dark:border-[#c9a96e45] dark:bg-[#2a2740] dark:text-[#f5f0e8]"
             >
               <option value="all">Toutes</option>
               <option value="france">France</option>
@@ -153,12 +153,12 @@ export function LogisticsMainDashboard() {
               <option value="bretagne">Bretagne</option>
             </select>
           </label>
-          <label className="flex flex-col text-[0.65rem] uppercase tracking-wide text-padma-night/55 dark:text-padma-cream/55">
+          <label className="flex flex-col text-[0.65rem] uppercase tracking-wide text-padma-night/60 dark:text-[#e7dfd2]">
             Statut logistique
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value as StatusFilter)}
-              className="mt-1 rounded-xl border border-padma-champagne/40 bg-white px-3 py-2 text-sm dark:border-padma-lavender/35 dark:bg-padma-night/60 dark:text-padma-cream"
+              className="mt-1 rounded-xl border border-padma-champagne/40 bg-white px-3 py-2 text-sm dark:border-[#c9a96e45] dark:bg-[#2a2740] dark:text-[#f5f0e8]"
             >
               <option value="all">Tous</option>
               <option value="preparation">Préparation</option>

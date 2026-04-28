@@ -24,7 +24,7 @@ export function RetreatCard({ retreat, index = 0 }: { retreat: RetreatDefinition
       initial={{ opacity: 0, y: 14 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.45, delay: index * 0.06 }}
-      className="group relative overflow-hidden rounded-[1.75rem] border border-padma-champagne/35 bg-gradient-to-br from-white/95 via-padma-cream/90 to-padma-lavender/12 shadow-soft dark:from-padma-night/70 dark:via-padma-night/55 dark:to-padma-lavender/10"
+      className="group relative overflow-hidden rounded-[1.75rem] border border-padma-champagne/35 bg-gradient-to-br from-white/95 via-padma-cream/90 to-padma-lavender/12 shadow-soft dark:border-[#c9a96e38] dark:from-[#1f1b31] dark:via-[#1a1828] dark:to-[#26213c]"
     >
       <div
         className="pointer-events-none absolute -right-12 -top-12 h-40 w-40 rounded-full bg-padma-champagne/25 blur-3xl transition-opacity group-hover:opacity-90 dark:bg-padma-lavender/15"
@@ -33,20 +33,20 @@ export function RetreatCard({ retreat, index = 0 }: { retreat: RetreatDefinition
       <div className="relative p-6">
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
-            <p className="font-display text-[0.65rem] uppercase tracking-[0.28em] text-padma-pearl dark:text-padma-lavender/90">
+            <p className="font-display text-[0.65rem] uppercase tracking-[0.28em] text-padma-pearl dark:text-[#d8d0c4]">
               {retreat.energyLabel}
             </p>
             <h2 className="mt-2 font-cinzel text-xl font-normal tracking-wide text-padma-night dark:text-padma-cream">
               {retreat.title}
             </h2>
-            <p className="mt-1 text-sm text-padma-night/72 dark:text-padma-cream/78">{retreat.subtitle}</p>
+            <p className="mt-1 text-sm text-padma-night/72 dark:text-[#e5ddcf]">{retreat.subtitle}</p>
           </div>
-          <span className="rounded-full border border-padma-champagne/40 bg-padma-cream/60 px-3 py-1 text-xs font-medium text-padma-night dark:border-padma-lavender/35 dark:bg-padma-night/50 dark:text-padma-cream">
+          <span className="rounded-full border border-padma-champagne/40 bg-padma-cream/60 px-3 py-1 text-xs font-medium text-padma-night dark:border-[#c9a96e45] dark:bg-[#2a2740] dark:text-[#f0e2c2]">
             dès {minPrice} €
           </span>
         </div>
 
-        <p className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-padma-night/65 dark:text-padma-cream/70">
+        <p className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-padma-night/68 dark:text-[#e2dacd]">
           <span className="inline-flex items-center gap-1.5">
             <MapPin className="h-3.5 w-3.5 text-padma-lavender" aria-hidden />
             {retreat.destinationLabel}
@@ -57,19 +57,19 @@ export function RetreatCard({ retreat, index = 0 }: { retreat: RetreatDefinition
           </span>
         </p>
 
-        <p className="mt-3 text-sm leading-relaxed text-padma-night/78 dark:text-padma-cream/82">
+        <p className="mt-3 text-sm leading-relaxed text-padma-night/78 dark:text-[#e5ddcf]">
           <Sparkles className="mr-1 inline h-3.5 w-3.5 text-padma-champagne" aria-hidden />
           <span className="italic">{retreat.astroTheme}</span>
         </p>
-        <p className="mt-1 text-xs text-padma-night/60 dark:text-padma-cream/65">{retreat.numeroTheme}</p>
+        <p className="mt-1 text-xs text-padma-night/60 dark:text-[#d7cfc2]">{retreat.numeroTheme}</p>
 
-        <p className="mt-4 text-xs text-padma-night/55 dark:text-padma-cream/58">{fmtRange(retreat.startDate, retreat.endDate)}</p>
+        <p className="mt-4 text-xs text-padma-night/58 dark:text-[#d7cfc2]">{fmtRange(retreat.startDate, retreat.endDate)}</p>
 
         <Link
           href={`/reservation/${retreat.id}`}
           className={cn(
             "mt-5 inline-flex items-center gap-2 rounded-full border border-padma-lavender/40 bg-white/80 px-5 py-2.5 text-sm font-medium text-padma-night transition",
-            "hover:border-padma-champagne hover:bg-padma-champagne/15 dark:border-padma-lavender/30 dark:bg-padma-night/50 dark:text-padma-cream dark:hover:bg-padma-lavender/15"
+            "hover:border-padma-champagne hover:bg-padma-champagne/15 dark:border-[#c9a96e45] dark:bg-[#2a2740] dark:text-[#f5f0e8] dark:hover:bg-[#322d4a]"
           )}
         >
           Découvrir &amp; réserver

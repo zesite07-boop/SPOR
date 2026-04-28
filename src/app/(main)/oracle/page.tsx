@@ -45,7 +45,7 @@ export default function OracleModulePage() {
       <header className="padma-hero-halo mb-8 space-y-4">
         <Link
           href="/bien-etre"
-          className="inline-flex items-center gap-2 text-xs font-medium text-padma-night/60 transition hover:text-padma-lavender dark:text-padma-cream/60 dark:hover:text-padma-champagne"
+          className="inline-flex items-center gap-2 text-xs font-medium text-padma-night/70 transition hover:text-padma-lavender dark:text-[#e7e0d3] dark:hover:text-[#e7cc98]"
         >
           <ArrowLeft className="h-3.5 w-3.5" aria-hidden />
           Bien-être &amp; portrait
@@ -76,7 +76,7 @@ export default function OracleModulePage() {
             size="sm"
             className={cn(
               "gap-2 rounded-full font-cinzel",
-              tab === id ? "shadow-soft" : "text-padma-night/70 dark:text-padma-cream/75"
+              tab === id ? "shadow-soft" : "text-padma-night/75 dark:text-[#ece4d8]"
             )}
             onClick={() => setTab(id)}
           >

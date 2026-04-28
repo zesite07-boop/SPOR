@@ -30,7 +30,7 @@ export default function ReservationListPage() {
       <header className="mb-8 space-y-4">
         <Link
           href="/logistique"
-          className="inline-flex items-center gap-2 text-xs font-medium text-padma-night/60 hover:text-padma-lavender dark:text-padma-cream/60"
+          className="inline-flex items-center gap-2 text-xs font-medium text-padma-night/65 hover:text-padma-lavender dark:text-[#e7e0d3] dark:hover:text-[#e7cc98]"
         >
           ← Ops &amp; logistique
         </Link>
@@ -67,7 +67,7 @@ export default function ReservationListPage() {
         </ul>
       )}
 
-      <p className="mt-10 flex items-center justify-center gap-2 text-center text-xs text-padma-night/50 dark:text-padma-cream/55">
+      <p className="mt-10 flex items-center justify-center gap-2 text-center text-xs text-padma-night/55 dark:text-[#d9d1c5]">
         <CalendarHeart className="h-4 w-4" aria-hidden />
         Catalogue disponible hors ligne — synchronisation paiement lorsque Stripe est configuré.
       </p>

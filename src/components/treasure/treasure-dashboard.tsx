@@ -144,7 +144,7 @@ export function TreasureDashboard() {
 
       <header className={cn("mb-8 space-y-4", hyperfocus && "mb-5 space-y-3")}>
         <HyperfocusToolbar />
-        <p className="max-w-prose text-xs text-padma-night/62 dark:text-padma-cream/65">
+        <p className="max-w-prose text-xs text-padma-night/62 dark:text-[#e0d8cb]">
           Glissez les :: à gauche de chaque carte pour réordonner votre tableau. Les préférences sont enregistrées sur cet appareil (Dexie).
         </p>
       </header>

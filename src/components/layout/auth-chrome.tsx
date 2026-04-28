@@ -73,7 +73,7 @@ export function AuthChrome({ cloudAuthAvailable, sessionEmail }: AuthChromeProps
   }
 
   return (
-    <header className="sticky top-0 z-40 border-b border-padma-champagne/18 bg-padma-cream/85 backdrop-blur-xl dark:border-padma-lavender/18 dark:bg-padma-night/82">
+    <header className="sticky top-0 z-40 border-b border-padma-champagne/18 bg-padma-cream/85 backdrop-blur-xl dark:border-[#c9a96e3a] dark:bg-[#1a1828]/94">
       <div className="mx-auto flex max-w-2xl flex-wrap items-center justify-between gap-2 px-4 py-2.5 md:gap-3 md:py-3">
         <div className="flex min-w-0 flex-1 items-center gap-2">
           <Sparkles className="h-4 w-4 shrink-0 text-padma-champagne dark:text-padma-lavender" aria-hidden />
@@ -103,7 +103,13 @@ export function AuthChrome({ cloudAuthAvailable, sessionEmail }: AuthChromeProps
           )}
         </div>
         <div className="flex shrink-0 items-center gap-2">
-          <Button type="button" variant="ghost" size="sm" className="h-8 w-8 rounded-full p-0" onClick={() => void toggleTheme()}>
+          <Button
+            type="button"
+            variant="ghost"
+            size="sm"
+            className="h-8 w-8 rounded-full p-0 text-padma-night dark:text-[#f5f0e8] dark:hover:bg-[#2a2740]"
+            onClick={() => void toggleTheme()}
+          >
             {theme === "dark" ? <Sun className="h-4 w-4" aria-hidden /> : <Moon className="h-4 w-4" aria-hidden />}
           </Button>
           {!cloudAuthAvailable && (
@@ -115,7 +121,13 @@ export function AuthChrome({ cloudAuthAvailable, sessionEmail }: AuthChromeProps
             </Link>
           )}
           {cloudAuthAvailable && sessionEmail && (
-            <Button type="button" variant="ghost" size="sm" className="h-8 gap-1.5 text-xs" onClick={() => void signOut()}>
+            <Button
+              type="button"
+              variant="ghost"
+              size="sm"
+              className="h-8 gap-1.5 text-xs text-padma-night dark:text-[#f5f0e8] dark:hover:bg-[#2a2740]"
+              onClick={() => void signOut()}
+            >
               <LogOut className="h-3.5 w-3.5" aria-hidden />
               Déconnexion
             </Button>

@@ -132,8 +132,8 @@ export function MarketingDashboard() {
             className={cn(
               "touch-min rounded-full border px-3 py-1.5 text-xs transition",
               tab === "queue"
-                ? "border-padma-champagne/50 bg-padma-champagne/20 text-padma-night dark:border-padma-lavender/45 dark:bg-padma-lavender/20 dark:text-padma-cream"
-                : "border-padma-champagne/30 bg-white/70 text-padma-night/75 dark:border-padma-lavender/30 dark:bg-padma-night/55 dark:text-padma-cream/80"
+                ? "border-padma-champagne/50 bg-padma-champagne/20 text-padma-night dark:border-[#c9a96e55] dark:bg-[#2f2b21] dark:text-[#f0e2c2]"
+                : "border-padma-champagne/30 bg-white/70 text-padma-night/75 dark:border-[#c9a96e40] dark:bg-[#2a2740] dark:text-[#ece4d8]"
             )}
           >
             File d&apos;attente
@@ -144,8 +144,8 @@ export function MarketingDashboard() {
             className={cn(
               "touch-min rounded-full border px-3 py-1.5 text-xs transition",
               tab === "veille"
-                ? "border-padma-champagne/50 bg-padma-champagne/20 text-padma-night dark:border-padma-lavender/45 dark:bg-padma-lavender/20 dark:text-padma-cream"
-                : "border-padma-champagne/30 bg-white/70 text-padma-night/75 dark:border-padma-lavender/30 dark:bg-padma-night/55 dark:text-padma-cream/80"
+                ? "border-padma-champagne/50 bg-padma-champagne/20 text-padma-night dark:border-[#c9a96e55] dark:bg-[#2f2b21] dark:text-[#f0e2c2]"
+                : "border-padma-champagne/30 bg-white/70 text-padma-night/75 dark:border-[#c9a96e40] dark:bg-[#2a2740] dark:text-[#ece4d8]"
             )}
           >
             Veille
@@ -154,7 +154,7 @@ export function MarketingDashboard() {
             <button
               type="button"
               onClick={refreshVeille}
-              className="touch-min rounded-full border border-padma-lavender/35 bg-white/75 px-3 py-1.5 text-xs text-padma-night dark:border-padma-lavender/30 dark:bg-padma-night/55 dark:text-padma-cream"
+              className="touch-min rounded-full border border-padma-lavender/35 bg-white/75 px-3 py-1.5 text-xs text-padma-night dark:border-[#c9a96e40] dark:bg-[#2a2740] dark:text-[#ece4d8]"
             >
               Recharger themes
             </button>
@@ -183,7 +183,7 @@ export function MarketingDashboard() {
         </div>
       </section>
 
-      <p className="mt-8 text-center text-[0.65rem] text-padma-night/48 dark:text-padma-cream/52">
+      <p className="mt-8 text-center text-[0.65rem] text-padma-night/52 dark:text-[#d9d1c5]">
         IA cloud optionnelle plus tard · ici, creation locale bienveillante et souveraine.
       </p>
     </div>
