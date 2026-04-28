@@ -36,7 +36,7 @@ export default function AccueilPage() {
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
-          className="font-display text-sm uppercase tracking-[0.25em] text-padma-pearl dark:text-padma-champagne/90"
+          className="font-display text-sm uppercase tracking-[0.25em] text-padma-pearl"
         >
           Bienvenue dans ton sanctuaire
         </motion.p>
@@ -44,39 +44,39 @@ export default function AccueilPage() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.45, delay: 0.05 }}
-          className="page-title font-cinzel font-normal tracking-[0.08em] text-padma-night dark:text-padma-cream"
+          className="page-title font-cinzel font-normal tracking-[0.08em] text-padma-night"
         >
           Serey Padma by Céline
         </motion.h1>
-        <p className="font-display text-xs uppercase tracking-[0.22em] text-padma-night/58 dark:text-padma-cream/65">
+        <p className="font-display text-xs uppercase tracking-[0.22em] text-padma-night/58">
           Reiki · Oracle · Retreats
         </p>
-        <p className="max-w-prose text-[1.05rem] leading-relaxed text-padma-night/82 dark:text-padma-cream/85">
+        <p className="max-w-prose text-[1.05rem] leading-relaxed text-padma-night/82">
           Un ecrin numerique pour respirer avec la Lune, honorer les transits et recevoir un oracle bienveillant - meme quand la
           connexion fait une pause.
         </p>
-        <p className="max-w-prose text-sm leading-relaxed text-padma-night/68 dark:text-padma-cream/72">
+        <p className="max-w-prose text-sm leading-relaxed text-padma-night/68">
           Ici, rien ne te presse : les donnees sensibles restent d&apos;abord chez toi (Dexie &amp; PWA). Le nuage n&apos;est
           qu&apos;une invitation, jamais une obligation.
         </p>
-        <p className="text-xs text-padma-night/55 dark:text-padma-cream/55">
+        <p className="text-xs text-padma-night/55">
           <Link
             href="/connexion"
-            className="underline decoration-padma-champagne/55 underline-offset-4 transition-colors hover:text-padma-lavender dark:hover:text-padma-champagne"
+            className="underline decoration-padma-champagne/55 underline-offset-4 transition-colors hover:text-padma-lavender"
           >
             Se connecter (magic link)
           </Link>
           {" · "}
           <Link
             href="/reservation"
-            className="underline decoration-padma-champagne/55 underline-offset-4 transition-colors hover:text-padma-lavender dark:hover:text-padma-champagne"
+            className="underline decoration-padma-champagne/55 underline-offset-4 transition-colors hover:text-padma-lavender"
           >
             Voir les retraites
           </Link>
           {" · "}
           <Link
             href="/landing"
-            className="underline decoration-padma-champagne/55 underline-offset-4 transition-colors hover:text-padma-lavender dark:hover:text-padma-champagne"
+            className="underline decoration-padma-champagne/55 underline-offset-4 transition-colors hover:text-padma-lavender"
           >
             Landing publique
           </Link>
@@ -84,7 +84,7 @@ export default function AccueilPage() {
         <HyperfocusToolbar />
         <VoiceHint />
         {firstName ? (
-          <p className="font-cinzel text-xl text-padma-night dark:text-padma-cream">Bonjour {firstName}</p>
+          <p className="font-cinzel text-xl text-padma-night">Bonjour {firstName}</p>
         ) : null}
       </header>
 

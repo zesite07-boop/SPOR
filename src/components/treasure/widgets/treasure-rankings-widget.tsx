@@ -21,7 +21,7 @@ export function TreasureRankingsWidget({
   const topEnergy = kpis.byEnergy.slice(0, 3);
 
   const empty = (
-    <p className="text-sm italic text-padma-night/55 dark:text-padma-cream/58">
+    <p className="text-sm italic text-padma-night/55">
       Les constellations se dessinent avec vos premières réservations payées.
     </p>
   );
@@ -31,24 +31,24 @@ export function TreasureRankingsWidget({
       <motion.section
         initial={{ opacity: 0.85 }}
         animate={{ opacity: 1 }}
-        className="rounded-xl border border-padma-champagne/15 bg-white/50 px-3 py-3 dark:border-padma-lavender/12 dark:bg-padma-night/35"
+        className="rounded-xl border border-padma-champagne/15 bg-white/50 px-3 py-3"
       >
-        <p className="font-cinzel text-xs tracking-wide text-padma-night dark:text-padma-cream">Destinations</p>
+        <p className="font-cinzel text-xs tracking-wide text-padma-night">Destinations</p>
         <ul className="mt-2 space-y-2">
           {topDest.length === 0
             ? empty
             : topDest.map((d, i) => (
                 <li
                   key={d.id}
-                  className="flex items-center justify-between gap-2 text-sm text-padma-night/88 dark:text-padma-cream/88"
+                  className="flex items-center justify-between gap-2 text-sm text-padma-night/88"
                 >
                   <span className="flex min-w-0 items-center gap-2">
-                    <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-padma-champagne/25 text-[0.65rem] font-medium text-padma-night dark:bg-padma-lavender/25 dark:text-padma-cream">
+                    <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-padma-champagne/25 text-[0.65rem] font-medium text-padma-night">
                       {i + 1}
                     </span>
                     <span className="truncate">{d.label}</span>
                   </span>
-                  <span className="shrink-0 font-display text-padma-pearl dark:text-padma-lavender/90">{eur(d.revenueEuro)}</span>
+                  <span className="shrink-0 font-display text-padma-pearl">{eur(d.revenueEuro)}</span>
                 </li>
               ))}
         </ul>
@@ -58,24 +58,24 @@ export function TreasureRankingsWidget({
         initial={{ opacity: 0.85 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.05 }}
-        className="rounded-xl border border-padma-champagne/15 bg-white/50 px-3 py-3 dark:border-padma-lavender/12 dark:bg-padma-night/35"
+        className="rounded-xl border border-padma-champagne/15 bg-white/50 px-3 py-3"
       >
-        <p className="font-cinzel text-xs tracking-wide text-padma-night dark:text-padma-cream">Durées</p>
+        <p className="font-cinzel text-xs tracking-wide text-padma-night">Durées</p>
         <ul className="mt-2 space-y-2">
           {topPkg.length === 0
             ? empty
             : topPkg.map((p, i) => (
                 <li
                   key={p.days}
-                  className="flex items-center justify-between gap-2 text-sm text-padma-night/88 dark:text-padma-cream/88"
+                  className="flex items-center justify-between gap-2 text-sm text-padma-night/88"
                 >
                   <span className="flex items-center gap-2">
-                    <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-padma-lavender/22 text-[0.65rem] font-medium text-padma-night dark:bg-padma-lavender/28 dark:text-padma-cream">
+                    <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-padma-lavender/22 text-[0.65rem] font-medium text-padma-night">
                       {i + 1}
                     </span>
                     {p.days} jours
                   </span>
-                  <span className="shrink-0 text-xs text-padma-night/55 dark:text-padma-cream/58">{p.count} ×</span>
+                  <span className="shrink-0 text-xs text-padma-night/55">{p.count} ×</span>
                 </li>
               ))}
         </ul>
@@ -85,24 +85,24 @@ export function TreasureRankingsWidget({
         initial={{ opacity: 0.85 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.1 }}
-        className="rounded-xl border border-padma-champagne/15 bg-white/50 px-3 py-3 dark:border-padma-lavender/12 dark:bg-padma-night/35"
+        className="rounded-xl border border-padma-champagne/15 bg-white/50 px-3 py-3"
       >
-        <p className="font-cinzel text-xs tracking-wide text-padma-night dark:text-padma-cream">Énergies</p>
+        <p className="font-cinzel text-xs tracking-wide text-padma-night">Énergies</p>
         <ul className="mt-2 space-y-2">
           {topEnergy.length === 0
             ? empty
             : topEnergy.map((e, i) => (
                 <li
                   key={e.id}
-                  className="flex items-center justify-between gap-2 text-sm text-padma-night/88 dark:text-padma-cream/88"
+                  className="flex items-center justify-between gap-2 text-sm text-padma-night/88"
                 >
                   <span className="flex min-w-0 items-center gap-2">
-                    <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-padma-pearl/28 text-[0.65rem] font-medium text-padma-night dark:bg-padma-pearl/18 dark:text-padma-cream">
+                    <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-padma-pearl/28 text-[0.65rem] font-medium text-padma-night">
                       {i + 1}
                     </span>
                     <span className="truncate">{e.label}</span>
                   </span>
-                  <span className="shrink-0 font-display text-xs text-padma-pearl dark:text-padma-lavender/90">{eur(e.revenueEuro)}</span>
+                  <span className="shrink-0 font-display text-xs text-padma-pearl">{eur(e.revenueEuro)}</span>
                 </li>
               ))}
         </ul>

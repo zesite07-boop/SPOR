@@ -76,13 +76,13 @@ export function LogisticsMainDashboard() {
   return (
     <div className={cn("pb-16", hyperfocus && "space-y-6")}>
       <header className={cn("mb-8 space-y-4", hyperfocus && "mb-4 space-y-2")}>
-        <p className="font-display text-xs uppercase tracking-[0.22em] text-padma-pearl dark:text-padma-lavender/90">
+        <p className="font-display text-xs uppercase tracking-[0.22em] text-padma-pearl">
           Module 2 — opérations
         </p>
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
-            <h1 className="font-cinzel text-3xl font-normal tracking-wide text-padma-night dark:text-padma-cream">Logistique</h1>
-            <p className="mt-2 max-w-prose text-sm text-padma-night/78 dark:text-padma-cream/82">
+            <h1 className="font-cinzel text-3xl font-normal tracking-wide text-padma-night">Logistique</h1>
+            <p className="mt-2 max-w-prose text-sm text-padma-night/78">
               Vue calendrier &amp; liste des retraites à venir — planning, équipe, courses et check-lists restent disponibles hors ligne.
             </p>
           </div>
@@ -118,19 +118,19 @@ export function LogisticsMainDashboard() {
 
       <div
         className={cn(
-          "mb-8 grid gap-4 rounded-2xl border border-padma-pearl/35 bg-white/75 p-4 dark:border-[#c9a96e3a] dark:bg-[#211f32]",
+          "mb-8 grid gap-4 rounded-2xl border border-padma-pearl/35 bg-white/75 p-4",
           hyperfocus && "mb-4 p-3",
           "print:hidden"
         )}
       >
-        <p className="font-cinzel text-sm text-padma-night dark:text-padma-cream">Filtres</p>
+        <p className="font-cinzel text-sm text-padma-night">Filtres</p>
         <div className="grid gap-3 sm:grid-cols-3">
-          <label className="flex flex-col text-[0.65rem] uppercase tracking-wide text-padma-night/60 dark:text-[#e7dfd2]">
+          <label className="flex flex-col text-[0.65rem] uppercase tracking-wide text-padma-night/60">
             Mois
             <select
               value={monthFilter}
               onChange={(e) => setMonthFilter(e.target.value)}
-              className="mt-1 rounded-xl border border-padma-champagne/40 bg-white px-3 py-2 text-sm dark:border-[#c9a96e45] dark:bg-[#2a2740] dark:text-[#f5f0e8]"
+              className="mt-1 rounded-xl border border-padma-champagne/40 bg-white px-3 py-2 text-sm"
             >
               <option value="all">Tous</option>
               {months.map((m) => (
@@ -140,12 +140,12 @@ export function LogisticsMainDashboard() {
               ))}
             </select>
           </label>
-          <label className="flex flex-col text-[0.65rem] uppercase tracking-wide text-padma-night/60 dark:text-[#e7dfd2]">
+          <label className="flex flex-col text-[0.65rem] uppercase tracking-wide text-padma-night/60">
             Destination
             <select
               value={destFilter}
               onChange={(e) => setDestFilter(e.target.value as DestFilter)}
-              className="mt-1 rounded-xl border border-padma-champagne/40 bg-white px-3 py-2 text-sm dark:border-[#c9a96e45] dark:bg-[#2a2740] dark:text-[#f5f0e8]"
+              className="mt-1 rounded-xl border border-padma-champagne/40 bg-white px-3 py-2 text-sm"
             >
               <option value="all">Toutes</option>
               <option value="france">France</option>
@@ -153,12 +153,12 @@ export function LogisticsMainDashboard() {
               <option value="bretagne">Bretagne</option>
             </select>
           </label>
-          <label className="flex flex-col text-[0.65rem] uppercase tracking-wide text-padma-night/60 dark:text-[#e7dfd2]">
+          <label className="flex flex-col text-[0.65rem] uppercase tracking-wide text-padma-night/60">
             Statut logistique
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value as StatusFilter)}
-              className="mt-1 rounded-xl border border-padma-champagne/40 bg-white px-3 py-2 text-sm dark:border-[#c9a96e45] dark:bg-[#2a2740] dark:text-[#f5f0e8]"
+              className="mt-1 rounded-xl border border-padma-champagne/40 bg-white px-3 py-2 text-sm"
             >
               <option value="all">Tous</option>
               <option value="preparation">Préparation</option>
@@ -173,8 +173,8 @@ export function LogisticsMainDashboard() {
       {filtered.length === 0 ? (
         <div className="rounded-2xl border border-dashed border-padma-pearl/50 px-6 py-14 text-center">
           <ClipboardList className="mx-auto mb-3 h-10 w-10 text-padma-champagne/70" aria-hidden />
-          <p className="font-cinzel text-padma-night dark:text-padma-cream">Aucune retraite ne correspond.</p>
-          <p className="mt-2 text-sm text-padma-night/60 dark:text-padma-cream/65">Élargis les filtres ou ajoute des réservations.</p>
+          <p className="font-cinzel text-padma-night">Aucune retraite ne correspond.</p>
+          <p className="mt-2 text-sm text-padma-night/60">Élargis les filtres ou ajoute des réservations.</p>
         </div>
       ) : view === "list" ? (
         <ul className="flex flex-col gap-6">
@@ -193,9 +193,9 @@ export function LogisticsMainDashboard() {
               animate={{ opacity: 1, y: 0 }}
               className="space-y-4"
             >
-              <div className="flex items-center gap-2 border-b border-padma-champagne/25 pb-2 dark:border-padma-lavender/20">
+              <div className="flex items-center gap-2 border-b border-padma-champagne/25 pb-2">
                 <CalendarDays className="h-5 w-5 text-padma-lavender" aria-hidden />
-                <h2 className="font-cinzel text-lg capitalize text-padma-night dark:text-padma-cream">{monthLabel(key)}</h2>
+                <h2 className="font-cinzel text-lg capitalize text-padma-night">{monthLabel(key)}</h2>
               </div>
               <ul className="flex flex-col gap-5">
                 {retreats.map((r, i) => (

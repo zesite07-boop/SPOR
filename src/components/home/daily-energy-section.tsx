@@ -66,17 +66,17 @@ export function DailyEnergySection() {
       transition={{ duration: 0.5, delay: 0.12 }}
       className={cn("space-y-4", hyperfocus && "space-y-3")}
     >
-      <Card className="border-padma-champagne/40 bg-gradient-to-br from-padma-cream via-white to-padma-lavender/12 dark:from-padma-night/65 dark:via-padma-night/55 dark:to-padma-lavender/15">
+      <Card className="border-padma-champagne/40 bg-gradient-to-br from-padma-cream via-white to-padma-lavender/12">
         <CardHeader>
-          <CardTitle className="font-cinzel text-xl font-normal tracking-[0.06em] text-padma-night dark:text-padma-cream">
+          <CardTitle className="font-cinzel text-xl font-normal tracking-[0.06em] text-padma-night">
             Mon énergie du jour
           </CardTitle>
-          <CardDescription className="text-padma-night/65 dark:text-padma-cream/70">
+          <CardDescription className="text-padma-night/65">
             Une lecture douce, inspiree et disponible hors ligne. Ton journal reste dans Dexie sur cet appareil.
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-5">
-          <p className="rounded-2xl border border-padma-pearl/35 bg-white/75 p-4 text-sm leading-[1.8] text-padma-night/85 dark:border-padma-lavender/25 dark:bg-padma-night/45 dark:text-padma-cream/90">
+          <p className="rounded-2xl border border-padma-pearl/35 bg-white/75 p-4 text-sm leading-[1.8] text-padma-night/85">
             {message}
           </p>
 
@@ -104,7 +104,7 @@ export function DailyEnergySection() {
           <div className="space-y-2">
             <label
               htmlFor="energy-journal-field"
-              className="text-xs font-medium uppercase tracking-wide text-padma-night/55 dark:text-padma-cream/55"
+              className="text-xs font-medium uppercase tracking-wide text-padma-night/55"
             >
               Une ligne pour ton journal (sauvegardée localement)
             </label>
@@ -115,7 +115,7 @@ export function DailyEnergySection() {
               onChange={(e) => setNote(e.target.value)}
               onBlur={() => void persistNote(note)}
               placeholder="Mot, sensation, gratitude…"
-              className="w-full rounded-2xl border border-padma-champagne/40 bg-white/85 px-4 py-3 text-sm text-padma-night shadow-inner outline-none transition focus:border-padma-lavender/60 dark:border-padma-lavender/35 dark:bg-padma-night/50 dark:text-padma-cream"
+              className="w-full rounded-2xl border border-padma-champagne/40 bg-white/85 px-4 py-3 text-sm text-padma-night shadow-inner outline-none transition focus:border-padma-lavender/60"
             />
           </div>
         </CardContent>

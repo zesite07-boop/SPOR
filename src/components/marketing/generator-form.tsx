@@ -26,7 +26,7 @@ export function GeneratorForm({
   return (
     <div className={cn("space-y-6", hyperfocus && "space-y-4")}>
       <div>
-        <p className="font-display text-[0.65rem] uppercase tracking-[0.2em] text-padma-pearl dark:text-padma-lavender/85">
+        <p className="font-display text-[0.65rem] uppercase tracking-[0.2em] text-padma-pearl">
           Format
         </p>
         <div className="mt-2 flex flex-wrap gap-2">
@@ -48,7 +48,7 @@ export function GeneratorForm({
       </div>
 
       <div>
-        <p className="font-display text-[0.65rem] uppercase tracking-[0.2em] text-padma-pearl dark:text-padma-lavender/85">
+        <p className="font-display text-[0.65rem] uppercase tracking-[0.2em] text-padma-pearl">
           Scénario éditorial
         </p>
         <div className="mt-2 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">

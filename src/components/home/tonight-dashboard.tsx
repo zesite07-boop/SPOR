@@ -50,7 +50,7 @@ export function TonightDashboard() {
   }, []);
 
   return (
-    <Card className="border-padma-champagne/30 bg-white/80 dark:bg-padma-night/50">
+    <Card className="border-padma-champagne/30 bg-white/80">
       <CardHeader className="pb-2">
         <CardTitle className="text-lg">Ce soir</CardTitle>
       </CardHeader>

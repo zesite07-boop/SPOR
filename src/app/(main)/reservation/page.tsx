@@ -30,18 +30,18 @@ export default function ReservationListPage() {
       <header className="mb-8 space-y-4">
         <Link
           href="/logistique"
-          className="inline-flex items-center gap-2 text-xs font-medium text-padma-night/65 hover:text-padma-lavender dark:text-[#e7e0d3] dark:hover:text-[#e7cc98]"
+          className="inline-flex items-center gap-2 text-xs font-medium text-padma-night/65 hover:text-padma-lavender"
         >
           ← Ops &amp; logistique
         </Link>
         <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45 }}>
-          <p className="font-display text-xs uppercase tracking-[0.28em] text-padma-pearl dark:text-padma-lavender/90">
+          <p className="font-display text-xs uppercase tracking-[0.28em] text-padma-pearl">
             Réserver une immersion
           </p>
-          <h1 className="mt-2 font-cinzel text-3xl font-normal tracking-wide text-padma-night dark:text-padma-cream">
+          <h1 className="mt-2 font-cinzel text-3xl font-normal tracking-wide text-padma-night">
             Retraites Serey Padma
           </h1>
-          <p className="mt-3 max-w-prose text-sm leading-relaxed text-padma-night/78 dark:text-padma-cream/82">
+          <p className="mt-3 max-w-prose text-sm leading-relaxed text-padma-night/78">
             Chaque voyage mêle Reiki, oracle et présence au monde. Choisis ta durée, ta terre d’accueil et l’énergie qui t’appelle — les
             places sont vivantes et limitées.
           </p>
@@ -52,10 +52,10 @@ export default function ReservationListPage() {
       <RetreatFiltersBar value={filters} onChange={setFilters} className="mb-8" />
 
       {filtered.length === 0 ? (
-        <div className="rounded-2xl border border-dashed border-padma-pearl/50 bg-padma-cream/30 px-6 py-14 text-center dark:bg-padma-night/40">
+        <div className="rounded-2xl border border-dashed border-padma-pearl/50 bg-padma-cream/30 px-6 py-14 text-center">
           <Sparkles className="mx-auto mb-3 h-8 w-8 text-padma-champagne/80" aria-hidden />
-          <p className="font-cinzel text-padma-night dark:text-padma-cream">Aucune retraite ne correspond à ces filtres.</p>
-          <p className="mt-2 text-sm text-padma-night/65 dark:text-padma-cream/70">Élargis la durée ou l’énergie — ou reviens bientôt.</p>
+          <p className="font-cinzel text-padma-night">Aucune retraite ne correspond à ces filtres.</p>
+          <p className="mt-2 text-sm text-padma-night/65">Élargis la durée ou l’énergie — ou reviens bientôt.</p>
         </div>
       ) : (
         <ul className="flex flex-col gap-8">
@@ -67,7 +67,7 @@ export default function ReservationListPage() {
         </ul>
       )}
 
-      <p className="mt-10 flex items-center justify-center gap-2 text-center text-xs text-padma-night/55 dark:text-[#d9d1c5]">
+      <p className="mt-10 flex items-center justify-center gap-2 text-center text-xs text-padma-night/55">
         <CalendarHeart className="h-4 w-4" aria-hidden />
         Catalogue disponible hors ligne — synchronisation paiement lorsque Stripe est configuré.
       </p>

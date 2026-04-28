@@ -47,13 +47,13 @@ export function TreasureKpiOverview({
           initial={{ opacity: 0, y: 6 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.35, delay: i * 0.04 }}
-          className="rounded-xl border border-padma-champagne/18 bg-gradient-to-br from-white/90 to-padma-cream/40 px-4 py-3 dark:border-padma-lavender/14 dark:from-padma-night/60 dark:to-padma-night/35"
+          className="rounded-xl border border-padma-champagne/18 bg-gradient-to-br from-white/90 to-padma-cream/40 px-4 py-3"
         >
-          <p className="font-display text-[0.65rem] uppercase tracking-[0.18em] text-padma-pearl dark:text-padma-lavender/85">
+          <p className="font-display text-[0.65rem] uppercase tracking-[0.18em] text-padma-pearl">
             {b.label}
           </p>
-          <p className="mt-1 font-cinzel text-xl font-normal text-padma-night dark:text-padma-cream">{b.value}</p>
-          <p className="mt-1 text-[0.7rem] leading-snug text-padma-night/58 dark:text-padma-cream/62">{b.sub}</p>
+          <p className="mt-1 font-cinzel text-xl font-normal text-padma-night">{b.value}</p>
+          <p className="mt-1 text-[0.7rem] leading-snug text-padma-night/58">{b.sub}</p>
         </motion.div>
       ))}
     </div>

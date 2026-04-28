@@ -23,7 +23,7 @@ export function HyperfocusToolbar({ className }: { className?: string }) {
         <Focus className="h-4 w-4 shrink-0" aria-hidden />
         <span className="font-cinzel text-xs tracking-wide">Hyperfocus</span>
       </Button>
-      <span className="hidden text-[0.65rem] text-padma-night/48 dark:text-padma-cream/52 md:inline">
+      <span className="hidden text-[0.65rem] text-padma-night/48 md:inline">
         Ctrl+Shift+H · Alt+1..6
       </span>
       <AnimatePresence>
@@ -32,7 +32,7 @@ export function HyperfocusToolbar({ className }: { className?: string }) {
             initial={{ opacity: 0, x: -6 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0 }}
-            className="max-w-[min(100%,18rem)] text-xs leading-snug text-padma-pearl dark:text-padma-lavender/90"
+            className="max-w-[min(100%,18rem)] text-xs leading-snug text-padma-pearl"
           >
             Une seule colonne, moins de bruit visuel et plus de respiration - ideal pour cerveau sensible ou TDAH.
           </motion.span>

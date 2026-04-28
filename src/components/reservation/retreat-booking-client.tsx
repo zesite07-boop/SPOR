@@ -225,45 +225,45 @@ export function RetreatBookingClient({ retreat }: { retreat: RetreatDefinition }
     <div className="pb-16">
       <Link
         href="/reservation"
-        className="mb-6 inline-flex items-center gap-2 text-xs font-medium text-padma-night/60 hover:text-padma-lavender dark:text-padma-cream/60"
+        className="mb-6 inline-flex items-center gap-2 text-xs font-medium text-padma-night/60 hover:text-padma-lavender"
       >
         <ArrowLeft className="h-3.5 w-3.5" aria-hidden />
         Toutes les retraites
       </Link>
 
       <motion.header initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="mb-10 space-y-3">
-        <p className="font-display text-xs uppercase tracking-[0.28em] text-padma-pearl dark:text-padma-lavender/90">
+        <p className="font-display text-xs uppercase tracking-[0.28em] text-padma-pearl">
           {retreat.destinationLabel}
         </p>
-        <h1 className="font-cinzel text-3xl font-normal tracking-wide text-padma-night dark:text-padma-cream">{retreat.title}</h1>
-        <p className="text-sm text-padma-night/75 dark:text-padma-cream/80">{retreat.subtitle}</p>
-        <p className="text-xs text-padma-night/55 dark:text-padma-cream/58">{fmtRange(retreat.startDate, retreat.endDate)}</p>
+        <h1 className="font-cinzel text-3xl font-normal tracking-wide text-padma-night">{retreat.title}</h1>
+        <p className="text-sm text-padma-night/75">{retreat.subtitle}</p>
+        <p className="text-xs text-padma-night/55">{fmtRange(retreat.startDate, retreat.endDate)}</p>
       </motion.header>
 
       <div className="grid gap-10 lg:grid-cols-[1fr_380px]">
         <div className="space-y-8">
-          <section className="rounded-2xl border border-padma-pearl/35 bg-white/75 p-6 dark:border-padma-lavender/25 dark:bg-padma-night/50">
-            <h2 className="font-cinzel text-lg text-padma-night dark:text-padma-cream">Thème du voyage</h2>
-            <p className="mt-3 text-sm italic leading-relaxed text-padma-night/82 dark:text-padma-cream/85">{retreat.astroTheme}</p>
-            <p className="mt-2 text-sm text-padma-night/70 dark:text-padma-cream/75">{retreat.numeroTheme}</p>
+          <section className="rounded-2xl border border-padma-pearl/35 bg-white/75 p-6">
+            <h2 className="font-cinzel text-lg text-padma-night">Thème du voyage</h2>
+            <p className="mt-3 text-sm italic leading-relaxed text-padma-night/82">{retreat.astroTheme}</p>
+            <p className="mt-2 text-sm text-padma-night/70">{retreat.numeroTheme}</p>
           </section>
 
           <section>
-            <h2 className="mb-4 font-cinzel text-lg text-padma-night dark:text-padma-cream">Choisis ton immersion</h2>
+            <h2 className="mb-4 font-cinzel text-lg text-padma-night">Choisis ton immersion</h2>
             <PackageSelector packages={retreat.packages} value={pkgDays} onChange={setPkgDays} />
           </section>
 
-          <section className="rounded-2xl border border-padma-champagne/30 bg-padma-cream/40 p-6 dark:border-padma-lavender/20 dark:bg-padma-night/40">
-            <h2 className="font-cinzel text-lg text-padma-night dark:text-padma-cream">Inclus dans chaque formule</h2>
+          <section className="rounded-2xl border border-padma-champagne/30 bg-padma-cream/40 p-6">
+            <h2 className="font-cinzel text-lg text-padma-night">Inclus dans chaque formule</h2>
             <ul className="mt-4 space-y-2">
               {retreat.includedEverywhere.map((line) => (
-                <li key={line} className="flex gap-2 text-sm text-padma-night/80 dark:text-padma-cream/82">
+                <li key={line} className="flex gap-2 text-sm text-padma-night/80">
                   <Check className="mt-0.5 h-4 w-4 shrink-0 text-padma-champagne" aria-hidden />
                   {line}
                 </li>
               ))}
             </ul>
-            <p className="mt-4 text-xs text-padma-night/55 dark:text-padma-cream/60">
+            <p className="mt-4 text-xs text-padma-night/55">
               Programme Reiki &amp; oracle adapté à la durée : cercles, temps libre intérieur, marches et cuisine sacrée.
             </p>
           </section>
@@ -272,37 +272,37 @@ export function RetreatBookingClient({ retreat }: { retreat: RetreatDefinition }
         <aside className="space-y-6">
           <form
             onSubmit={(e) => void handleSubmit(e)}
-            className="rounded-[1.75rem] border border-padma-lavender/35 bg-gradient-to-b from-white/95 to-padma-lavender/10 p-6 shadow-soft dark:from-padma-night/70 dark:to-padma-lavender/10"
+            className="rounded-[1.75rem] border border-padma-lavender/35 bg-gradient-to-b from-white/95 to-padma-lavender/10 p-6 shadow-soft"
           >
-            <h2 className="font-cinzel text-lg text-padma-night dark:text-padma-cream">Réserver ta place avec sérénité</h2>
+            <h2 className="font-cinzel text-lg text-padma-night">Réserver ta place avec sérénité</h2>
 
-            <label className="mt-4 block text-xs uppercase tracking-wide text-padma-night/55 dark:text-padma-cream/55">
+            <label className="mt-4 block text-xs uppercase tracking-wide text-padma-night/55">
               E-mail
               <input
                 required
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="mt-1 w-full rounded-xl border border-padma-champagne/40 bg-white px-3 py-2 text-sm text-padma-night dark:border-padma-lavender/35 dark:bg-padma-night/60 dark:text-padma-cream"
+                className="mt-1 w-full rounded-xl border border-padma-champagne/40 bg-white px-3 py-2 text-sm text-padma-night"
               />
             </label>
 
-            <label className="mt-3 block text-xs uppercase tracking-wide text-padma-night/55 dark:text-padma-cream/55">
+            <label className="mt-3 block text-xs uppercase tracking-wide text-padma-night/55">
               Date de naissance (profil Oracle)
               <input
                 type="date"
                 value={birthDate}
                 onChange={(e) => setBirthDate(e.target.value)}
-                className="mt-1 w-full rounded-xl border border-padma-champagne/40 bg-white px-3 py-2 text-sm text-padma-night dark:border-padma-lavender/35 dark:bg-padma-night/60 dark:text-padma-cream"
+                className="mt-1 w-full rounded-xl border border-padma-champagne/40 bg-white px-3 py-2 text-sm text-padma-night"
               />
             </label>
 
-            <label className="mt-3 block text-xs uppercase tracking-wide text-padma-night/55 dark:text-padma-cream/55">
+            <label className="mt-3 block text-xs uppercase tracking-wide text-padma-night/55">
               Nombre de personnes
               <select
                 value={participants}
                 onChange={(e) => setParticipants(Number(e.target.value))}
-                className="mt-1 w-full rounded-xl border border-padma-champagne/40 bg-white px-3 py-2 text-sm text-padma-night dark:border-padma-lavender/35 dark:bg-padma-night/60 dark:text-padma-cream"
+                className="mt-1 w-full rounded-xl border border-padma-champagne/40 bg-white px-3 py-2 text-sm text-padma-night"
               >
                 {[1, 2, 3, 4, 5, 6].map((n) => (
                   <option key={n} value={n}>
@@ -312,13 +312,13 @@ export function RetreatBookingClient({ retreat }: { retreat: RetreatDefinition }
               </select>
             </label>
 
-            <div className="mt-4 space-y-3 rounded-xl border border-padma-pearl/30 bg-white/60 p-3 dark:border-padma-lavender/20 dark:bg-padma-night/45">
-              <label className="flex cursor-pointer items-center gap-2 text-sm text-padma-night dark:text-padma-cream">
+            <div className="mt-4 space-y-3 rounded-xl border border-padma-pearl/30 bg-white/60 p-3">
+              <label className="flex cursor-pointer items-center gap-2 text-sm text-padma-night">
                 <input type="checkbox" checked={soloRoom} onChange={(e) => setSoloRoom(e.target.checked)} className="rounded border-padma-champagne" />
                 <User className="h-4 w-4 text-padma-lavender" aria-hidden />
                 Chambre solo (+{SOLO_ROOM_SURCHARGE_EUR} € / réservation)
               </label>
-              <label className="flex cursor-pointer items-center gap-2 text-sm text-padma-night dark:text-padma-cream">
+              <label className="flex cursor-pointer items-center gap-2 text-sm text-padma-night">
                 <input
                   type="checkbox"
                   checked={airportTransfer}
@@ -330,28 +330,28 @@ export function RetreatBookingClient({ retreat }: { retreat: RetreatDefinition }
               </label>
             </div>
 
-            <label className="mt-4 block text-xs uppercase tracking-wide text-padma-night/55 dark:text-padma-cream/55">
+            <label className="mt-4 block text-xs uppercase tracking-wide text-padma-night/55">
               Allergies alimentaires
               <textarea
                 rows={2}
                 value={allergies}
                 onChange={(e) => setAllergies(e.target.value)}
-                className="mt-1 w-full rounded-xl border border-padma-champagne/40 bg-white px-3 py-2 text-sm text-padma-night dark:border-padma-lavender/35 dark:bg-padma-night/60 dark:text-padma-cream"
+                className="mt-1 w-full rounded-xl border border-padma-champagne/40 bg-white px-3 py-2 text-sm text-padma-night"
               />
             </label>
 
-            <label className="mt-3 block text-xs uppercase tracking-wide text-padma-night/55 dark:text-padma-cream/55">
+            <label className="mt-3 block text-xs uppercase tracking-wide text-padma-night/55">
               Intentions pour ce séjour
               <textarea
                 rows={2}
                 value={intentions}
                 onChange={(e) => setIntentions(e.target.value)}
-                className="mt-1 w-full rounded-xl border border-padma-champagne/40 bg-white px-3 py-2 text-sm text-padma-night dark:border-padma-lavender/35 dark:bg-padma-night/60 dark:text-padma-cream"
+                className="mt-1 w-full rounded-xl border border-padma-champagne/40 bg-white px-3 py-2 text-sm text-padma-night"
               />
             </label>
 
             <div className="mt-5 space-y-2">
-              <p className="text-xs uppercase tracking-wide text-padma-night/55 dark:text-padma-cream/55">Paiement</p>
+              <p className="text-xs uppercase tracking-wide text-padma-night/55">Paiement</p>
               <div className="flex flex-wrap gap-2">
                 <button
                   type="button"
@@ -359,8 +359,8 @@ export function RetreatBookingClient({ retreat }: { retreat: RetreatDefinition }
                   className={cn(
                     "rounded-full px-4 py-2 text-xs font-medium transition",
                     paymentMode === "deposit"
-                      ? "bg-padma-champagne/35 text-padma-night dark:bg-padma-lavender/30 dark:text-padma-cream"
-                      : "bg-white/70 text-padma-night/70 dark:bg-padma-night/50 dark:text-padma-cream/75"
+                      ? "bg-padma-champagne/35 text-padma-night"
+                      : "bg-white/70 text-padma-night/70"
                   )}
                 >
                   Acompte (solde avant le séjour)
@@ -371,8 +371,8 @@ export function RetreatBookingClient({ retreat }: { retreat: RetreatDefinition }
                   className={cn(
                     "rounded-full px-4 py-2 text-xs font-medium transition",
                     paymentMode === "full"
-                      ? "bg-padma-champagne/35 text-padma-night dark:bg-padma-lavender/30 dark:text-padma-cream"
-                      : "bg-white/70 text-padma-night/70 dark:bg-padma-night/50 dark:text-padma-cream/75"
+                      ? "bg-padma-champagne/35 text-padma-night"
+                      : "bg-white/70 text-padma-night/70"
                   )}
                 >
                   Règlement intégral
@@ -380,25 +380,25 @@ export function RetreatBookingClient({ retreat }: { retreat: RetreatDefinition }
               </div>
             </div>
 
-            <div className="mt-6 rounded-xl border border-padma-champagne/25 bg-padma-cream/50 p-4 text-sm dark:border-padma-lavender/20 dark:bg-padma-night/50">
-              <p className="flex justify-between text-padma-night/75 dark:text-padma-cream/78">
+            <div className="mt-6 rounded-xl border border-padma-champagne/25 bg-padma-cream/50 p-4 text-sm">
+              <p className="flex justify-between text-padma-night/75">
                 <span>Total séjour estimé</span>
                 <span className="font-medium">{quote.subtotalEuro} €</span>
               </p>
               {paymentMode === "deposit" && (
-                <p className="mt-2 flex justify-between text-xs text-padma-night/65 dark:text-padma-cream/70">
+                <p className="mt-2 flex justify-between text-xs text-padma-night/65">
                   <span>Solde restant (hors ligne / lien ultérieur)</span>
                   <span>{quote.balanceEuro} €</span>
                 </p>
               )}
-              <p className="mt-3 flex justify-between font-cinzel text-base text-padma-night dark:text-padma-cream">
+              <p className="mt-3 flex justify-between font-cinzel text-base text-padma-night">
                 <span>À payer maintenant</span>
                 <span>{quote.dueNowEuro} €</span>
               </p>
             </div>
 
             {message && (
-              <p className="mt-4 rounded-xl border border-padma-champagne/40 bg-white/90 p-3 text-xs leading-relaxed text-padma-night dark:border-padma-lavender/30 dark:bg-padma-night/60 dark:text-padma-cream">
+              <p className="mt-4 rounded-xl border border-padma-champagne/40 bg-white/90 p-3 text-xs leading-relaxed text-padma-night">
                 {message}
               </p>
             )}
@@ -417,7 +417,7 @@ export function RetreatBookingClient({ retreat }: { retreat: RetreatDefinition }
               </Button>
             )}
 
-            <p className="mt-4 flex items-start gap-2 text-[0.65rem] leading-relaxed text-padma-night/50 dark:text-padma-cream/55">
+            <p className="mt-4 flex items-start gap-2 text-[0.65rem] leading-relaxed text-padma-night/50">
               <Shield className="mt-0.5 h-3.5 w-3.5 shrink-0" aria-hidden />
               Paiement traité par Stripe — TLS &amp; conformité PCI. Sans clé Stripe configurée, ta demande reste stockée localement (Dexie).
             </p>

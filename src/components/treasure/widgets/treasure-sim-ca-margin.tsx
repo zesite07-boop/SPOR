@@ -47,14 +47,14 @@ export function TreasureSimCaMargin({
   return (
     <div className={cn("space-y-4", hyperfocus && "space-y-3")}>
       <div>
-        <label htmlFor="treasure-retreat" className="font-display text-[0.65rem] uppercase tracking-[0.18em] text-padma-pearl dark:text-padma-lavender/85">
+        <label htmlFor="treasure-retreat" className="font-display text-[0.65rem] uppercase tracking-[0.18em] text-padma-pearl">
           Retraite
         </label>
         <select
           id="treasure-retreat"
           value={retreatId}
           onChange={(e) => setRetreatId(e.target.value)}
-          className="mt-1.5 w-full rounded-xl border border-padma-champagne/25 bg-white/90 px-3 py-2.5 text-sm text-padma-night outline-none ring-padma-lavender/30 focus:ring-2 dark:border-padma-lavender/25 dark:bg-padma-night/60 dark:text-padma-cream"
+          className="mt-1.5 w-full rounded-xl border border-padma-champagne/25 bg-white/90 px-3 py-2.5 text-sm text-padma-night outline-none ring-padma-lavender/30 focus:ring-2"
         >
           {RETREAT_CATALOG.map((r) => (
             <option key={r.id} value={r.id}>
@@ -66,7 +66,7 @@ export function TreasureSimCaMargin({
 
       <div className="grid gap-3 sm:grid-cols-2">
         <div>
-          <label className="font-display text-[0.65rem] uppercase tracking-[0.18em] text-padma-pearl dark:text-padma-lavender/85">
+          <label className="font-display text-[0.65rem] uppercase tracking-[0.18em] text-padma-pearl">
             Coût variable / pers. / jour
           </label>
           <input
@@ -77,11 +77,11 @@ export function TreasureSimCaMargin({
             onChange={(e) =>
               onPatchSettings({ variableCostPerParticipantDayEuro: Number(e.target.value) || 0 })
             }
-            className="mt-1.5 w-full rounded-xl border border-padma-champagne/25 bg-white/90 px-3 py-2 text-sm dark:border-padma-lavender/25 dark:bg-padma-night/60 dark:text-padma-cream"
+            className="mt-1.5 w-full rounded-xl border border-padma-champagne/25 bg-white/90 px-3 py-2 text-sm"
           />
         </div>
         <div>
-          <label className="font-display text-[0.65rem] uppercase tracking-[0.18em] text-padma-pearl dark:text-padma-lavender/85">
+          <label className="font-display text-[0.65rem] uppercase tracking-[0.18em] text-padma-pearl">
             Frais fixes retraite
           </label>
           <input
@@ -90,28 +90,28 @@ export function TreasureSimCaMargin({
             step={50}
             value={settings.retreatFixedOverheadEuro}
             onChange={(e) => onPatchSettings({ retreatFixedOverheadEuro: Number(e.target.value) || 0 })}
-            className="mt-1.5 w-full rounded-xl border border-padma-champagne/25 bg-white/90 px-3 py-2 text-sm dark:border-padma-lavender/25 dark:bg-padma-night/60 dark:text-padma-cream"
+            className="mt-1.5 w-full rounded-xl border border-padma-champagne/25 bg-white/90 px-3 py-2 text-sm"
           />
         </div>
       </div>
 
-      <div className="rounded-xl border border-padma-lavender/18 bg-gradient-to-br from-padma-cream/50 to-transparent px-4 py-3 dark:from-padma-lavender/8 dark:to-transparent">
-        <p className="text-xs text-padma-night/72 dark:text-padma-cream/75">
-          CA payé (Dexie) · <span className="font-medium text-padma-night dark:text-padma-cream">{eur(stats.revenueEuro)}</span> —{" "}
+      <div className="rounded-xl border border-padma-lavender/18 bg-gradient-to-br from-padma-cream/50 to-transparent px-4 py-3">
+        <p className="text-xs text-padma-night/72">
+          CA payé (Dexie) · <span className="font-medium text-padma-night">{eur(stats.revenueEuro)}</span> —{" "}
           {stats.heads} participante(s), {stats.bookings} dossier(s) — {days} jour(s) calendaires.
         </p>
         <div className="mt-3 grid gap-2 sm:grid-cols-3">
           <div>
-            <p className="text-[0.65rem] uppercase tracking-wide text-padma-pearl dark:text-padma-lavender/80">Coûts variables</p>
-            <p className="font-cinzel text-lg text-padma-night dark:text-padma-cream">{eur(margin.variableTotal)}</p>
+            <p className="text-[0.65rem] uppercase tracking-wide text-padma-pearl">Coûts variables</p>
+            <p className="font-cinzel text-lg text-padma-night">{eur(margin.variableTotal)}</p>
           </div>
           <div>
-            <p className="text-[0.65rem] uppercase tracking-wide text-padma-pearl dark:text-padma-lavender/80">Marge estimée</p>
-            <p className="font-cinzel text-lg text-padma-night dark:text-padma-cream">{eur(margin.marginEuro)}</p>
+            <p className="text-[0.65rem] uppercase tracking-wide text-padma-pearl">Marge estimée</p>
+            <p className="font-cinzel text-lg text-padma-night">{eur(margin.marginEuro)}</p>
           </div>
           <div>
-            <p className="text-[0.65rem] uppercase tracking-wide text-padma-pearl dark:text-padma-lavender/80">Taux</p>
-            <p className="font-cinzel text-lg text-padma-night dark:text-padma-cream">{margin.marginPercent.toFixed(1)} %</p>
+            <p className="text-[0.65rem] uppercase tracking-wide text-padma-pearl">Taux</p>
+            <p className="font-cinzel text-lg text-padma-night">{margin.marginPercent.toFixed(1)} %</p>
           </div>
         </div>
       </div>

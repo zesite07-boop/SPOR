@@ -21,24 +21,24 @@ export default async function PublicRetreatPage({ params }: { params: Promise<{ 
 
   return (
     <main className="padma-aura-bg min-h-dvh px-4 py-10">
-      <article className="mx-auto max-w-3xl rounded-[1.8rem] border border-padma-champagne/30 bg-white/80 p-6 shadow-soft backdrop-blur-md dark:border-padma-lavender/25 dark:bg-padma-night/55">
-        <p className="font-display text-xs uppercase tracking-[0.22em] text-padma-pearl dark:text-padma-lavender/85">Retraite partageable</p>
-        <h1 className="mt-2 font-cinzel text-3xl text-padma-night dark:text-padma-cream">{retreat.title}</h1>
-        <p className="mt-1 text-sm text-padma-night/75 dark:text-padma-cream/80">{retreat.subtitle}</p>
-        <p className="mt-3 text-sm text-padma-night/75 dark:text-padma-cream/82">{retreat.destinationLabel}</p>
-        <p className="text-sm text-padma-night/75 dark:text-padma-cream/82">{fmtRange(retreat.startDate, retreat.endDate)}</p>
-        <p className="mt-4 text-sm leading-relaxed text-padma-night/82 dark:text-padma-cream/86">{retreat.astroTheme}</p>
+      <article className="mx-auto max-w-3xl rounded-[1.8rem] border border-padma-champagne/30 bg-white/80 p-6 shadow-soft backdrop-blur-md">
+        <p className="font-display text-xs uppercase tracking-[0.22em] text-padma-pearl">Retraite partageable</p>
+        <h1 className="mt-2 font-cinzel text-3xl text-padma-night">{retreat.title}</h1>
+        <p className="mt-1 text-sm text-padma-night/75">{retreat.subtitle}</p>
+        <p className="mt-3 text-sm text-padma-night/75">{retreat.destinationLabel}</p>
+        <p className="text-sm text-padma-night/75">{fmtRange(retreat.startDate, retreat.endDate)}</p>
+        <p className="mt-4 text-sm leading-relaxed text-padma-night/82">{retreat.astroTheme}</p>
 
         <section className="mt-5">
-          <p className="font-cinzel text-lg text-padma-night dark:text-padma-cream">Ce qui est inclus</p>
-          <ul className="mt-2 space-y-1 text-sm text-padma-night/80 dark:text-padma-cream/84">
+          <p className="font-cinzel text-lg text-padma-night">Ce qui est inclus</p>
+          <ul className="mt-2 space-y-1 text-sm text-padma-night/80">
             {retreat.includedEverywhere.map((line) => (
               <li key={line}>• {line}</li>
             ))}
           </ul>
         </section>
 
-        <div className="mt-5 rounded-xl border border-padma-champagne/25 bg-padma-cream/40 px-4 py-3 text-sm dark:border-padma-lavender/20 dark:bg-padma-night/45">
+        <div className="mt-5 rounded-xl border border-padma-champagne/25 bg-padma-cream/40 px-4 py-3 text-sm">
           <p>Prix a partir de {minPrice} €</p>
           <p>Places restantes : {retreat.spotsLeft}</p>
         </div>

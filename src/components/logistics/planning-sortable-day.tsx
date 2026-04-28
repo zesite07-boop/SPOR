@@ -35,15 +35,15 @@ function SortableRow({
       className={cn(
         "flex gap-3 rounded-xl border px-3 py-2.5 shadow-sm transition",
         free
-          ? "border-padma-pearl/45 bg-gradient-to-r from-padma-pearl/15 to-transparent dark:border-padma-lavender/25 dark:from-padma-lavender/10"
-          : "border-padma-champagne/25 bg-white/85 dark:border-padma-lavender/20 dark:bg-padma-night/45",
+          ? "border-padma-pearl/45 bg-gradient-to-r from-padma-pearl/15 to-transparent"
+          : "border-padma-champagne/25 bg-white/85",
         isDragging && "z-10 opacity-90 ring-2 ring-padma-lavender/45",
         hyperfocus && "py-2"
       )}
     >
       <button
         type="button"
-        className="cursor-grab touch-none text-padma-night/35 active:cursor-grabbing dark:text-padma-cream/40"
+        className="cursor-grab touch-none text-padma-night/35 active:cursor-grabbing"
         {...attributes}
         {...listeners}
         aria-label="Réordonner"
@@ -52,15 +52,15 @@ function SortableRow({
       </button>
       <div className="min-w-0 flex-1">
         {task.slot && (
-          <p className="font-display text-[0.65rem] uppercase tracking-[0.15em] text-padma-pearl dark:text-padma-lavender/85">
+          <p className="font-display text-[0.65rem] uppercase tracking-[0.15em] text-padma-pearl">
             {task.slot}
           </p>
         )}
-        <p className={cn("text-sm text-padma-night dark:text-padma-cream", free && "italic text-padma-night/85 dark:text-padma-cream/88")}>
+        <p className={cn("text-sm text-padma-night", free && "italic text-padma-night/85")}>
           {task.label.replace(/^✦\s*/, "")}
         </p>
         {free && (
-          <p className="mt-0.5 text-[0.65rem] text-padma-night/45 dark:text-padma-cream/50">Temps libre — respiration & présence</p>
+          <p className="mt-0.5 text-[0.65rem] text-padma-night/45">Temps libre — respiration & présence</p>
         )}
       </div>
     </div>
@@ -98,8 +98,8 @@ export function PlanningSortableDay({
   }
 
   return (
-    <section className="rounded-2xl border border-padma-pearl/35 bg-padma-cream/35 p-4 dark:border-padma-lavender/20 dark:bg-padma-night/45">
-      <h3 className="mb-3 font-cinzel text-base text-padma-night dark:text-padma-cream">{dayLabel}</h3>
+    <section className="rounded-2xl border border-padma-pearl/35 bg-padma-cream/35 p-4">
+      <h3 className="mb-3 font-cinzel text-base text-padma-night">{dayLabel}</h3>
       <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={(ev) => void handleDragEnd(ev)}>
         <SortableContext items={ids} strategy={verticalListSortingStrategy}>
           <div className={cn("flex flex-col gap-2", hyperfocus && "gap-1.5")}>

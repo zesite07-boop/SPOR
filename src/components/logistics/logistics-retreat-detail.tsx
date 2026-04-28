@@ -324,7 +324,7 @@ export function LogisticsRetreatDetail({ retreat }: { retreat: RetreatDefinition
         <div className="flex flex-wrap items-center gap-3">
           <Link
             href="/logistique"
-            className="text-xs font-medium text-padma-night/60 hover:text-padma-lavender dark:text-padma-cream/60"
+            className="text-xs font-medium text-padma-night/60 hover:text-padma-lavender"
           >
             ← Logistique
           </Link>
@@ -358,12 +358,12 @@ export function LogisticsRetreatDetail({ retreat }: { retreat: RetreatDefinition
         <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
           <div className="flex flex-wrap items-center gap-3">
             {meta && <LogisticsStatusBadge status={meta.status} />}
-            <label className="print:hidden flex items-center gap-2 text-xs text-padma-night/60 dark:text-padma-cream/65">
+            <label className="print:hidden flex items-center gap-2 text-xs text-padma-night/60">
               Statut opérationnel
               <select
                 value={meta?.status ?? "preparation"}
                 onChange={(e) => void changeStatus(e.target.value as LogisticsRetreatStatus)}
-                className="rounded-lg border border-padma-champagne/40 bg-white px-2 py-1 text-sm dark:border-padma-lavender/35 dark:bg-padma-night/60 dark:text-padma-cream"
+                className="rounded-lg border border-padma-champagne/40 bg-white px-2 py-1 text-sm"
               >
                 {STATUS_OPTIONS.map((o) => (
                   <option key={o.id} value={o.id}>
@@ -373,10 +373,10 @@ export function LogisticsRetreatDetail({ retreat }: { retreat: RetreatDefinition
               </select>
             </label>
           </div>
-          <h1 className={cn("mt-3 font-cinzel text-3xl text-padma-night dark:text-padma-cream", hyperfocus && "text-2xl")}>
+          <h1 className={cn("mt-3 font-cinzel text-3xl text-padma-night", hyperfocus && "text-2xl")}>
             {retreat.title}
           </h1>
-          <p className="mt-2 text-sm text-padma-night/75 dark:text-padma-cream/80">{retreat.destinationLabel}</p>
+          <p className="mt-2 text-sm text-padma-night/75">{retreat.destinationLabel}</p>
         </motion.div>
         <div className="print:hidden">
           <HyperfocusToolbar />
@@ -384,8 +384,8 @@ export function LogisticsRetreatDetail({ retreat }: { retreat: RetreatDefinition
       </header>
 
       <section className={cn("space-y-6", hyperfocus && "space-y-4")}>
-        <h2 className="font-cinzel text-xl text-padma-night dark:text-padma-cream">Planning jour après jour</h2>
-        <p className="text-xs text-padma-night/60 dark:text-padma-cream/65">
+        <h2 className="font-cinzel text-xl text-padma-night">Planning jour après jour</h2>
+        <p className="text-xs text-padma-night/60">
           Environ un tiers du programme en temps libre (repéré ✦). Glisse les blocs pour réorganiser chaque journée.
         </p>
         <div className={cn("grid gap-6 lg:grid-cols-2", hyperfocus && "gap-4")}>
@@ -404,7 +404,7 @@ export function LogisticsRetreatDetail({ retreat }: { retreat: RetreatDefinition
       </section>
 
       <section className={cn("mt-12 space-y-4", hyperfocus && "mt-8")}>
-        <h2 className="font-cinzel text-xl text-padma-night dark:text-padma-cream">Participantes</h2>
+        <h2 className="font-cinzel text-xl text-padma-night">Participantes</h2>
         <div className={cn("grid gap-4 md:grid-cols-2", hyperfocus && "gap-3")}>
           {participants.map((p) => (
             (() => {
@@ -459,13 +459,13 @@ export function LogisticsRetreatDetail({ retreat }: { retreat: RetreatDefinition
 
       <section className={cn("mt-12 grid gap-10 lg:grid-cols-2", hyperfocus && "mt-8 gap-6")}>
         <div className="space-y-3">
-          <h3 className="font-cinzel text-lg text-padma-night dark:text-padma-cream">Matériel Reiki &amp; tenue du lieu</h3>
+          <h3 className="font-cinzel text-lg text-padma-night">Matériel Reiki &amp; tenue du lieu</h3>
           {checklist("material").map((t) => (
             <ChecklistItem key={t.id} label={t.label} done={t.done} onToggle={() => void toggleTask(t.id, t.done)} compact={hyperfocus} />
           ))}
         </div>
         <div className="space-y-3">
-          <h3 className="font-cinzel text-lg text-padma-night dark:text-padma-cream">Transport &amp; accès</h3>
+          <h3 className="font-cinzel text-lg text-padma-night">Transport &amp; accès</h3>
           {checklist("transport").map((t) => (
             <ChecklistItem key={t.id} label={t.label} done={t.done} onToggle={() => void toggleTask(t.id, t.done)} compact={hyperfocus} />
           ))}
@@ -473,7 +473,7 @@ export function LogisticsRetreatDetail({ retreat }: { retreat: RetreatDefinition
       </section>
 
       <section className={cn("mt-10 space-y-3", hyperfocus && "mt-6")}>
-        <h3 className="font-cinzel text-lg text-padma-night dark:text-padma-cream">Check-list courses (validation)</h3>
+        <h3 className="font-cinzel text-lg text-padma-night">Check-list courses (validation)</h3>
         {checklist("groceries").map((t) => (
           <ChecklistItem key={t.id} label={t.label} done={t.done} onToggle={() => void toggleTask(t.id, t.done)} compact={hyperfocus} />
         ))}

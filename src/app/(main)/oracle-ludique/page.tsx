@@ -119,15 +119,15 @@ export default function OracleLudiquePage() {
   return (
     <section className={cn("space-y-6 pb-8", hyperfocus && "space-y-4")}>
       <header className="space-y-2">
-        <p className="font-display text-xs uppercase tracking-[0.2em] text-oasis-reiki dark:text-oasis-champagne">Module 5</p>
-        <h1 className="font-cinzel text-2xl font-normal tracking-wide text-oasis-night dark:text-oasis-cream">Espace ludique</h1>
-        <p className="text-sm leading-relaxed text-oasis-night/75 dark:text-oasis-cream/80">
+        <p className="font-display text-xs uppercase tracking-[0.2em] text-oasis-reiki">Module 5</p>
+        <h1 className="font-cinzel text-2xl font-normal tracking-wide text-oasis-night">Espace ludique</h1>
+        <p className="text-sm leading-relaxed text-oasis-night/75">
           Jeux ancrants 100 % offline : mandala colorable, respiration guidee et memoire tarot pour garder l&apos;elan sans surcharge.
         </p>
         <HyperfocusToolbar />
       </header>
 
-      <Card className="border-oasis-champagne/40 bg-gradient-to-br from-white/90 to-oasis-champagne/10 dark:from-oasis-night/70 dark:to-oasis-reiki/25">
+      <Card className="border-oasis-champagne/40 bg-gradient-to-br from-white/90 to-oasis-champagne/10">
         <CardHeader>
           <Palette className="mb-1 h-6 w-6 text-oasis-champagne" aria-hidden />
           <CardTitle>Mandala interactif colorable</CardTitle>
@@ -142,7 +142,7 @@ export default function OracleLudiquePage() {
                 onClick={() => setSelectedColor(c)}
                 className={cn(
                   "touch-min h-9 w-9 rounded-full border-2 transition",
-                  selectedColor === c ? "border-padma-night dark:border-padma-cream" : "border-white/70 dark:border-padma-night/70"
+                  selectedColor === c ? "border-padma-night" : "border-white/70"
                 )}
                 style={{ backgroundColor: c }}
                 aria-label={`Choisir ${c}`}
@@ -152,7 +152,7 @@ export default function OracleLudiquePage() {
               Reinitialiser
             </Button>
           </div>
-          <svg viewBox="0 0 280 360" className="mx-auto w-full max-w-xs rounded-2xl bg-white/65 p-2 dark:bg-padma-night/40">
+          <svg viewBox="0 0 280 360" className="mx-auto w-full max-w-xs rounded-2xl bg-white/65 p-2">
             {MANDALA_PATHS.map((d, i) => (
               <path
                 key={d}
@@ -168,7 +168,7 @@ export default function OracleLudiquePage() {
         </CardContent>
       </Card>
 
-      <Card className="border-oasis-champagne/35 bg-gradient-to-br from-white/90 to-padma-lavender/12 dark:from-oasis-night/70 dark:to-padma-lavender/15">
+      <Card className="border-oasis-champagne/35 bg-gradient-to-br from-white/90 to-padma-lavender/12">
         <CardHeader>
           <Wind className="mb-1 h-6 w-6 text-padma-lavender" aria-hidden />
           <CardTitle>Respiration guidee</CardTitle>
@@ -192,8 +192,8 @@ export default function OracleLudiquePage() {
               style={{ transform: `scale(${0.78 + phaseProgress * 0.42})` }}
             />
             <div className="text-sm">
-              <p className="font-cinzel text-base text-padma-night dark:text-padma-cream">{activePhase.label}</p>
-              <p className="text-padma-night/70 dark:text-padma-cream/75">
+              <p className="font-cinzel text-base text-padma-night">{activePhase.label}</p>
+              <p className="text-padma-night/70">
                 {Math.max(0, Math.ceil((activePhase.ms - (Date.now() - phaseStart)) / 1000))} sec
               </p>
             </div>
@@ -201,7 +201,7 @@ export default function OracleLudiquePage() {
         </CardContent>
       </Card>
 
-      <Card className="border-oasis-champagne/35 bg-gradient-to-br from-white/90 to-oasis-reiki/10 dark:from-oasis-night/70 dark:to-oasis-reiki/20">
+      <Card className="border-oasis-champagne/35 bg-gradient-to-br from-white/90 to-oasis-reiki/10">
         <CardHeader>
           <BrainCircuit className="mb-1 h-6 w-6 text-oasis-reiki" aria-hidden />
           <CardTitle>Memoire des arcanes majeurs</CardTitle>
@@ -219,8 +219,8 @@ export default function OracleLudiquePage() {
                   className={cn(
                     "touch-min min-h-16 rounded-xl border px-2 py-2 text-center text-xs transition",
                     open
-                      ? "border-padma-lavender/45 bg-white/85 text-padma-night dark:border-padma-lavender/35 dark:bg-padma-night/50 dark:text-padma-cream"
-                      : "border-padma-champagne/30 bg-padma-cream/55 text-padma-night/65 dark:border-padma-lavender/20 dark:bg-padma-night/35 dark:text-padma-cream/70"
+                      ? "border-padma-lavender/45 bg-white/85 text-padma-night"
+                      : "border-padma-champagne/30 bg-padma-cream/55 text-padma-night/65"
                   )}
                 >
                   {open ? MAJOR_ARCANA[c.id]?.name ?? "Arcane" : "✦"}
@@ -233,7 +233,7 @@ export default function OracleLudiquePage() {
               Relancer une partie
             </Button>
             {memoryWon && (
-              <span className="rounded-full border border-padma-champagne/35 bg-white/70 px-3 py-1 text-xs text-padma-night dark:border-padma-lavender/30 dark:bg-padma-night/55 dark:text-padma-cream">
+              <span className="rounded-full border border-padma-champagne/35 bg-white/70 px-3 py-1 text-xs text-padma-night">
                 Bravo, toutes les paires sont reunies ✦
               </span>
             )}
@@ -241,7 +241,7 @@ export default function OracleLudiquePage() {
         </CardContent>
       </Card>
 
-      <p className="text-xs text-oasis-night/60 dark:text-oasis-cream/65">
+      <p className="text-xs text-oasis-night/60">
         Ces trois jeux fonctionnent hors ligne et ne necessitent ni API ni store externe.
       </p>
     </section>

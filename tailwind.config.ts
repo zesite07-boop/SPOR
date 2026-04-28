@@ -11,21 +11,20 @@ const config: Config = {
     extend: {
       colors: {
         oasis: {
-          cream: "#F8F4ED",
-          sage: "#E8F0E8",
-          champagne: "#D4AF88",
-          reiki: "#4A7043",
-          lavender: "#C8A2C8",
-          rose: "#E8B4BC",
-          night: "#2C3E50",
+          cream: "#FFFFFF",
+          sage: "#F8F7FF",
+          champagne: "#C9847A",
+          reiki: "#7C6FAF",
+          lavender: "#7C6FAF",
+          rose: "#C9847A",
+          night: "#1A1625",
         },
-        /** Serey Padma — or rose champagne, lavande, bleu nacré (complète oasis sans casser l’existant) */
         padma: {
-          champagne: "#E8C4A8",
-          lavender: "#C5B4D4",
-          pearl: "#A8B4C8",
-          cream: "#F8F4ED",
-          night: "#2C3E50",
+          champagne: "#C9847A",
+          lavender: "#7C6FAF",
+          pearl: "#BFA882",
+          cream: "#F8F7FF",
+          night: "#1A1625",
         },
       },
       fontFamily: {

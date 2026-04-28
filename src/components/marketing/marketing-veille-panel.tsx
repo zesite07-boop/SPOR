@@ -14,15 +14,15 @@ export function MarketingVeillePanel({
   return (
     <div
       className={cn(
-        "rounded-2xl border border-padma-champagne/22 bg-gradient-to-br from-white/90 to-padma-lavender/12 shadow-soft dark:border-padma-lavender/18 dark:from-padma-night/55 dark:to-padma-lavender/10",
+        "rounded-2xl border border-padma-champagne/22 bg-gradient-to-br from-white/90 to-padma-lavender/12 shadow-soft",
         hyperfocus && "rounded-xl"
       )}
     >
-      <div className="flex items-center gap-2 border-b border-padma-champagne/15 px-4 py-3 dark:border-padma-lavender/12">
-        <TrendingUp className="h-5 w-5 text-padma-champagne dark:text-padma-lavender" aria-hidden />
+      <div className="flex items-center gap-2 border-b border-padma-champagne/15 px-4 py-3">
+        <TrendingUp className="h-5 w-5 text-padma-champagne" aria-hidden />
         <div>
-          <p className="font-cinzel text-sm tracking-wide text-padma-night dark:text-padma-cream">Veille douce</p>
-          <p className="text-[0.65rem] text-padma-night/55 dark:text-padma-cream/58">
+          <p className="font-cinzel text-sm tracking-wide text-padma-night">Veille douce</p>
+          <p className="text-[0.65rem] text-padma-night/55">
             Bien-être · astrologie · numérologie — rotation locale sans réseau
           </p>
         </div>
@@ -34,12 +34,12 @@ export function MarketingVeillePanel({
             initial={{ opacity: 0, x: -6 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: i * 0.06 }}
-            className="rounded-xl border border-padma-champagne/12 bg-white/60 px-3 py-2.5 dark:border-padma-lavender/12 dark:bg-padma-night/35"
+            className="rounded-xl border border-padma-champagne/12 bg-white/60 px-3 py-2.5"
           >
-            <span className="inline-flex h-auto max-w-full whitespace-normal break-words font-display text-[0.6rem] uppercase tracking-[0.2em] text-padma-pearl dark:text-padma-lavender/85">
+            <span className="inline-flex h-auto max-w-full whitespace-normal break-words font-display text-[0.6rem] uppercase tracking-[0.2em] text-padma-pearl">
               {b.tag}
             </span>
-            <p className="mt-1 text-sm leading-relaxed text-padma-night/88 dark:text-padma-cream/88">{b.text}</p>
+            <p className="mt-1 text-sm leading-relaxed text-padma-night/88">{b.text}</p>
           </motion.li>
         ))}
       </ul>

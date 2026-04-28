@@ -21,7 +21,7 @@ export function MainShell({ children }: { children: React.ReactNode }) {
         className={cn(
           "min-h-dvh pb-[max(7rem,env(safe-area-inset-bottom))] transition-[padding,box-shadow,filter] duration-400 ease-out md:pb-24",
           hyperfocus &&
-            "pb-[max(5.5rem,env(safe-area-inset-bottom))] ring-2 ring-padma-champagne/35 ring-inset saturate-[1.04] dark:ring-padma-lavender/25"
+            "pb-[max(5.5rem,env(safe-area-inset-bottom))] ring-2 ring-padma-champagne/35 ring-inset saturate-[1.04]"
         )}
       >
         <div

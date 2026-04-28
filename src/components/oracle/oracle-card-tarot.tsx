@@ -27,7 +27,7 @@ export function OracleCardTarot({ cardId, positionLabel, index = 0, className, c
       animate={{ opacity: 1, y: 0, rotateY: 0, rotate: 0 }}
       transition={{ duration: 0.58, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
       className={cn(
-        "relative flex flex-col overflow-hidden rounded-2xl border border-white/50 shadow-soft dark:border-white/10",
+        "relative flex flex-col overflow-hidden rounded-2xl border border-white/50 shadow-soft",
         compact ? "min-h-[8.5rem] p-3" : "min-h-[11rem] p-4",
         className
       )}
@@ -52,13 +52,13 @@ export function OracleCardTarot({ cardId, positionLabel, index = 0, className, c
             <rect x="16" y="16" width="288" height="448" rx="24" fill="none" stroke="#c9a96e88" />
           </svg>
           {positionLabel && (
-            <p className="relative mb-2 font-display text-[0.6rem] uppercase tracking-[0.2em] text-padma-night/58 dark:text-padma-cream/58">
+            <p className="relative mb-2 font-display text-[0.6rem] uppercase tracking-[0.2em] text-padma-night/58">
               {positionLabel}
             </p>
           )}
           <span className="relative font-cinzel text-sm tracking-[0.08em] text-[#c9a96e]">{ROMAN[card.id] ?? card.id}</span>
-          <p className="relative mt-1 font-cinzel text-lg leading-tight text-padma-night dark:text-padma-cream">{card.name}</p>
-          <p className="relative mt-auto line-clamp-3 text-xs leading-relaxed text-padma-night/72 dark:text-padma-cream/78">{card.keyword}</p>
+          <p className="relative mt-1 font-cinzel text-lg leading-tight text-padma-night">{card.name}</p>
+          <p className="relative mt-auto line-clamp-3 text-xs leading-relaxed text-padma-night/72">{card.keyword}</p>
         </>
       ) : (
         <div className="relative flex h-full w-full flex-col items-center justify-center rounded-2xl bg-[#11182f] text-padma-cream">

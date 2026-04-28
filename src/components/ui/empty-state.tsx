@@ -19,12 +19,12 @@ export function EmptyState({ icon: Icon, title, description, className, children
         className
       )}
     >
-      <span className="flex h-14 w-14 items-center justify-center rounded-full bg-padma-champagne/18 text-padma-pearl dark:bg-padma-lavender/18 dark:text-padma-lavender">
+      <span className="flex h-14 w-14 items-center justify-center rounded-full bg-padma-champagne/18 text-padma-pearl">
         <Icon className="h-7 w-7" aria-hidden />
       </span>
       <div className="max-w-sm space-y-2">
-        <p className="font-cinzel text-lg tracking-wide text-padma-night dark:text-padma-cream">{title}</p>
-        <p className="text-sm leading-relaxed text-padma-night/72 dark:text-padma-cream/75">{description}</p>
+        <p className="font-cinzel text-lg tracking-wide text-padma-night">{title}</p>
+        <p className="text-sm leading-relaxed text-padma-night/72">{description}</p>
       </div>
       {children}
     </div>

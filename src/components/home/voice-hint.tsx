@@ -35,7 +35,7 @@ export function VoiceHint() {
   };
 
   return (
-    <Button type="button" variant="ghost" size="sm" className="gap-2 text-oasis-night/70 dark:text-oasis-cream/75" onClick={startListening}>
+    <Button type="button" variant="ghost" size="sm" className="gap-2 text-oasis-night/70" onClick={startListening}>
       <Mic className="h-4 w-4 text-oasis-reiki" aria-hidden />
       Commander à voix haute (beta)
     </Button>

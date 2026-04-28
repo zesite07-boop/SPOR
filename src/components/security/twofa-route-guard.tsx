@@ -32,7 +32,7 @@ export function TwoFactorRouteGuard() {
   }, [pathname, router]);
 
   if (checking && PROTECTED.some((p) => pathname === p || pathname.startsWith(`${p}/`))) {
-    return <div className="p-6 text-center text-sm text-padma-night/70 dark:text-padma-cream/80">Verification securisee 2FA...</div>;
+    return <div className="p-6 text-center text-sm text-padma-night/70">Verification securisee 2FA...</div>;
   }
 
   return null;

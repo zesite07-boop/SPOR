@@ -45,20 +45,20 @@ function TreasureWidgetFrame({
       ref={setNodeRef}
       style={style}
       className={cn(
-        "rounded-2xl border border-padma-champagne/22 bg-white/75 shadow-soft backdrop-blur-sm dark:border-padma-lavender/18 dark:bg-padma-night/42",
+        "rounded-2xl border border-padma-champagne/22 bg-white/75 shadow-soft backdrop-blur-sm",
         isDragging && "z-20 ring-2 ring-padma-lavender/40",
         hyperfocus && "rounded-xl"
       )}
     >
       <header
         className={cn(
-          "flex gap-3 border-b border-padma-champagne/15 px-4 py-3 dark:border-padma-lavender/12",
+          "flex gap-3 border-b border-padma-champagne/15 px-4 py-3",
           hyperfocus && "py-2.5"
         )}
       >
         <button
           type="button"
-          className="mt-0.5 cursor-grab touch-none self-start rounded-lg px-1 text-padma-night/35 hover:bg-padma-lavender/10 active:cursor-grabbing dark:text-padma-cream/45"
+          className="mt-0.5 cursor-grab touch-none self-start rounded-lg px-1 text-padma-night/35 hover:bg-padma-lavender/10 active:cursor-grabbing"
           {...attributes}
           {...listeners}
           aria-label={`Déplacer le bloc ${title}`}
@@ -68,9 +68,9 @@ function TreasureWidgetFrame({
           </span>
         </button>
         <div className="min-w-0 flex-1 text-left">
-          <h2 className="font-cinzel text-lg font-normal tracking-wide text-padma-night dark:text-padma-cream">{title}</h2>
+          <h2 className="font-cinzel text-lg font-normal tracking-wide text-padma-night">{title}</h2>
           {hint ? (
-            <p className="mt-0.5 text-xs leading-snug text-padma-night/62 dark:text-padma-cream/68">{hint}</p>
+            <p className="mt-0.5 text-xs leading-snug text-padma-night/62">{hint}</p>
           ) : null}
         </div>
       </header>

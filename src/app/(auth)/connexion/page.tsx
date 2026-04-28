@@ -20,28 +20,28 @@ export default function ConnexionPage() {
         {/* Halo décoratif doux */}
         <div className="pointer-events-none mb-10 flex flex-col items-center text-center">
           <BrandMark />
-          <h1 className="mt-3 font-cinzel text-3xl font-normal tracking-[0.08em] text-padma-night dark:text-padma-cream sm:text-[2rem]">
+          <h1 className="mt-3 font-cinzel text-3xl font-normal tracking-[0.08em] text-padma-night sm:text-[2rem]">
             Entrer dans le sanctuaire
           </h1>
-          <p className="mt-4 max-w-sm font-display text-sm italic leading-relaxed text-padma-night/70 dark:text-padma-cream/75">
+          <p className="mt-4 max-w-sm font-display text-sm italic leading-relaxed text-padma-night/70">
             Un lien lumineux arrive dans ta boîte mail — aucun mot de passe, juste une invitation à traverser le seuil.
           </p>
         </div>
 
-        <div className="rounded-[1.75rem] border border-padma-champagne/40 bg-white/70 p-8 shadow-[0_24px_60px_-24px_rgba(168,180,200,0.45)] backdrop-blur-md dark:border-padma-lavender/25 dark:bg-padma-night/55">
+        <div className="rounded-[1.75rem] border border-padma-champagne/40 bg-white/70 p-8 shadow-[0_24px_60px_-24px_rgba(168,180,200,0.45)] backdrop-blur-md">
           <Suspense
             fallback={
-              <p className="text-center text-sm text-padma-night/60 dark:text-padma-cream/60">Préparation du formulaire…</p>
+              <p className="text-center text-sm text-padma-night/60">Préparation du formulaire…</p>
             }
           >
             <MagicLinkForm allowedEmails={allowedEmails} />
           </Suspense>
         </div>
 
-        <p className="mt-10 text-center font-display text-xs text-padma-night/50 dark:text-padma-cream/50">
+        <p className="mt-10 text-center font-display text-xs text-padma-night/50">
           <Link
             href="/"
-            className="underline decoration-padma-champagne/50 underline-offset-4 transition-colors hover:text-padma-lavender dark:hover:text-padma-champagne"
+            className="underline decoration-padma-champagne/50 underline-offset-4 transition-colors hover:text-padma-lavender"
           >
             Retour à l’accueil
           </Link>

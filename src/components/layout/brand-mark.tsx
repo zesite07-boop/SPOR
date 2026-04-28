@@ -15,10 +15,10 @@ export function BrandMark({ compact, className }: { compact?: boolean; className
         priority={compact}
       />
       <div className="min-w-0">
-        <p className={cn("font-cinzel tracking-wide text-padma-night dark:text-padma-cream", compact ? "text-xs" : "text-sm")}>
+        <p className={cn("font-cinzel tracking-wide text-padma-night", compact ? "text-xs" : "text-sm")}>
           Serey Padma by Céline
         </p>
-        <p className={cn("font-sans font-light text-padma-night/65 dark:text-padma-cream/70", compact ? "text-[0.62rem]" : "text-xs")}>
+        <p className={cn("font-sans font-light text-padma-night/65", compact ? "text-[0.62rem]" : "text-xs")}>
           Reiki · Oracle · Retreats
         </p>
       </div>

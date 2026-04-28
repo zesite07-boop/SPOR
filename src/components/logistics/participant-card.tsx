@@ -97,66 +97,66 @@ export function ParticipantCard({
     <motion.div
       layout
       className={cn(
-        "rounded-2xl border border-padma-champagne/35 bg-white/80 p-4 dark:border-padma-lavender/25 dark:bg-padma-night/50",
+        "rounded-2xl border border-padma-champagne/35 bg-white/80 p-4",
         hyperfocus && "p-3"
       )}
     >
       <div className="flex items-start gap-3">
-        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-padma-lavender/20 dark:bg-padma-lavender/15">
+        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-padma-lavender/20">
           <User className="h-5 w-5 text-padma-lavender" aria-hidden />
         </span>
         <div className="min-w-0 flex-1">
-          <p className="font-cinzel text-base text-padma-night dark:text-padma-cream">
+          <p className="font-cinzel text-base text-padma-night">
             {p.name}{" "}
-            <span className="font-sans text-xs font-normal text-padma-night/55 dark:text-padma-cream/60">
+            <span className="font-sans text-xs font-normal text-padma-night/55">
               ×{p.partySize}
             </span>
           </p>
           {p.birthDate && (
-            <p className="mt-1 text-xs text-padma-night/60 dark:text-padma-cream/65">Naissance · {p.birthDate}</p>
+            <p className="mt-1 text-xs text-padma-night/60">Naissance · {p.birthDate}</p>
           )}
           {p.allergies && (
-            <p className="mt-2 rounded-lg bg-red-50/90 px-2 py-1 text-xs text-red-900/90 dark:bg-red-950/40 dark:text-red-100/95">
+            <p className="mt-2 rounded-lg bg-red-50/90 px-2 py-1 text-xs text-red-900/90">
               Allergies : {p.allergies}
             </p>
           )}
           {p.intentions && (
-            <p className="mt-2 flex gap-2 text-xs leading-relaxed text-padma-night/75 dark:text-padma-cream/78">
+            <p className="mt-2 flex gap-2 text-xs leading-relaxed text-padma-night/75">
               <Sparkles className="mt-0.5 h-3.5 w-3.5 shrink-0 text-padma-champagne" aria-hidden />
               {p.intentions}
             </p>
           )}
           {p.oracleNote && !p.intentions && (
-            <p className="mt-2 text-xs italic text-padma-night/55 dark:text-padma-cream/58">{p.oracleNote}</p>
+            <p className="mt-2 text-xs italic text-padma-night/55">{p.oracleNote}</p>
           )}
         </div>
       </div>
       <div className={cn("mt-4 grid gap-3 sm:grid-cols-2", hyperfocus && "mt-3 gap-2")}>
-        <label className="block text-[0.65rem] uppercase tracking-wide text-padma-night/50 dark:text-padma-cream/55">
+        <label className="block text-[0.65rem] uppercase tracking-wide text-padma-night/50">
           Chambre
           <input
             value={p.roomLabel ?? ""}
             onChange={(e) => onRoomChange(e.target.value)}
-            className="mt-1 w-full rounded-lg border border-padma-champagne/40 bg-white px-2 py-1.5 text-sm dark:border-padma-lavender/35 dark:bg-padma-night/60 dark:text-padma-cream"
+            className="mt-1 w-full rounded-lg border border-padma-champagne/40 bg-white px-2 py-1.5 text-sm"
           />
         </label>
-        <label className="block text-[0.65rem] uppercase tracking-wide text-padma-night/50 dark:text-padma-cream/55">
+        <label className="block text-[0.65rem] uppercase tracking-wide text-padma-night/50">
           Transfert
           <input
             value={p.transferStatus ?? ""}
             onChange={(e) => onTransferChange(e.target.value)}
-            className="mt-1 w-full rounded-lg border border-padma-champagne/40 bg-white px-2 py-1.5 text-sm dark:border-padma-lavender/35 dark:bg-padma-night/60 dark:text-padma-cream"
+            className="mt-1 w-full rounded-lg border border-padma-champagne/40 bg-white px-2 py-1.5 text-sm"
           />
         </label>
       </div>
       <div className="mt-3 grid gap-2 sm:grid-cols-2">
-        <div className="rounded-lg border border-padma-champagne/25 bg-white/70 px-2.5 py-2 text-xs dark:border-padma-lavender/20 dark:bg-padma-night/45">
-          <p className="font-medium text-padma-night/70 dark:text-padma-cream/75">Statut paiement</p>
-          <p className="mt-0.5 text-padma-night dark:text-padma-cream">{paymentStatus ?? "A confirmer"}</p>
+        <div className="rounded-lg border border-padma-champagne/25 bg-white/70 px-2.5 py-2 text-xs">
+          <p className="font-medium text-padma-night/70">Statut paiement</p>
+          <p className="mt-0.5 text-padma-night">{paymentStatus ?? "A confirmer"}</p>
         </div>
-        <div className="rounded-lg border border-padma-champagne/25 bg-white/70 px-2.5 py-2 text-xs dark:border-padma-lavender/20 dark:bg-padma-night/45">
-          <p className="font-medium text-padma-night/70 dark:text-padma-cream/75">Options choisies</p>
-          <p className="mt-0.5 text-padma-night dark:text-padma-cream">
+        <div className="rounded-lg border border-padma-champagne/25 bg-white/70 px-2.5 py-2 text-xs">
+          <p className="font-medium text-padma-night/70">Options choisies</p>
+          <p className="mt-0.5 text-padma-night">
             {selectedOptions && selectedOptions.length > 0 ? selectedOptions.join(" · ") : "Aucune option"}
           </p>
         </div>
@@ -167,26 +167,26 @@ export function ParticipantCard({
         </Button>
       </div>
       {openOracle && (
-        <div className="mt-3 rounded-xl border border-padma-champagne/30 bg-white/75 p-3 dark:border-padma-lavender/20 dark:bg-padma-night/45">
-          <label className="block text-xs uppercase tracking-wide text-padma-night/60 dark:text-padma-cream/60">
+        <div className="mt-3 rounded-xl border border-padma-champagne/30 bg-white/75 p-3">
+          <label className="block text-xs uppercase tracking-wide text-padma-night/60">
             Prenom
             <input
               value={oracleName}
               onChange={(e) => setOracleName(e.target.value)}
-              className="mt-1 w-full rounded-lg border border-padma-champagne/40 bg-white px-2 py-1.5 text-sm dark:border-padma-lavender/35 dark:bg-padma-night/60 dark:text-padma-cream"
+              className="mt-1 w-full rounded-lg border border-padma-champagne/40 bg-white px-2 py-1.5 text-sm"
             />
           </label>
-          <label className="mt-2 block text-xs uppercase tracking-wide text-padma-night/60 dark:text-padma-cream/60">
+          <label className="mt-2 block text-xs uppercase tracking-wide text-padma-night/60">
             Date de naissance
             <input
               type="date"
               value={oracleBirthDate}
               onChange={(e) => setOracleBirthDate(e.target.value)}
-              className="mt-1 w-full rounded-lg border border-padma-champagne/40 bg-white px-2 py-1.5 text-sm dark:border-padma-lavender/35 dark:bg-padma-night/60 dark:text-padma-cream"
+              className="mt-1 w-full rounded-lg border border-padma-champagne/40 bg-white px-2 py-1.5 text-sm"
             />
           </label>
           {profile && (
-            <div className="mt-3 rounded-lg border border-padma-lavender/25 bg-padma-cream/35 p-2 text-xs dark:bg-padma-night/40">
+            <div className="mt-3 rounded-lg border border-padma-lavender/25 bg-padma-cream/35 p-2 text-xs">
               <p>Chemin de Vie : {profile.lifePath}</p>
               <p>Nombre d&apos;Ame : {profile.soul}</p>
               <p>Arcane dominant : {profile.arcana}</p>

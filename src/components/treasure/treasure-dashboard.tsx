@@ -89,7 +89,7 @@ export function TreasureDashboard() {
   const renderWidget = useCallback(
     (id: TreasureWidgetId) => {
       if (!settings) {
-        return <p className="text-sm text-padma-night/60 dark:text-padma-cream/58">Préparation des grimoires…</p>;
+        return <p className="text-sm text-padma-night/60">Préparation des grimoires…</p>;
       }
       switch (id) {
         case "kpis":
@@ -133,7 +133,7 @@ export function TreasureDashboard() {
     return (
       <div className="flex min-h-[40vh] flex-col items-center justify-center gap-3 pb-24">
         <div className="h-10 w-10 animate-spin rounded-full border-2 border-padma-champagne/40 border-t-padma-lavender" aria-hidden />
-        <p className="font-display text-sm text-padma-night/65 dark:text-padma-cream/65">Ouverture du coffret…</p>
+        <p className="font-display text-sm text-padma-night/65">Ouverture du coffret…</p>
       </div>
     );
   }
@@ -144,7 +144,7 @@ export function TreasureDashboard() {
 
       <header className={cn("mb-8 space-y-4", hyperfocus && "mb-5 space-y-3")}>
         <HyperfocusToolbar />
-        <p className="max-w-prose text-xs text-padma-night/62 dark:text-[#e0d8cb]">
+        <p className="max-w-prose text-xs text-padma-night/62">
           Glissez les :: à gauche de chaque carte pour réordonner votre tableau. Les préférences sont enregistrées sur cet appareil (Dexie).
         </p>
       </header>

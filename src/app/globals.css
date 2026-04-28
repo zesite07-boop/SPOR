@@ -4,20 +4,12 @@
 
 @layer base {
   :root {
-    --background: 248 244 237;
-    --foreground: 44 62 80;
-    --muted: 74 112 67;
-    --accent: 212 175 136;
-    --card: 255 255 255;
+    --background: 255 255 255;
+    --foreground: 26 22 37;
+    --muted: 122 112 144;
+    --accent: 201 132 122;
+    --card: 248 247 255;
     --radius: 1rem;
-  }
-
-  .dark {
-    --background: 15 14 26;
-    --foreground: 245 240 232;
-    --muted: 155 142 196;
-    --accent: 201 169 110;
-    --card: 26 24 40;
   }
 
   html {
@@ -25,11 +17,10 @@
   }
 
   body {
-    @apply min-h-dvh font-sans text-base leading-[1.7] text-oasis-night antialiased dark:bg-[hsl(var(--background))] dark:text-oasis-cream;
-    background:
-      radial-gradient(circle at 12% 8%, rgba(201, 169, 110, 0.08) 0%, transparent 38%),
-      linear-gradient(180deg, #faf8f5 0%, #f5f0e8 100%);
-    -webkit-tap-highlight-color: rgba(212, 175, 136, 0.22);
+    @apply min-h-dvh font-sans text-base leading-[1.7] antialiased;
+    color: #3d3650;
+    background: #ffffff;
+    -webkit-tap-highlight-color: rgba(201, 132, 122, 0.22);
   }
 
   body::before {
@@ -38,10 +29,10 @@
     inset: 0;
     pointer-events: none;
     z-index: -1;
-    opacity: 0.04;
+    opacity: 0.035;
     background-image:
-      radial-gradient(circle at 22% 18%, rgba(201, 169, 110, 0.7) 0%, transparent 26%),
-      radial-gradient(circle at 78% 72%, rgba(197, 180, 212, 0.6) 0%, transparent 24%),
+      radial-gradient(circle at 22% 18%, rgba(191, 168, 130, 0.7) 0%, transparent 26%),
+      radial-gradient(circle at 78% 72%, rgba(124, 111, 175, 0.55) 0%, transparent 24%),
       repeating-linear-gradient(25deg, rgba(255, 255, 255, 0.45) 0px, rgba(255, 255, 255, 0.45) 2px, transparent 2px, transparent 14px);
   }
 
@@ -67,31 +58,15 @@
 
   /* Mandala décoratif très léger — SVG en fond */
   .oasis-mandala-bg {
-    background-image: radial-gradient(
-        circle at 20% 20%,
-        rgba(200, 162, 200, 0.08) 0%,
-        transparent 45%
-      ),
-      radial-gradient(circle at 80% 10%, rgba(212, 175, 136, 0.12) 0%, transparent 40%),
-      radial-gradient(circle at 50% 100%, rgba(74, 112, 67, 0.06) 0%, transparent 50%);
+    background: #ffffff;
   }
 
   /* Connexion / moments « rituel » — champagne rosé, lavande, brume bleu-perle */
   .padma-aura-bg {
-    background-color: #f8f4ed;
+    background-color: #ffffff;
     background-image:
-      radial-gradient(ellipse 120% 80% at 50% -20%, rgba(232, 196, 168, 0.35) 0%, transparent 55%),
-      radial-gradient(circle at 15% 40%, rgba(197, 180, 212, 0.12) 0%, transparent 45%),
-      radial-gradient(circle at 85% 70%, rgba(168, 180, 200, 0.1) 0%, transparent 50%),
-      radial-gradient(circle at 50% 100%, rgba(248, 244, 237, 0.95) 0%, transparent 60%);
-  }
-
-  .dark .padma-aura-bg {
-    background-color: #0f0e1a;
-    background-image:
-      radial-gradient(ellipse 120% 80% at 50% -20%, rgba(232, 196, 168, 0.12) 0%, transparent 55%),
-      radial-gradient(circle at 15% 40%, rgba(197, 180, 212, 0.08) 0%, transparent 45%),
-      radial-gradient(circle at 85% 55%, rgba(168, 180, 200, 0.06) 0%, transparent 48%);
+      radial-gradient(ellipse 120% 80% at 50% -20%, rgba(191, 168, 130, 0.16) 0%, transparent 55%),
+      radial-gradient(circle at 15% 40%, rgba(124, 111, 175, 0.09) 0%, transparent 45%);
   }
 }
 
@@ -102,11 +77,15 @@
 
   /** Cartes Padma — fond verre & bordure champagne */
   .padma-card {
-    @apply rounded-2xl border border-padma-champagne/20 bg-white/75 shadow-soft backdrop-blur-sm dark:border-[#c9a96e33] dark:bg-[#1a1828];
+    @apply rounded-2xl border shadow-soft backdrop-blur-sm;
+    border-color: rgba(191, 168, 130, 0.4);
+    background: #f8f7ff;
   }
 
   .padma-card-quiet {
-    @apply rounded-2xl border border-padma-champagne/15 bg-white/60 dark:border-[#c9a96e2e] dark:bg-[#1a1828];
+    @apply rounded-2xl border;
+    border-color: #e8e4f0;
+    background: #f8f7ff;
   }
 
   /** Cibles tactiles recommandées (WCAG 2.5.5) */
@@ -148,7 +127,7 @@
     top: 50%;
     transform: translateY(-50%);
     height: 1px;
-    background: linear-gradient(90deg, transparent 0%, rgba(201, 169, 110, 0.3) 18%, rgba(201, 169, 110, 0.3) 82%, transparent 100%);
+    background: linear-gradient(90deg, transparent 0%, rgba(191, 168, 130, 0.4) 18%, rgba(191, 168, 130, 0.4) 82%, transparent 100%);
   }
 
   .padma-section-separator::after {
@@ -157,9 +136,9 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    color: rgba(201, 169, 110, 0.72);
+    color: rgba(191, 168, 130, 0.88);
     font-size: 0.8rem;
-    background: #faf8f5;
+    background: #ffffff;
     padding: 0 7px;
     border-radius: 999px;
   }

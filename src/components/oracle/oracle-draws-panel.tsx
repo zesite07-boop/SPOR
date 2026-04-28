@@ -171,7 +171,7 @@ export function OracleDrawsPanel({
 
       {tab === "chakra" && (
         <motion.section initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-4">
-          <p className="text-sm leading-relaxed text-padma-night/75 dark:text-padma-cream/78">
+          <p className="text-sm leading-relaxed text-padma-night/75">
             Sept centres ou focus Corps · Coeur · Esprit : une lecture stable, sans remise, pour apaiser et orienter ta journee.
           </p>
           <div className="flex flex-wrap gap-2">
@@ -202,7 +202,7 @@ export function OracleDrawsPanel({
 
       {tab === "life" && (
         <motion.section initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-4">
-          <p className="text-sm leading-relaxed text-padma-night/75 dark:text-padma-cream/78">
+          <p className="text-sm leading-relaxed text-padma-night/75">
             Numerologie du chemin de vie et trois temps du tarot : une lecture intime, elegante et professionnalisante.
           </p>
           <Button type="button" variant="oracle" className="font-cinzel rounded-2xl" onClick={() => void runLifePath()}>
@@ -213,7 +213,7 @@ export function OracleDrawsPanel({
 
       {tab === "monthly" && (
         <motion.section initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-4">
-          <p className="text-sm text-padma-night/75 dark:text-padma-cream/78">
+          <p className="text-sm text-padma-night/75">
             Quatre cartes pour le mois en cours : <span className="italic">{monthLabel}</span>, pour avancer avec calme et precision.
           </p>
           <Button type="button" variant="oracle" className="font-cinzel rounded-2xl" onClick={() => void runMonthly()}>
@@ -224,7 +224,7 @@ export function OracleDrawsPanel({
 
       {tab === "retreat" && (
         <motion.section initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-4">
-          <p className="text-sm text-padma-night/75 dark:text-padma-cream/78">
+          <p className="text-sm text-padma-night/75">
             Cinq portes pour preparer ou integrer une retraite : intention, corps, relation, ame, ancrage.
           </p>
           <Button type="button" variant="oracle" className="font-cinzel rounded-2xl" onClick={() => void runRetreat()}>
@@ -235,7 +235,7 @@ export function OracleDrawsPanel({
 
       {tab === "free" && (
         <motion.section initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-4">
-          <label className="block text-xs font-medium uppercase tracking-wide text-padma-night/55 dark:text-padma-cream/55">
+          <label className="block text-xs font-medium uppercase tracking-wide text-padma-night/55">
             Nombre de cartes (1 à 7)
           </label>
           <input
@@ -246,13 +246,13 @@ export function OracleDrawsPanel({
             onChange={(e) => setFreeCount(Number(e.target.value))}
             className="w-full accent-padma-lavender"
           />
-          <p className="text-sm text-padma-night/70 dark:text-padma-cream/75">{freeCount} carte(s)</p>
+          <p className="text-sm text-padma-night/70">{freeCount} carte(s)</p>
           <textarea
             rows={2}
             value={freeIntention}
             onChange={(e) => setFreeIntention(e.target.value)}
             placeholder="Intention ou question douce (optionnel)…"
-            className="w-full rounded-2xl border border-padma-champagne/40 bg-white/85 px-4 py-3 text-sm text-padma-night dark:border-padma-lavender/35 dark:bg-padma-night/50 dark:text-padma-cream"
+            className="w-full rounded-2xl border border-padma-champagne/40 bg-white/85 px-4 py-3 text-sm text-padma-night"
           />
           <Button type="button" variant="oracle" className="font-cinzel rounded-2xl" onClick={() => void runFree()}>
             Tirer

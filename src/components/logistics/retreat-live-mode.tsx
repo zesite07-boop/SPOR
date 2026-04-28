@@ -94,10 +94,10 @@ export function RetreatLiveMode({ retreat }: { retreat: RetreatDefinition }) {
   }
 
   return (
-    <main className="min-h-dvh bg-padma-cream px-4 py-4 text-padma-night dark:bg-padma-night dark:text-padma-cream">
+    <main className="min-h-dvh bg-padma-cream px-4 py-4 text-padma-night">
       <div className="mx-auto flex max-w-3xl flex-col gap-5">
-        <header className="rounded-3xl border border-padma-champagne/35 bg-white/90 p-5 dark:bg-padma-night/70">
-          <p className="text-xs uppercase tracking-[0.2em] text-padma-night/60 dark:text-padma-cream/65">Mode retraite actif</p>
+        <header className="rounded-3xl border border-padma-champagne/35 bg-white/90 p-5">
+          <p className="text-xs uppercase tracking-[0.2em] text-padma-night/60">Mode retraite actif</p>
           <h1 className="mt-2 font-cinzel text-3xl">{retreat.title}</h1>
           <p className="mt-1 text-sm">{retreat.destinationLabel}</p>
           <Button asChild className="mt-4 w-full rounded-2xl font-cinzel" onClick={() => void quitMode()}>
@@ -105,11 +105,11 @@ export function RetreatLiveMode({ retreat }: { retreat: RetreatDefinition }) {
           </Button>
         </header>
 
-        <section className="rounded-3xl border border-padma-champagne/35 bg-white/90 p-5 dark:bg-padma-night/70">
+        <section className="rounded-3xl border border-padma-champagne/35 bg-white/90 p-5">
           <h2 className="font-cinzel text-2xl">Programme du jour</h2>
           <ul className="mt-3 space-y-2">
             {blocks.map((b) => (
-              <li key={b.id} className="rounded-2xl border border-padma-lavender/30 bg-white/80 p-3 text-base dark:bg-padma-night/60">
+              <li key={b.id} className="rounded-2xl border border-padma-lavender/30 bg-white/80 p-3 text-base">
                 <span className="mr-2 font-medium">{b.slot ?? "Bloc"}</span>
                 {b.label}
               </li>
@@ -117,13 +117,13 @@ export function RetreatLiveMode({ retreat }: { retreat: RetreatDefinition }) {
           </ul>
         </section>
 
-        <section className="rounded-3xl border border-padma-champagne/35 bg-white/90 p-5 dark:bg-padma-night/70">
+        <section className="rounded-3xl border border-padma-champagne/35 bg-white/90 p-5">
           <h2 className="font-cinzel text-2xl">Tirage du matin</h2>
           <p className="mt-2 text-lg">{morningArcana.name}</p>
-          <p className="text-sm text-padma-night/80 dark:text-padma-cream/82">{morningArcana.gentle}</p>
+          <p className="text-sm text-padma-night/80">{morningArcana.gentle}</p>
         </section>
 
-        <section className="rounded-3xl border border-padma-champagne/35 bg-white/90 p-5 dark:bg-padma-night/70">
+        <section className="rounded-3xl border border-padma-champagne/35 bg-white/90 p-5">
           <h2 className="font-cinzel text-2xl">Chronometre de session</h2>
           <p className="mt-2 text-4xl font-semibold">{fmt(elapsed)}</p>
           <div className="mt-3 grid grid-cols-3 gap-2">
@@ -147,14 +147,14 @@ export function RetreatLiveMode({ retreat }: { retreat: RetreatDefinition }) {
           </div>
         </section>
 
-        <section className="rounded-3xl border border-padma-champagne/35 bg-white/90 p-5 dark:bg-padma-night/70">
+        <section className="rounded-3xl border border-padma-champagne/35 bg-white/90 p-5">
           <h2 className="font-cinzel text-2xl">Notes rapides</h2>
           <textarea
             rows={6}
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
             onBlur={() => void saveNote(notes)}
-            className="mt-3 w-full rounded-2xl border border-padma-champagne/35 bg-white/85 p-3 text-base dark:bg-padma-night/60"
+            className="mt-3 w-full rounded-2xl border border-padma-champagne/35 bg-white/85 p-3 text-base"
             placeholder="Intentions, observations, ajustements..."
           />
         </section>

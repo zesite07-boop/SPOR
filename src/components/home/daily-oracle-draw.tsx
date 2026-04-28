@@ -124,24 +124,24 @@ export function DailyOracleDraw() {
       transition={{ duration: 0.5, delay: 0.08 }}
       className={cn("space-y-4", hyperfocus && "space-y-3")}
     >
-      <Card className="relative overflow-hidden border-padma-lavender/35 bg-white/90 dark:bg-padma-night/55">
+      <Card className="relative overflow-hidden border-padma-lavender/35 bg-white/90">
         {!hyperfocus && (
-          <div className="pointer-events-none absolute right-0 top-0 h-48 w-48 translate-x-1/3 -translate-y-1/3 rounded-full bg-padma-lavender/20 blur-3xl dark:bg-padma-champagne/10" aria-hidden />
+          <div className="pointer-events-none absolute right-0 top-0 h-48 w-48 translate-x-1/3 -translate-y-1/3 rounded-full bg-padma-lavender/20 blur-3xl" aria-hidden />
         )}
         <CardHeader className="relative">
           <div className="flex flex-wrap items-center gap-2">
             <Sparkles className="h-5 w-5 text-padma-champagne" aria-hidden />
-            <CardTitle className="font-cinzel text-xl font-normal tracking-[0.06em] text-padma-night dark:text-padma-cream">
+            <CardTitle className="font-cinzel text-xl font-normal tracking-[0.06em] text-padma-night">
               Tirage oracle du jour
             </CardTitle>
           </div>
-          <CardDescription className="text-padma-night/65 dark:text-padma-cream/70">
+          <CardDescription className="text-padma-night/65">
             Trois arcanes majeurs pour te recentrer : energie, conseil, potentiel - avec une lecture poetique, claire et bienveillante.
           </CardDescription>
         </CardHeader>
         <CardContent className="relative space-y-6">
           {loading && (
-            <p className="text-center text-sm text-padma-night/60 dark:text-padma-cream/65">Les cartes se devoilent en silence...</p>
+            <p className="text-center text-sm text-padma-night/60">Les cartes se devoilent en silence...</p>
           )}
 
           <AnimatePresence mode="wait">
@@ -178,18 +178,18 @@ export function DailyOracleDraw() {
                     initial={{ opacity: 0, y: 20, rotateY: 90 }}
                     animate={{ opacity: 1, y: 0, rotateY: 0 }}
                     transition={{ delay: i * 0.1, duration: 0.55 }}
-                    className="relative flex flex-col rounded-2xl border border-padma-champagne/40 bg-gradient-to-b from-padma-cream/95 to-padma-lavender/10 p-4 text-center dark:border-padma-lavender/30 dark:from-padma-night/80 dark:to-padma-lavender/5"
+                    className="relative flex flex-col rounded-2xl border border-padma-champagne/40 bg-gradient-to-b from-padma-cream/95 to-padma-lavender/10 p-4 text-center"
                   >
                     <motion.div
                       className="pointer-events-none absolute -inset-2 rounded-2xl bg-[radial-gradient(circle,rgba(201,169,110,0.22)_0%,transparent_68%)]"
                       animate={{ opacity: [0.25, 0.65, 0.25] }}
                       transition={{ duration: 1.8, repeat: Infinity }}
                     />
-                    <span className="font-display text-[0.65rem] uppercase tracking-[0.18em] text-padma-pearl dark:text-padma-lavender/90">
+                    <span className="font-display text-[0.65rem] uppercase tracking-[0.18em] text-padma-pearl">
                       {label}
                     </span>
-                    <span className="mt-3 font-cinzel text-lg text-padma-night dark:text-padma-cream">{card.name}</span>
-                    <span className="mt-2 text-xs leading-relaxed text-padma-night/70 dark:text-padma-cream/75">{card.keyword}</span>
+                    <span className="mt-3 font-cinzel text-lg text-padma-night">{card.name}</span>
+                    <span className="mt-2 text-xs leading-relaxed text-padma-night/70">{card.keyword}</span>
                   </motion.div>
                   ) : (
                     <div key={`back-${label}-${i}`} className="h-[128px] rounded-2xl border border-padma-lavender/25 bg-[#11182f]" />
@@ -203,7 +203,7 @@ export function DailyOracleDraw() {
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="rounded-2xl border border-padma-pearl/35 bg-white/70 p-4 text-sm leading-[1.75] text-padma-night/85 dark:border-padma-lavender/25 dark:bg-padma-night/45 dark:text-padma-cream/90"
+              className="rounded-2xl border border-padma-pearl/35 bg-white/70 p-4 text-sm leading-[1.75] text-padma-night/85"
             >
               {text}
             </motion.p>
@@ -221,22 +221,22 @@ export function DailyOracleDraw() {
             Ouvrir un nouveau tirage
           </Button>
 
-          <div className="rounded-2xl border border-padma-pearl/30 bg-padma-cream/40 p-4 dark:border-padma-lavender/20 dark:bg-padma-night/40">
-            <p className="mb-3 flex items-center gap-2 font-display text-xs uppercase tracking-[0.2em] text-padma-night/55 dark:text-padma-cream/60">
+          <div className="rounded-2xl border border-padma-pearl/30 bg-padma-cream/40 p-4">
+            <p className="mb-3 flex items-center gap-2 font-display text-xs uppercase tracking-[0.2em] text-padma-night/55">
               <History className="h-4 w-4" aria-hidden />
               Sept derniers jours
             </p>
             <ul className="max-h-48 space-y-2 overflow-y-auto text-sm">
               {history.length === 0 && (
-                <li className="text-padma-night/55 dark:text-padma-cream/55">Les tirages sauvegardés apparaîtront ici (Dexie).</li>
+                <li className="text-padma-night/55">Les tirages sauvegardés apparaîtront ici (Dexie).</li>
               )}
               {history.map((h) => (
                 <li
                   key={h.id}
-                  className="flex flex-col rounded-lg border border-padma-champagne/20 bg-white/60 px-3 py-2 dark:border-padma-lavender/15 dark:bg-padma-night/50 sm:flex-row sm:items-center sm:justify-between"
+                  className="flex flex-col rounded-lg border border-padma-champagne/20 bg-white/60 px-3 py-2 sm:flex-row sm:items-center sm:justify-between"
                 >
-                  <span className="font-medium text-padma-night dark:text-padma-cream">{h.id}</span>
-                  <span className="text-xs text-padma-night/65 dark:text-padma-cream/70">
+                  <span className="font-medium text-padma-night">{h.id}</span>
+                  <span className="text-xs text-padma-night/65">
                     {h.cardIds.map((id) => getMajorById(id).name).join(" · ")}
                   </span>
                 </li>

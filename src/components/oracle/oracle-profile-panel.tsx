@@ -78,15 +78,15 @@ export function OracleProfilePanel({ refreshKey = 0 }: { refreshKey?: number }) 
       <motion.section
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
-        className="rounded-2xl border border-padma-champagne/35 bg-white/80 p-6 dark:border-padma-lavender/25 dark:bg-padma-night/50"
+        className="rounded-2xl border border-padma-champagne/35 bg-white/80 p-6"
       >
-        <div className="mb-4 flex items-center gap-2 font-cinzel text-lg text-padma-night dark:text-padma-cream">
+        <div className="mb-4 flex items-center gap-2 font-cinzel text-lg text-padma-night">
           <UserRound className="h-5 w-5 text-padma-lavender" aria-hidden />
           Identité oracle
         </div>
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
-            <label htmlFor="bd" className="text-xs uppercase tracking-wide text-padma-night/55 dark:text-padma-cream/55">
+            <label htmlFor="bd" className="text-xs uppercase tracking-wide text-padma-night/55">
               Date de naissance
             </label>
             <input
@@ -94,11 +94,11 @@ export function OracleProfilePanel({ refreshKey = 0 }: { refreshKey?: number }) 
               type="date"
               value={birthDate}
               onChange={(e) => setBirthDate(e.target.value)}
-              className="mt-1 w-full rounded-xl border border-padma-champagne/40 bg-white px-3 py-2 text-sm text-padma-night dark:border-padma-lavender/35 dark:bg-padma-night/60 dark:text-padma-cream"
+              className="mt-1 w-full rounded-xl border border-padma-champagne/40 bg-white px-3 py-2 text-sm text-padma-night"
             />
           </div>
           <div>
-            <label htmlFor="fn" className="text-xs uppercase tracking-wide text-padma-night/55 dark:text-padma-cream/55">
+            <label htmlFor="fn" className="text-xs uppercase tracking-wide text-padma-night/55">
               Prénom &amp; nom (nombre d’âme)
             </label>
             <input
@@ -107,7 +107,7 @@ export function OracleProfilePanel({ refreshKey = 0 }: { refreshKey?: number }) 
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
               placeholder="ex. Claire Dupont"
-              className="mt-1 w-full rounded-xl border border-padma-champagne/40 bg-white px-3 py-2 text-sm text-padma-night dark:border-padma-lavender/35 dark:bg-padma-night/60 dark:text-padma-cream"
+              className="mt-1 w-full rounded-xl border border-padma-champagne/40 bg-white px-3 py-2 text-sm text-padma-night"
             />
           </div>
         </div>
@@ -115,7 +115,7 @@ export function OracleProfilePanel({ refreshKey = 0 }: { refreshKey?: number }) 
           Enregistrer le profil
         </Button>
         {savedHint && (
-          <p className="mt-2 text-xs text-padma-night/60 dark:text-padma-cream/65">Profil sauvegardé localement (Dexie).</p>
+          <p className="mt-2 text-xs text-padma-night/60">Profil sauvegardé localement (Dexie).</p>
         )}
       </motion.section>
 
@@ -124,30 +124,30 @@ export function OracleProfilePanel({ refreshKey = 0 }: { refreshKey?: number }) 
       <motion.section
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
-        className="rounded-2xl border border-padma-lavender/30 bg-gradient-to-br from-padma-lavender/10 to-transparent p-6 dark:from-padma-lavender/15"
+        className="rounded-2xl border border-padma-lavender/30 bg-gradient-to-br from-padma-lavender/10 to-transparent p-6"
       >
-        <div className="mb-3 flex items-center gap-2 font-cinzel text-lg text-padma-night dark:text-padma-cream">
+        <div className="mb-3 flex items-center gap-2 font-cinzel text-lg text-padma-night">
           <Heart className="h-5 w-5 text-padma-champagne" aria-hidden />
           Évolution retraite
         </div>
-        <p className="mb-4 text-sm text-padma-night/72 dark:text-padma-cream/78">
+        <p className="mb-4 text-sm text-padma-night/72">
           Notes libres pour ton avant / après — tu pourras relire comment ton portrait énergétique respire dans le temps.
         </p>
-        <label className="text-xs uppercase tracking-wide text-padma-night/55 dark:text-padma-cream/55">Avant la retraite</label>
+        <label className="text-xs uppercase tracking-wide text-padma-night/55">Avant la retraite</label>
         <textarea
           rows={3}
           value={beforeRetreat}
           onChange={(e) => setBeforeRetreat(e.target.value)}
           onBlur={() => void save()}
-          className="mt-1 mb-4 w-full rounded-xl border border-padma-champagne/35 bg-white/90 px-3 py-2 text-sm dark:border-padma-lavender/30 dark:bg-padma-night/55 dark:text-padma-cream"
+          className="mt-1 mb-4 w-full rounded-xl border border-padma-champagne/35 bg-white/90 px-3 py-2 text-sm"
         />
-        <label className="text-xs uppercase tracking-wide text-padma-night/55 dark:text-padma-cream/55">Après la retraite</label>
+        <label className="text-xs uppercase tracking-wide text-padma-night/55">Après la retraite</label>
         <textarea
           rows={3}
           value={afterRetreat}
           onChange={(e) => setAfterRetreat(e.target.value)}
           onBlur={() => void save()}
-          className="mt-1 w-full rounded-xl border border-padma-champagne/35 bg-white/90 px-3 py-2 text-sm dark:border-padma-lavender/30 dark:bg-padma-night/55 dark:text-padma-cream"
+          className="mt-1 w-full rounded-xl border border-padma-champagne/35 bg-white/90 px-3 py-2 text-sm"
         />
       </motion.section>
     </div>

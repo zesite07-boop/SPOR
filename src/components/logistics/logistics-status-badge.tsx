@@ -22,13 +22,13 @@ export function LogisticsStatusBadge({
       className={cn(
         "inline-flex rounded-full border px-2.5 py-0.5 text-[0.65rem] font-medium uppercase tracking-wide",
         status === "preparation" &&
-          "border-padma-pearl/50 bg-padma-pearl/15 text-padma-night/80 dark:border-padma-pearl/45 dark:bg-[#2a2740] dark:text-[#ece4d8]",
+          "border-padma-pearl/50 bg-padma-pearl/15 text-padma-night/80",
         status === "ready" &&
-          "border-padma-champagne/55 bg-padma-champagne/20 text-padma-night dark:border-padma-champagne/50 dark:bg-[#2f2b21] dark:text-[#f0e2c2]",
+          "border-padma-champagne/55 bg-padma-champagne/20 text-padma-night",
         status === "in_progress" &&
-          "border-padma-lavender/55 bg-padma-lavender/20 text-padma-night dark:border-padma-lavender/45 dark:bg-[#2a2740] dark:text-[#ece4d8]",
+          "border-padma-lavender/55 bg-padma-lavender/20 text-padma-night",
         status === "completed" &&
-          "border-padma-pearl/40 bg-white/60 text-padma-night/72 dark:border-padma-lavender/35 dark:bg-[#252236] dark:text-[#ece4d8]",
+          "border-padma-pearl/40 bg-white/60 text-padma-night/72",
         className
       )}
     >

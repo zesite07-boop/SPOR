@@ -31,13 +31,13 @@ export function BottomNav() {
   return (
     <nav
       className={cn(
-        "fixed inset-x-0 bottom-0 z-50 mx-auto max-w-lg rounded-t-3xl border border-oasis-champagne/20 border-t-[1.5px] border-t-[#c9a96e66] bg-[#fbf9f6]/95 pb-safe shadow-[0_-8px_24px_rgba(44,62,80,0.12)] backdrop-blur-xl dark:border-[#c9a96e3a] dark:border-t-[#c9a96e88] dark:bg-[#1a1828]/96 print:hidden",
+        "fixed inset-x-0 bottom-0 z-50 mx-auto max-w-lg rounded-t-3xl border border-[#e8e4f0] border-t-[1.5px] border-t-[#e8e4f0] bg-white/95 pb-safe shadow-[0_-8px_24px_rgba(61,54,80,0.12)] backdrop-blur-xl print:hidden",
         "safe-area-pb"
       )}
       aria-label="Navigation principale Serey Padma by Celine"
     >
       <div className="px-2 pt-1 text-center">
-        <span className="inline-flex items-center gap-1 rounded-full border border-padma-champagne/30 bg-white/70 px-2 py-0.5 text-[0.62rem] text-padma-night/75 dark:border-[#c9a96e48] dark:bg-[#2a2740] dark:text-[#ece4d8]">
+        <span className="inline-flex items-center gap-1 rounded-full border border-[#e8e4f0] bg-[#f8f7ff] px-2 py-0.5 text-[0.62rem] text-[#3d3650]">
           Energie {points} · Badges {badges.length}
         </span>
       </div>
@@ -53,22 +53,22 @@ export function BottomNav() {
                 className={cn(
                   "touch-min relative flex touch-manipulation flex-col items-center justify-center gap-0.5 rounded-xl px-1 py-2 text-[10px] font-medium tracking-wide transition-all duration-300 active:scale-[0.97] sm:text-[11px]",
                   active
-                    ? "text-[#c9a96e] dark:text-[#e7cc98]"
-                    : "text-[#7f7b77] hover:text-oasis-night dark:text-[#cfc9bd] dark:hover:text-[#f5f0e8]"
+                    ? "text-[#c9847a]"
+                    : "text-[#7a7090] hover:text-[#1a1625]"
                 )}
                 title={`Aller vers ${label} (Alt+${shortLabel})`}
               >
                 {active && (
                   <motion.span
                     layoutId="tab-glow"
-                    className="absolute inset-x-1.5 -bottom-1 h-9 rounded-full bg-gradient-to-t from-oasis-champagne/25 to-transparent dark:from-oasis-lavender/15"
+                    className="absolute inset-x-1.5 -bottom-1 h-9 rounded-full bg-gradient-to-t from-oasis-champagne/25 to-transparent"
                     transition={{ type: "spring", stiffness: 380, damping: 32 }}
                   />
                 )}
                 <Icon
                   className={cn(
                     "relative z-10 h-5 w-5",
-                    active && "drop-shadow-[0_0_8px_rgba(212,175,136,0.55)] dark:drop-shadow-[0_0_10px_rgba(231,204,152,0.72)]"
+                    active && "drop-shadow-[0_0_8px_rgba(201,132,122,0.35)]"
                   )}
                   aria-hidden
                 />

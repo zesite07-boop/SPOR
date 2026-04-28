@@ -45,19 +45,19 @@ export default function OracleModulePage() {
       <header className="padma-hero-halo mb-8 space-y-4">
         <Link
           href="/bien-etre"
-          className="inline-flex items-center gap-2 text-xs font-medium text-padma-night/70 transition hover:text-padma-lavender dark:text-[#e7e0d3] dark:hover:text-[#e7cc98]"
+          className="inline-flex items-center gap-2 text-xs font-medium text-padma-night/70 transition hover:text-padma-lavender"
         >
           <ArrowLeft className="h-3.5 w-3.5" aria-hidden />
           Bien-être &amp; portrait
         </Link>
         <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
-          <p className="font-display text-xs uppercase tracking-[0.28em] text-padma-pearl dark:text-padma-lavender/90">
+          <p className="font-display text-xs uppercase tracking-[0.28em] text-padma-pearl">
             Module Oracle
           </p>
-          <h1 className="page-title mt-2 font-cinzel font-normal tracking-[0.08em] text-padma-night dark:text-padma-cream">
+          <h1 className="page-title mt-2 font-cinzel font-normal tracking-[0.08em] text-padma-night">
             Sanctuaire des tirages
           </h1>
-          <p className="mt-3 max-w-prose text-sm leading-relaxed text-padma-night/78 dark:text-padma-cream/82">
+          <p className="mt-3 max-w-prose text-sm leading-relaxed text-padma-night/78">
             Chakras, chemin de vie, cycles mensuels, retraite et tirage libre — textes toujours bienveillants, tissés avec
             astrologie et numérologie.
           </p>
@@ -67,7 +67,7 @@ export default function OracleModulePage() {
 
       <SectionSeparator className="mb-6" />
 
-      <div className="mb-8 flex flex-wrap gap-2 border-b border-padma-champagne/25 pb-4 dark:border-padma-lavender/20">
+      <div className="mb-8 flex flex-wrap gap-2 border-b border-padma-champagne/25 pb-4">
         {mainTabs.map(({ id, label, Icon }) => (
           <Button
             key={id}
@@ -76,7 +76,7 @@ export default function OracleModulePage() {
             size="sm"
             className={cn(
               "gap-2 rounded-full font-cinzel",
-              tab === id ? "shadow-soft" : "text-padma-night/75 dark:text-[#ece4d8]"
+              tab === id ? "shadow-soft" : "text-padma-night/75"
             )}
             onClick={() => setTab(id)}
           >

@@ -19,26 +19,26 @@ export function LogisticsGroceryPanel({
   const retreatSuggestions = retreat.includedEverywhere.slice(0, 4);
 
   return (
-    <section className="rounded-2xl border border-padma-champagne/30 bg-white/80 p-5 dark:border-padma-lavender/25 dark:bg-padma-night/50">
-      <h3 className="font-cinzel text-lg text-padma-night dark:text-padma-cream">Liste courses indicative</h3>
-      <p className="mt-2 text-xs text-padma-night/65 dark:text-padma-cream/70">
+    <section className="rounded-2xl border border-padma-champagne/30 bg-white/80 p-5">
+      <h3 className="font-cinzel text-lg text-padma-night">Liste courses indicative</h3>
+      <p className="mt-2 text-xs text-padma-night/65">
         Base : <strong>{heads}</strong> personne(s) × durée du séjour — ajuste selon producteur·rice &amp; saison.
       </p>
       <ul className="mt-4 space-y-2">
         {lines.map((line, i) => (
           <li
             key={`${line.item}-${i}`}
-            className="flex flex-wrap justify-between gap-2 rounded-lg border border-padma-pearl/25 bg-padma-cream/40 px-3 py-2 text-sm dark:border-padma-lavender/15 dark:bg-padma-night/40"
+            className="flex flex-wrap justify-between gap-2 rounded-lg border border-padma-pearl/25 bg-padma-cream/40 px-3 py-2 text-sm"
           >
-            <span className="text-padma-night dark:text-padma-cream">{line.item}</span>
-            <span className="font-medium text-padma-night/80 dark:text-padma-cream/85">{line.qty}</span>
-            {line.note && <p className="w-full text-xs text-padma-night/60 dark:text-padma-cream/65">{line.note}</p>}
+            <span className="text-padma-night">{line.item}</span>
+            <span className="font-medium text-padma-night/80">{line.qty}</span>
+            {line.note && <p className="w-full text-xs text-padma-night/60">{line.note}</p>}
           </li>
         ))}
         {retreatSuggestions.map((s) => (
           <li
             key={`retreat-${s}`}
-            className="rounded-lg border border-padma-lavender/25 bg-padma-lavender/8 px-3 py-2 text-sm text-padma-night/85 dark:border-padma-lavender/20 dark:bg-padma-night/40 dark:text-padma-cream/85"
+            className="rounded-lg border border-padma-lavender/25 bg-padma-lavender/8 px-3 py-2 text-sm text-padma-night/85"
           >
             Suggestion retreat : {s}
           </li>

@@ -28,16 +28,16 @@ export function PackageSelector({
             className={cn(
               "flex flex-col rounded-2xl border p-4 text-left transition",
               active
-                ? "border-padma-champagne/70 bg-padma-champagne/15 ring-2 ring-padma-lavender/35 dark:bg-padma-lavender/15"
-                : "border-padma-pearl/35 bg-white/70 hover:border-padma-lavender/45 dark:border-padma-lavender/25 dark:bg-padma-night/50"
+                ? "border-padma-champagne/70 bg-padma-champagne/15 ring-2 ring-padma-lavender/35"
+                : "border-padma-pearl/35 bg-white/70 hover:border-padma-lavender/45"
             )}
           >
-            <span className="font-cinzel text-lg text-padma-night dark:text-padma-cream">{p.days} jours</span>
-            <span className="mt-1 text-xs text-padma-night/60 dark:text-padma-cream/65">{p.label}</span>
-            <span className="mt-3 font-display text-sm text-padma-night/85 dark:text-padma-cream/88">
+            <span className="font-cinzel text-lg text-padma-night">{p.days} jours</span>
+            <span className="mt-1 text-xs text-padma-night/60">{p.label}</span>
+            <span className="mt-3 font-display text-sm text-padma-night/85">
               {p.priceEuro} € <span className="text-xs font-normal text-padma-night/50">/ pers.</span>
             </span>
-            <span className="mt-1 text-[0.65rem] text-padma-pearl dark:text-padma-lavender/85">
+            <span className="mt-1 text-[0.65rem] text-padma-pearl">
               Acompte indicatif {p.depositEuro} € / pers.
             </span>
           </motion.button>

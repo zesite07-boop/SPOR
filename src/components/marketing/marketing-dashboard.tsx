@@ -108,15 +108,15 @@ export function MarketingDashboard() {
   return (
     <div className={cn("pb-24", hyperfocus && "space-y-6")}>
       <header className={cn("mb-8 space-y-4", hyperfocus && "mb-5 space-y-3")}>
-        <p className="font-display text-xs uppercase tracking-[0.22em] text-padma-pearl dark:text-padma-lavender/90">
+        <p className="font-display text-xs uppercase tracking-[0.22em] text-padma-pearl">
           Module 4 · rayonner
         </p>
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
-            <h1 className="font-cinzel text-3xl font-normal tracking-wide text-padma-night dark:text-padma-cream">
+            <h1 className="font-cinzel text-3xl font-normal tracking-wide text-padma-night">
               Studio marketing
             </h1>
-            <p className="mt-2 max-w-prose text-sm text-padma-night/78 dark:text-padma-cream/82">
+            <p className="mt-2 max-w-prose text-sm text-padma-night/78">
               Idees a publier, veille inspirante et generateur hors ligne - pour rayonner avec grace, regularite et clarte.
             </p>
           </div>
@@ -132,8 +132,8 @@ export function MarketingDashboard() {
             className={cn(
               "touch-min rounded-full border px-3 py-1.5 text-xs transition",
               tab === "queue"
-                ? "border-padma-champagne/50 bg-padma-champagne/20 text-padma-night dark:border-[#c9a96e55] dark:bg-[#2f2b21] dark:text-[#f0e2c2]"
-                : "border-padma-champagne/30 bg-white/70 text-padma-night/75 dark:border-[#c9a96e40] dark:bg-[#2a2740] dark:text-[#ece4d8]"
+                ? "border-padma-champagne/50 bg-padma-champagne/20 text-padma-night"
+                : "border-padma-champagne/30 bg-white/70 text-padma-night/75"
             )}
           >
             File d&apos;attente
@@ -144,8 +144,8 @@ export function MarketingDashboard() {
             className={cn(
               "touch-min rounded-full border px-3 py-1.5 text-xs transition",
               tab === "veille"
-                ? "border-padma-champagne/50 bg-padma-champagne/20 text-padma-night dark:border-[#c9a96e55] dark:bg-[#2f2b21] dark:text-[#f0e2c2]"
-                : "border-padma-champagne/30 bg-white/70 text-padma-night/75 dark:border-[#c9a96e40] dark:bg-[#2a2740] dark:text-[#ece4d8]"
+                ? "border-padma-champagne/50 bg-padma-champagne/20 text-padma-night"
+                : "border-padma-champagne/30 bg-white/70 text-padma-night/75"
             )}
           >
             Veille
@@ -154,7 +154,7 @@ export function MarketingDashboard() {
             <button
               type="button"
               onClick={refreshVeille}
-              className="touch-min rounded-full border border-padma-lavender/35 bg-white/75 px-3 py-1.5 text-xs text-padma-night dark:border-[#c9a96e40] dark:bg-[#2a2740] dark:text-[#ece4d8]"
+              className="touch-min rounded-full border border-padma-lavender/35 bg-white/75 px-3 py-1.5 text-xs text-padma-night"
             >
               Recharger themes
             </button>
@@ -168,7 +168,7 @@ export function MarketingDashboard() {
       </section>
 
       <section className={cn("mt-10 space-y-6", hyperfocus && "mt-8 space-y-4")}>
-        <h2 className="font-cinzel text-xl tracking-wide text-padma-night dark:text-padma-cream">Générateur</h2>
+        <h2 className="font-cinzel text-xl tracking-wide text-padma-night">Générateur</h2>
         <div className="grid gap-6 lg:grid-cols-2">
           <GeneratorForm
             format={format}
@@ -183,7 +183,7 @@ export function MarketingDashboard() {
         </div>
       </section>
 
-      <p className="mt-8 text-center text-[0.65rem] text-padma-night/52 dark:text-[#d9d1c5]">
+      <p className="mt-8 text-center text-[0.65rem] text-padma-night/52">
         IA cloud optionnelle plus tard · ici, creation locale bienveillante et souveraine.
       </p>
     </div>

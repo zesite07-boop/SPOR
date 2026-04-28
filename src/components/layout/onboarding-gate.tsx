@@ -68,14 +68,14 @@ export function OnboardingGate({ children }: { children: React.ReactNode }) {
           <div className="pointer-events-none absolute inset-0 opacity-20">
             <div className="absolute left-1/2 top-1/2 h-[24rem] w-[24rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-padma-lavender/30 blur-3xl" />
           </div>
-          <div className="relative w-full max-w-md rounded-[1.75rem] border border-padma-champagne/35 bg-white/82 p-7 shadow-soft backdrop-blur-md dark:border-padma-lavender/25 dark:bg-padma-night/55">
+          <div className="relative w-full max-w-md rounded-[1.75rem] border border-padma-champagne/35 bg-white/82 p-7 shadow-soft backdrop-blur-md">
             <div className="mb-4 flex justify-center">
               <Image src="/serey_padma_lotus.png" alt="Lotus Serey Padma" width={120} height={120} className="h-24 w-auto object-contain" />
             </div>
             {step === 0 && (
               <div className="space-y-4 text-center">
-                <h2 className="font-cinzel text-2xl text-padma-night dark:text-padma-cream">Bienvenue dans ton sanctuaire</h2>
-                <p className="text-sm text-padma-night/72 dark:text-padma-cream/78">Serey Padma by Céline · Reiki · Oracle · Retreats</p>
+                <h2 className="font-cinzel text-2xl text-padma-night">Bienvenue dans ton sanctuaire</h2>
+                <p className="text-sm text-padma-night/72">Serey Padma by Céline · Reiki · Oracle · Retreats</p>
                 <Button type="button" variant="oracle" className="w-full rounded-2xl font-cinzel" onClick={() => setStep(1)}>
                   Commencer
                 </Button>
@@ -83,12 +83,12 @@ export function OnboardingGate({ children }: { children: React.ReactNode }) {
             )}
             {step === 1 && (
               <div className="space-y-4">
-                <h2 className="text-center font-cinzel text-xl text-padma-night dark:text-padma-cream">Quel est ton prenom ?</h2>
+                <h2 className="text-center font-cinzel text-xl text-padma-night">Quel est ton prenom ?</h2>
                 <input
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Ton prenom"
-                  className="w-full rounded-xl border border-padma-champagne/40 bg-white/90 px-3 py-2.5 text-sm text-padma-night dark:border-padma-lavender/35 dark:bg-padma-night/60 dark:text-padma-cream"
+                  className="w-full rounded-xl border border-padma-champagne/40 bg-white/90 px-3 py-2.5 text-sm text-padma-night"
                 />
                 <Button type="button" variant="oracle" className="w-full rounded-2xl font-cinzel" onClick={() => setStep(2)}>
                   Continuer
@@ -97,12 +97,12 @@ export function OnboardingGate({ children }: { children: React.ReactNode }) {
             )}
             {step === 2 && (
               <div className="space-y-4">
-                <h2 className="text-center font-cinzel text-xl text-padma-night dark:text-padma-cream">Quelle est ta date de naissance ?</h2>
+                <h2 className="text-center font-cinzel text-xl text-padma-night">Quelle est ta date de naissance ?</h2>
                 <input
                   type="date"
                   value={birthDate}
                   onChange={(e) => setBirthDate(e.target.value)}
-                  className="w-full rounded-xl border border-padma-champagne/40 bg-white/90 px-3 py-2.5 text-sm text-padma-night dark:border-padma-lavender/35 dark:bg-padma-night/60 dark:text-padma-cream"
+                  className="w-full rounded-xl border border-padma-champagne/40 bg-white/90 px-3 py-2.5 text-sm text-padma-night"
                 />
                 <Button type="button" variant="oracle" className="w-full rounded-2xl font-cinzel" onClick={() => setStep(3)}>
                   Continuer
@@ -111,8 +111,8 @@ export function OnboardingGate({ children }: { children: React.ReactNode }) {
             )}
             {step === 3 && (
               <div className="space-y-4">
-                <h2 className="text-center font-cinzel text-xl text-padma-night dark:text-padma-cream">Activer les rappels locaux ?</h2>
-                <p className="text-center text-sm text-padma-night/70 dark:text-padma-cream/75">
+                <h2 className="text-center font-cinzel text-xl text-padma-night">Activer les rappels locaux ?</h2>
+                <p className="text-center text-sm text-padma-night/70">
                   Recois les rappels J-7, soldes et suivis post-retraite, meme hors ligne.
                 </p>
                 <Button

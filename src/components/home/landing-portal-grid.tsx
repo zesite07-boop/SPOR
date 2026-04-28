@@ -85,13 +85,13 @@ export function LandingPortalGrid({ hyperfocus }: { hyperfocus?: boolean }) {
   return (
     <section className={cn("space-y-5", hyperfocus && "space-y-4")}>
       <div className="text-center">
-        <p className="font-display text-[0.65rem] uppercase tracking-[0.26em] text-padma-pearl dark:text-padma-lavender/85">
+        <p className="font-display text-[0.65rem] uppercase tracking-[0.26em] text-padma-pearl">
           Portail
         </p>
-        <h2 className="mt-2 font-cinzel text-xl tracking-wide text-padma-night dark:text-padma-cream">
+        <h2 className="mt-2 font-cinzel text-xl tracking-wide text-padma-night">
           Six branches, une même intention
         </h2>
-        <p className="mx-auto mt-2 max-w-md text-sm text-padma-night/72 dark:text-padma-cream/76">
+        <p className="mx-auto mt-2 max-w-md text-sm text-padma-night/72">
           Touche ce qui t’appelle — tout reste sur ton téléphone jusqu’à ce que tu choisisses le nuage.
         </p>
       </div>
@@ -109,15 +109,15 @@ export function LandingPortalGrid({ hyperfocus }: { hyperfocus?: boolean }) {
               className={cn(
                 "padma-card group flex min-h-[88px] touch-manipulation items-start gap-3 p-4 transition-all duration-300 active:scale-[0.99]",
                 m.highlight &&
-                  "border-padma-lavender/35 bg-gradient-to-br from-white/95 to-padma-lavender/12 dark:from-padma-night/55 dark:to-padma-lavender/12"
+                  "border-padma-lavender/35 bg-gradient-to-br from-white/95 to-padma-lavender/12"
               )}
             >
-              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-padma-champagne/18 text-padma-night transition-colors group-hover:bg-padma-champagne/28 dark:bg-padma-lavender/18 dark:text-padma-cream dark:group-hover:bg-padma-lavender/28">
+              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-padma-champagne/18 text-padma-night transition-colors group-hover:bg-padma-champagne/28">
                 <m.Icon className="h-5 w-5" aria-hidden />
               </span>
               <span className="min-w-0 text-left">
-                <span className="font-cinzel text-sm tracking-wide text-padma-night dark:text-padma-cream">{m.label}</span>
-                <span className="mt-1 block text-[0.8rem] leading-snug text-padma-night/68 dark:text-padma-cream/72">
+                <span className="font-cinzel text-sm tracking-wide text-padma-night">{m.label}</span>
+                <span className="mt-1 block text-[0.8rem] leading-snug text-padma-night/68">
                   {m.line}
                 </span>
               </span>
@@ -125,7 +125,7 @@ export function LandingPortalGrid({ hyperfocus }: { hyperfocus?: boolean }) {
           </motion.li>
         ))}
       </ul>
-      <p className="text-center text-[0.7rem] text-padma-night/48 dark:text-padma-cream/52">
+      <p className="text-center text-[0.7rem] text-padma-night/48">
         Réservations vitrine :{" "}
         <Link href="/reservation" className="underline decoration-padma-champagne/50 underline-offset-4 hover:text-padma-lavender">
           découvrir les retraites
