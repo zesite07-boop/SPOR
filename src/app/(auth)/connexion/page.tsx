@@ -8,10 +8,11 @@ import { BrandMark } from "@/components/layout/brand-mark";
  * Design : or rose champagne, lavande, bleu nacré, crème ; titres Cinzel / corps Playfair via `font-display`.
  */
 export default function ConnexionPage() {
-  const allowedEmails = (process.env.ALLOWED_EMAILS ?? "")
-    .split(",")
-    .map((s) => s.trim())
-    .filter(Boolean);
+  const allowedEmails =
+    process.env.NEXT_PUBLIC_ALLOWED_EMAILS
+      ?.split(",")
+      .map((s) => s.trim())
+      .filter(Boolean) ?? [];
 
   return (
     <div className="padma-aura-bg flex min-h-dvh flex-col items-center justify-center px-4 py-14">
