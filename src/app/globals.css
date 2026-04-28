@@ -13,11 +13,11 @@
   }
 
   .dark {
-    --background: 35 48 58;
-    --foreground: 248 244 237;
-    --muted: 232 180 188;
-    --accent: 212 175 136;
-    --card: 44 62 80;
+    --background: 15 14 26;
+    --foreground: 245 240 232;
+    --muted: 155 142 196;
+    --accent: 201 169 110;
+    --card: 26 24 40;
   }
 
   html {
@@ -87,7 +87,7 @@
   }
 
   .dark .padma-aura-bg {
-    background-color: #232d38;
+    background-color: #0f0e1a;
     background-image:
       radial-gradient(ellipse 120% 80% at 50% -20%, rgba(232, 196, 168, 0.12) 0%, transparent 55%),
       radial-gradient(circle at 15% 40%, rgba(197, 180, 212, 0.08) 0%, transparent 45%),
@@ -102,11 +102,11 @@
 
   /** Cartes Padma — fond verre & bordure champagne */
   .padma-card {
-    @apply rounded-2xl border border-padma-champagne/20 bg-white/75 shadow-soft backdrop-blur-sm dark:border-padma-lavender/20 dark:bg-padma-night/45;
+    @apply rounded-2xl border border-padma-champagne/20 bg-white/75 shadow-soft backdrop-blur-sm dark:border-[#c9a96e33] dark:bg-[#1a1828];
   }
 
   .padma-card-quiet {
-    @apply rounded-2xl border border-padma-champagne/15 bg-white/60 dark:border-padma-lavender/20 dark:bg-padma-night/40;
+    @apply rounded-2xl border border-padma-champagne/15 bg-white/60 dark:border-[#c9a96e2e] dark:bg-[#1a1828];
   }
 
   /** Cibles tactiles recommandées (WCAG 2.5.5) */

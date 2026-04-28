@@ -22,6 +22,8 @@ function todayId(): string {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 }
 
+type LegacyAudioWindow = Window & { webkitAudioContext?: typeof AudioContext };
+
 export function DailyOracleDraw() {
   const hyperfocus = useUiStore((s) => s.hyperfocus);
   const celebrate = useUiStore((s) => s.celebrate);
@@ -29,6 +31,8 @@ export function DailyOracleDraw() {
   const [text, setText] = useState("");
   const [history, setHistory] = useState<OracleDayDraw[]>([]);
   const [loading, setLoading] = useState(true);
+  const [mixing, setMixing] = useState(false);
+  const [revealedCount, setRevealedCount] = useState(3);
 
   const refreshHistory = useCallback(async () => {
     const h = await loadOracleHistory(7);
@@ -72,6 +76,33 @@ export function DailyOracleDraw() {
     const now = new Date();
     const drawn = drawThreeCards();
     const interp = buildOracleInterpretation(now, drawn);
+    setMixing(true);
+    setRevealedCount(0);
+    await new Promise((r) => setTimeout(r, 2000));
+    setMixing(false);
+    for (let i = 1; i <= 3; i++) {
+      setRevealedCount(i);
+      await new Promise((r) => setTimeout(r, 800));
+    }
+    try {
+      const AudioCtx = window.AudioContext ?? (window as LegacyAudioWindow).webkitAudioContext;
+      if (AudioCtx) {
+        const ctx = new AudioCtx();
+        const o = ctx.createOscillator();
+        const g = ctx.createGain();
+        o.type = "sine";
+        o.frequency.value = 950;
+        o.connect(g);
+        g.connect(ctx.destination);
+        g.gain.setValueAtTime(0.0001, ctx.currentTime);
+        g.gain.exponentialRampToValueAtTime(0.08, ctx.currentTime + 0.02);
+        g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.35);
+        o.start();
+        o.stop(ctx.currentTime + 0.36);
+      }
+    } catch {
+      // no audio
+    }
     setCards(drawn);
     setText(interp);
     celebrate("Le tirage s'ouvre avec douceur ✦");
@@ -114,6 +145,23 @@ export function DailyOracleDraw() {
           )}
 
           <AnimatePresence mode="wait">
+            {mixing && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="mx-auto grid max-w-sm grid-cols-3 gap-3"
+              >
+                {[0, 1, 2].map((i) => (
+                  <motion.div
+                    key={`mix-${i}`}
+                    className="h-28 rounded-2xl border border-padma-champagne/40 bg-gradient-to-br from-padma-lavender/30 to-padma-pearl/20"
+                    animate={{ y: [0, -8, 0], rotate: [-2, 2, -2] }}
+                    transition={{ duration: 1.2, repeat: Infinity, delay: i * 0.14 }}
+                  />
+                ))}
+              </motion.div>
+            )}
             {!loading && cards && (
               <motion.div
                 key={cards.join("-")}
@@ -123,21 +171,30 @@ export function DailyOracleDraw() {
                 transition={{ duration: 0.35 }}
                 className="grid gap-3 sm:grid-cols-3"
               >
-                {rows.map(({ label, card }, i) => (
+                {rows.map(({ label, card }, i) =>
+                  i < revealedCount ? (
                   <motion.div
                     key={`${card.id}-${label}`}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: i * 0.08 }}
-                    className="flex flex-col rounded-2xl border border-padma-champagne/40 bg-gradient-to-b from-padma-cream/95 to-padma-lavender/10 p-4 text-center dark:border-padma-lavender/30 dark:from-padma-night/80 dark:to-padma-lavender/5"
+                    initial={{ opacity: 0, y: 20, rotateY: 90 }}
+                    animate={{ opacity: 1, y: 0, rotateY: 0 }}
+                    transition={{ delay: i * 0.1, duration: 0.55 }}
+                    className="relative flex flex-col rounded-2xl border border-padma-champagne/40 bg-gradient-to-b from-padma-cream/95 to-padma-lavender/10 p-4 text-center dark:border-padma-lavender/30 dark:from-padma-night/80 dark:to-padma-lavender/5"
                   >
+                    <motion.div
+                      className="pointer-events-none absolute -inset-2 rounded-2xl bg-[radial-gradient(circle,rgba(201,169,110,0.22)_0%,transparent_68%)]"
+                      animate={{ opacity: [0.25, 0.65, 0.25] }}
+                      transition={{ duration: 1.8, repeat: Infinity }}
+                    />
                     <span className="font-display text-[0.65rem] uppercase tracking-[0.18em] text-padma-pearl dark:text-padma-lavender/90">
                       {label}
                     </span>
                     <span className="mt-3 font-cinzel text-lg text-padma-night dark:text-padma-cream">{card.name}</span>
                     <span className="mt-2 text-xs leading-relaxed text-padma-night/70 dark:text-padma-cream/75">{card.keyword}</span>
                   </motion.div>
-                ))}
+                  ) : (
+                    <div key={`back-${label}-${i}`} className="h-[128px] rounded-2xl border border-padma-lavender/25 bg-[#11182f]" />
+                  )
+                )}
               </motion.div>
             )}
           </AnimatePresence>

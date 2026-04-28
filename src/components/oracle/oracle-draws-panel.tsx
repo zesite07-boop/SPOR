@@ -170,7 +170,7 @@ export function OracleDrawsPanel({
       </div>
 
       {tab === "chakra" && (
-        <motion.section initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-4">
+        <motion.section initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-4">
           <p className="text-sm leading-relaxed text-padma-night/75 dark:text-padma-cream/78">
             Sept centres ou focus Corps · Coeur · Esprit : une lecture stable, sans remise, pour apaiser et orienter ta journee.
           </p>
@@ -201,7 +201,7 @@ export function OracleDrawsPanel({
       )}
 
       {tab === "life" && (
-        <motion.section initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-4">
+        <motion.section initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-4">
           <p className="text-sm leading-relaxed text-padma-night/75 dark:text-padma-cream/78">
             Numerologie du chemin de vie et trois temps du tarot : une lecture intime, elegante et professionnalisante.
           </p>
@@ -212,7 +212,7 @@ export function OracleDrawsPanel({
       )}
 
       {tab === "monthly" && (
-        <motion.section initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-4">
+        <motion.section initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-4">
           <p className="text-sm text-padma-night/75 dark:text-padma-cream/78">
             Quatre cartes pour le mois en cours : <span className="italic">{monthLabel}</span>, pour avancer avec calme et precision.
           </p>
@@ -223,7 +223,7 @@ export function OracleDrawsPanel({
       )}
 
       {tab === "retreat" && (
-        <motion.section initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-4">
+        <motion.section initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-4">
           <p className="text-sm text-padma-night/75 dark:text-padma-cream/78">
             Cinq portes pour preparer ou integrer une retraite : intention, corps, relation, ame, ancrage.
           </p>
@@ -234,7 +234,7 @@ export function OracleDrawsPanel({
       )}
 
       {tab === "free" && (
-        <motion.section initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-4">
+        <motion.section initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-4">
           <label className="block text-xs font-medium uppercase tracking-wide text-padma-night/55 dark:text-padma-cream/55">
             Nombre de cartes (1 à 7)
           </label>
@@ -261,7 +261,17 @@ export function OracleDrawsPanel({
       )}
 
       {lastCards && lastCards.length > 0 && (
-        <div
+        <motion.div
+          initial="hidden"
+          animate="show"
+          variants={{
+            hidden: {},
+            show: {
+              transition: {
+                staggerChildren: 0.1,
+              },
+            },
+          }}
           className={cn(
             "grid gap-3",
             lastCards.length <= 3 ? "sm:grid-cols-3" : "sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
@@ -270,7 +280,7 @@ export function OracleDrawsPanel({
           {lastCards.map((c, i) => (
             <OracleCardTarot key={`${c.id}-${i}`} cardId={c.id} positionLabel={c.label} index={i} compact={lastCards.length > 4} />
           ))}
-        </div>
+        </motion.div>
       )}
 
       {lastText && <OracleInterpretationBlock text={lastText} />}

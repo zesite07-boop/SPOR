@@ -2,11 +2,13 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { LogOut, Sparkles } from "lucide-react";
+import { LogOut, Moon, Sparkles, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { createBrowserSupabaseClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
+import { useTheme } from "next-themes";
 import { BrandMark } from "@/components/layout/brand-mark";
+import { db } from "@/lib/db/schema";
 
 type AuthChromeProps = {
   /** `true` si les clés Supabase publiques sont présentes (auth cloud possible). */
@@ -21,6 +23,7 @@ type AuthChromeProps = {
  */
 export function AuthChrome({ cloudAuthAvailable, sessionEmail }: AuthChromeProps) {
   const router = useRouter();
+  const { theme, setTheme } = useTheme();
   const showDemoBadge = process.env.NEXT_PUBLIC_SHOW_DEMO_BADGE !== "false";
   const [welcomeMessage, setWelcomeMessage] = useState<string | null>(null);
 
@@ -34,11 +37,39 @@ export function AuthChrome({ cloudAuthAvailable, sessionEmail }: AuthChromeProps
     window.localStorage.setItem(key, "1");
   }, [sessionEmail]);
 
+  useEffect(() => {
+    let cancelled = false;
+    void (async () => {
+      if (!db) return;
+      const row = await db.events.get("theme-pref");
+      const preferred = row?.cosmicNote;
+      if (!cancelled && (preferred === "light" || preferred === "dark")) {
+        setTheme(preferred);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [setTheme]);
+
   async function signOut() {
     const client = createBrowserSupabaseClient();
     if (client) await client.auth.signOut();
     router.push("/connexion");
     router.refresh();
+  }
+
+  async function toggleTheme() {
+    const next = theme === "dark" ? "light" : "dark";
+    setTheme(next);
+    if (!db) return;
+    await db.events.put({
+      id: "theme-pref",
+      title: "Theme preference",
+      cosmicNote: next,
+      startAt: Date.now(),
+      updatedAt: Date.now(),
+    });
   }
 
   return (
@@ -72,6 +103,9 @@ export function AuthChrome({ cloudAuthAvailable, sessionEmail }: AuthChromeProps
           )}
         </div>
         <div className="flex shrink-0 items-center gap-2">
+          <Button type="button" variant="ghost" size="sm" className="h-8 w-8 rounded-full p-0" onClick={() => void toggleTheme()}>
+            {theme === "dark" ? <Sun className="h-4 w-4" aria-hidden /> : <Moon className="h-4 w-4" aria-hidden />}
+          </Button>
           {!cloudAuthAvailable && (
             <Link
               href="/connexion"

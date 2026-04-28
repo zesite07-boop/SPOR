@@ -20,17 +20,22 @@ export default function LandingPage() {
   return (
     <main className="padma-aura-bg min-h-dvh px-4 py-12 md:py-16">
       <div className="mx-auto max-w-5xl space-y-16">
-        <section className="relative overflow-hidden rounded-[2rem] border border-padma-champagne/28 bg-white/70 p-7 shadow-soft backdrop-blur-md dark:border-padma-lavender/20 dark:bg-padma-night/50 md:p-10">
+        <section className="relative flex min-h-[82vh] flex-col justify-center overflow-hidden rounded-[2rem] border border-padma-champagne/28 bg-white/70 p-7 shadow-soft backdrop-blur-md dark:border-padma-lavender/20 dark:bg-padma-night/50 md:p-10">
           <div className="pointer-events-none absolute -right-12 -top-16 h-64 w-64 rounded-full bg-padma-champagne/16 blur-2xl" />
           <div className="pointer-events-none absolute -bottom-16 -left-12 h-64 w-64 rounded-full bg-padma-lavender/18 blur-2xl" />
+          <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-15" aria-hidden>
+            <svg viewBox="0 0 240 240" className="h-[70%] w-[70%] animate-[spin_70s_linear_infinite]">
+              <path d="M120 34c14 24 14 42 0 66-14-24-14-42 0-66Zm0 172c-14-24-14-42 0-66 14 24 14 42 0 66Zm86-86c-24 14-42 14-66 0 24-14 42-14 66 0Zm-172 0c24-14 42-14 66 0-24 14-42 14-66 0Zm141-61c-4 26-15 41-38 54 4-26 15-41 38-54Zm-110 0c23 13 34 28 38 54-23-13-34-28-38-54Zm110 122c-23-13-34-28-38-54 23 13 34 28 38 54Zm-110 0c4-26 15-41 38-54-4 26-15 41-38 54Z" fill="#c9a96e" />
+            </svg>
+          </div>
           <div className="relative z-10">
             <BrandMark />
           </div>
-          <h1 className="relative z-10 mt-4 max-w-3xl font-cinzel text-4xl leading-tight text-padma-night dark:text-padma-cream md:text-6xl">
-            Un lotus digital pour rayonner, accueillir et guider avec une elegance sereine.
+          <h1 className="relative z-10 mt-4 max-w-3xl font-cinzel text-5xl leading-tight text-padma-night dark:text-padma-cream md:text-7xl">
+            Serey Padma by Céline
           </h1>
           <p className="relative z-10 mt-5 max-w-2xl text-lg leading-relaxed text-padma-night/78 dark:text-padma-cream/82">
-            Serey Padma by Celine unit elegance, organisation et spiritualite concrete : tu accueilles, tu guides, tu rayonnes, avec fluidite.
+            Un lotus digital pour rayonner, accueillir et guider avec une elegance sereine.
           </p>
           <div className="relative z-10 mt-8 flex flex-wrap gap-3">
             <Link
@@ -59,6 +64,7 @@ export default function LandingPage() {
         </section>
 
         <section className="grid gap-4 md:grid-cols-3">
+          <h2 className="md:col-span-3 font-cinzel text-3xl text-padma-night dark:text-padma-cream">Ce que tu vas vivre</h2>
           <article className="padma-card p-5">
             <MoonStar className="h-5 w-5 text-padma-champagne" aria-hidden />
             <h2 className="mt-3 font-cinzel text-lg text-padma-night dark:text-padma-cream">Rythme lunaire</h2>
