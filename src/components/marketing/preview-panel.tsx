@@ -66,7 +66,7 @@ export function PreviewPanel({
                 {generated.hashtags.map((t) => (
                   <span
                     key={t}
-                    className="rounded-full bg-padma-lavender/15 px-2.5 py-0.5 text-xs text-padma-night/85 dark:bg-padma-lavender/20 dark:text-padma-cream/88"
+                    className="max-w-full whitespace-normal break-words rounded-full bg-padma-lavender/15 px-2.5 py-1 text-xs leading-tight text-padma-night/85 dark:bg-padma-lavender/20 dark:text-padma-cream/88"
                   >
                     {t}
                   </span>
@@ -109,7 +109,7 @@ export function PreviewPanel({
             <Download className="h-4 w-4" aria-hidden />
             Télécharger image
           </Button>
-          <span className="inline-flex items-center gap-1 rounded-full border border-padma-champagne/25 px-3 py-1 text-[0.65rem] text-padma-night/55 dark:border-padma-lavender/20 dark:text-padma-cream/55">
+          <span className="inline-flex h-auto max-w-full items-center gap-1 whitespace-normal break-words rounded-full border border-padma-champagne/25 px-3 py-1 text-[0.65rem] leading-tight text-padma-night/55 dark:border-padma-lavender/20 dark:text-padma-cream/55">
             <Instagram className="h-3.5 w-3.5" aria-hidden />
             Coller dans l’app
           </span>

@@ -3,7 +3,8 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { CalendarHeart, Printer } from "lucide-react";
+import { CalendarHeart, Download } from "lucide-react";
+import { jsPDF } from "jspdf";
 import type { RetreatDefinition } from "@/lib/reservation/catalog";
 import { countDaysInclusive } from "@/lib/logistics/default-planning";
 import { ensureRetreatLogistics } from "@/lib/logistics/seed-logistics";
@@ -92,8 +93,123 @@ export function LogisticsRetreatDetail({ retreat }: { retreat: RetreatDefinition
     await refresh();
   }
 
-  function handlePrint() {
-    window.print();
+  function downloadPdf() {
+    const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
+    const pageW = doc.internal.pageSize.getWidth();
+    const pageH = doc.internal.pageSize.getHeight();
+    const margin = 14;
+    let y = 18;
+
+    const colors = {
+      champagne: [212, 175, 136] as const,
+      lavender: [197, 180, 212] as const,
+      navy: [44, 62, 80] as const,
+      soft: [248, 244, 237] as const,
+    };
+
+    const drawHeader = () => {
+      doc.setFillColor(...colors.soft);
+      doc.roundedRect(margin, 10, pageW - margin * 2, 24, 2, 2, "F");
+      doc.setDrawColor(...colors.champagne);
+      doc.roundedRect(margin, 10, pageW - margin * 2, 24, 2, 2, "S");
+      doc.setTextColor(...colors.navy);
+      doc.setFont("times", "bold");
+      doc.setFontSize(17);
+      doc.text("Serey Padma", margin + 4, 18);
+      doc.setFontSize(10);
+      doc.setFont("helvetica", "normal");
+      doc.text("Logistique retraite - export premium", margin + 4, 24);
+      doc.setTextColor(...colors.champagne);
+      doc.setFont("helvetica", "bold");
+      doc.text(retreat.title, margin + 4, 30);
+      y = 40;
+    };
+
+    const ensureSpace = (needed = 10) => {
+      if (y + needed < pageH - 16) return;
+      doc.addPage();
+      drawHeader();
+    };
+
+    const writeSectionTitle = (title: string) => {
+      ensureSpace(10);
+      doc.setFillColor(...colors.lavender);
+      doc.roundedRect(margin, y - 5, pageW - margin * 2, 8, 1.5, 1.5, "F");
+      doc.setTextColor(...colors.navy);
+      doc.setFont("times", "bold");
+      doc.setFontSize(12);
+      doc.text(title, margin + 2, y);
+      y += 8;
+    };
+
+    const writeLines = (lines: string[], size = 10) => {
+      doc.setTextColor(...colors.navy);
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(size);
+      for (const line of lines) {
+        const wrapped = doc.splitTextToSize(line, pageW - margin * 2 - 4);
+        for (const w of wrapped) {
+          ensureSpace(6);
+          doc.text(w, margin + 2, y);
+          y += 5;
+        }
+      }
+    };
+
+    drawHeader();
+    writeLines([
+      `Destination: ${retreat.destinationLabel}`,
+      `Statut operationnel: ${meta?.status ?? "preparation"}`,
+      `Participants: ${participants.length}`,
+    ]);
+    y += 2;
+
+    writeSectionTitle("Planning structure");
+    for (const d of dayIndices) {
+      const tasksForDay = (planningByDay.get(d) ?? []).sort((a, b) => a.sortOrder - b.sortOrder);
+      writeLines([dayTitle(retreat.startDate, d)], 10);
+      if (tasksForDay.length === 0) {
+        writeLines(["- Aucune tache planifiee."], 9);
+      } else {
+        writeLines(tasksForDay.map((t) => `- ${t.label}${t.done ? " (fait)" : ""}`), 9);
+      }
+      y += 2;
+    }
+
+    writeSectionTitle("Participantes");
+    if (participants.length === 0) {
+      writeLines(["- Aucune participante enregistree."], 9);
+    } else {
+      writeLines(
+        participants.map(
+          (p) =>
+            `- ${p.name} | chambre: ${p.roomLabel ?? "standard"} | transfert: ${p.transferStatus ?? "non precise"} | allergies: ${p.allergies ?? "aucune"}`
+        ),
+        9
+      );
+    }
+    y += 2;
+
+    const sections: Array<{ label: string; items: LogisticsTask[] }> = [
+      { label: "Materiel Reiki & tenue du lieu", items: checklist("material") },
+      { label: "Transport & acces", items: checklist("transport") },
+      { label: "Courses", items: checklist("groceries") },
+    ];
+
+    for (const s of sections) {
+      writeSectionTitle(s.label);
+      if (s.items.length === 0) writeLines(["- Aucun element."], 9);
+      else writeLines(s.items.map((t) => `- ${t.label}${t.done ? " (ok)" : ""}`), 9);
+      y += 2;
+    }
+
+    doc.setFontSize(8);
+    doc.setTextColor(...colors.champagne);
+    doc.text("Serey Padma - document logistique confidentiel", margin, pageH - 8);
+    doc.text(new Date().toLocaleString("fr-FR"), pageW - margin, pageH - 8, { align: "right" });
+
+    const safeTitle = retreat.title.toLowerCase().replace(/[^a-z0-9]+/gi, "-");
+    doc.save(`serey-padma-logistique-${safeTitle}.pdf`);
   }
 
   return (
@@ -112,9 +228,9 @@ export function LogisticsRetreatDetail({ retreat }: { retreat: RetreatDefinition
               Voir réservations publiques
             </Link>
           </Button>
-          <Button type="button" variant="oracle" size="sm" className="print:hidden ml-auto font-cinzel rounded-full" onClick={handlePrint}>
-            <Printer className="h-4 w-4" aria-hidden />
-            Imprimer / PDF
+          <Button type="button" variant="oracle" size="sm" className="print:hidden ml-auto font-cinzel rounded-full" onClick={downloadPdf}>
+            <Download className="h-4 w-4" aria-hidden />
+            Telecharger PDF
           </Button>
         </div>
         <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>

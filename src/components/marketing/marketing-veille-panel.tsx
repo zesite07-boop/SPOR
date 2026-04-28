@@ -36,7 +36,7 @@ export function MarketingVeillePanel({
             transition={{ delay: i * 0.06 }}
             className="rounded-xl border border-padma-champagne/12 bg-white/60 px-3 py-2.5 dark:border-padma-lavender/12 dark:bg-padma-night/35"
           >
-            <span className="font-display text-[0.6rem] uppercase tracking-[0.2em] text-padma-pearl dark:text-padma-lavender/85">
+            <span className="inline-flex h-auto max-w-full whitespace-normal break-words font-display text-[0.6rem] uppercase tracking-[0.2em] text-padma-pearl dark:text-padma-lavender/85">
               {b.tag}
             </span>
             <p className="mt-1 text-sm leading-relaxed text-padma-night/88 dark:text-padma-cream/88">{b.text}</p>

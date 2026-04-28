@@ -59,13 +59,13 @@ export function GeneratorForm({
               size="sm"
               variant={scenario === s.id ? "oracle" : "ghost"}
               className={cn(
-                "h-auto min-h-[2.75rem] flex-col items-start rounded-xl px-3 py-2 text-left",
+                "h-auto min-h-[2.75rem] w-full flex-col items-start rounded-xl px-3 py-2 text-left",
                 scenario === s.id && "shadow-soft"
               )}
               onClick={() => onScenarioChange(s.id)}
             >
-              <span className="font-cinzel text-xs">{s.label}</span>
-              <span className="mt-0.5 text-[0.65rem] font-normal opacity-85">{s.hint}</span>
+              <span className="w-full whitespace-normal break-words font-cinzel text-xs leading-tight">{s.label}</span>
+              <span className="mt-0.5 w-full whitespace-normal break-words text-[0.65rem] font-normal leading-snug opacity-85">{s.hint}</span>
             </Button>
           ))}
         </div>
