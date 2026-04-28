@@ -3,5 +3,6 @@
   "buildCommand": "npm run build",
   "outputDirectory": ".next",
   "rootDirectory": "/",
-  "framework": "nextjs"
+  "cleanUrls": true,
+  "trailingSlash": false
 }
