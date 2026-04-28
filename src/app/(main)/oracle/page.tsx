@@ -41,7 +41,7 @@ export default function OracleModulePage() {
   ];
 
   return (
-    <div className="pb-12">
+    <div className="pb-24">
       <header className="padma-hero-halo mb-8 space-y-4">
         <Link
           href="/bien-etre"
