@@ -11,6 +11,7 @@ import { OracleDrawsPanel } from "@/components/oracle/oracle-draws-panel";
 import { OracleProfilePanel } from "@/components/oracle/oracle-profile-panel";
 import { OracleHistoryPanel } from "@/components/oracle/oracle-history-panel";
 import { HyperfocusToolbar } from "@/components/layout/hyperfocus-toolbar";
+import { SectionSeparator } from "@/components/ui/section-separator";
 import { cn } from "@/lib/utils";
 
 type OracleTab = "draws" | "profile" | "history";
@@ -41,7 +42,7 @@ export default function OracleModulePage() {
 
   return (
     <div className="pb-12">
-      <header className="mb-8 space-y-4">
+      <header className="padma-hero-halo mb-8 space-y-4">
         <Link
           href="/bien-etre"
           className="inline-flex items-center gap-2 text-xs font-medium text-padma-night/60 transition hover:text-padma-lavender dark:text-padma-cream/60 dark:hover:text-padma-champagne"
@@ -53,7 +54,7 @@ export default function OracleModulePage() {
           <p className="font-display text-xs uppercase tracking-[0.28em] text-padma-pearl dark:text-padma-lavender/90">
             Module Oracle
           </p>
-          <h1 className="mt-2 font-cinzel text-3xl font-normal tracking-[0.06em] text-padma-night dark:text-padma-cream">
+          <h1 className="page-title mt-2 font-cinzel font-normal tracking-[0.08em] text-padma-night dark:text-padma-cream">
             Sanctuaire des tirages
           </h1>
           <p className="mt-3 max-w-prose text-sm leading-relaxed text-padma-night/78 dark:text-padma-cream/82">
@@ -63,6 +64,8 @@ export default function OracleModulePage() {
         </motion.div>
         <HyperfocusToolbar />
       </header>
+
+      <SectionSeparator className="mb-6" />
 
       <div className="mb-8 flex flex-wrap gap-2 border-b border-padma-champagne/25 pb-4 dark:border-padma-lavender/20">
         {mainTabs.map(({ id, label, Icon }) => (

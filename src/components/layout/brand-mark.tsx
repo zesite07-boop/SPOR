@@ -11,7 +11,7 @@ export function BrandMark({ compact, className }: { compact?: boolean; className
         alt="Serey Padma by Céline"
         width={48}
         height={48}
-        className="h-12 w-auto rounded-xl object-contain"
+        className={cn("w-auto rounded-xl object-contain", compact ? "h-11" : "h-12")}
         priority={compact}
       />
       <div className="min-w-0">

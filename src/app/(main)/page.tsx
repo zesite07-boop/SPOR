@@ -9,6 +9,7 @@ import { CosmicCalendarSection } from "@/components/home/cosmic-calendar-section
 import { DailyEnergySection } from "@/components/home/daily-energy-section";
 import { DailyOracleDraw } from "@/components/home/daily-oracle-draw";
 import { TonightDashboard } from "@/components/home/tonight-dashboard";
+import { SectionSeparator } from "@/components/ui/section-separator";
 import { loadLocalProfile } from "@/lib/db/profile-local";
 import { useUiStore } from "@/stores/ui-store";
 import { useEffect, useState } from "react";
@@ -30,7 +31,7 @@ export default function AccueilPage() {
 
   return (
     <>
-      <header className="mb-10 space-y-5">
+      <header className="padma-hero-halo mb-10 space-y-5">
         <motion.p
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
@@ -43,7 +44,7 @@ export default function AccueilPage() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.45, delay: 0.05 }}
-          className="font-cinzel text-3xl font-normal tracking-[0.08em] text-padma-night dark:text-padma-cream sm:text-4xl"
+          className="page-title font-cinzel font-normal tracking-[0.08em] text-padma-night dark:text-padma-cream"
         >
           Serey Padma by Céline
         </motion.h1>
@@ -90,9 +91,13 @@ export default function AccueilPage() {
       <LandingPortalGrid hyperfocus={hyperfocus} />
 
       <div className="mt-14 flex flex-col gap-12 pb-12">
+        <SectionSeparator />
         <CosmicCalendarSection />
+        <SectionSeparator />
         <TonightDashboard />
+        <SectionSeparator />
         <DailyOracleDraw />
+        <SectionSeparator />
         <DailyEnergySection />
       </div>
     </>

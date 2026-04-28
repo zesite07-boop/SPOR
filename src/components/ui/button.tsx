@@ -9,12 +9,12 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-gradient-to-r from-oasis-reiki to-oasis-reiki/85 text-white shadow-soft hover:shadow-glow hover:-translate-y-0.5",
+          "bg-gradient-to-r from-[#c9a96e] to-[#c5b4d4] text-padma-night shadow-soft hover:shadow-glow hover:-translate-y-0.5",
         secondary:
           "bg-oasis-cream dark:bg-oasis-night/80 text-oasis-night dark:text-oasis-cream border border-oasis-champagne/40 hover:-translate-y-0.5",
         ghost: "hover:bg-oasis-lavender/25 dark:hover:bg-oasis-lavender/15 text-oasis-night dark:text-oasis-cream",
         oracle:
-          "bg-gradient-to-r from-oasis-champagne via-oasis-lavender to-oasis-rose text-oasis-night shadow-soft hover:shadow-glow hover:-translate-y-0.5",
+          "bg-gradient-to-r from-[#c9a96e] via-oasis-lavender to-[#d8bfd8] text-oasis-night shadow-soft hover:shadow-glow hover:-translate-y-0.5",
       },
       size: {
         default: "h-11 px-6 py-2",

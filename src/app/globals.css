@@ -25,8 +25,44 @@
   }
 
   body {
-    @apply min-h-dvh bg-oasis-cream font-sans text-base leading-[1.7] text-oasis-night antialiased dark:bg-[hsl(var(--background))] dark:text-oasis-cream;
+    @apply min-h-dvh font-sans text-base leading-[1.7] text-oasis-night antialiased dark:bg-[hsl(var(--background))] dark:text-oasis-cream;
+    background:
+      radial-gradient(circle at 12% 8%, rgba(201, 169, 110, 0.08) 0%, transparent 38%),
+      linear-gradient(180deg, #faf8f5 0%, #f5f0e8 100%);
     -webkit-tap-highlight-color: rgba(212, 175, 136, 0.22);
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+    opacity: 0.04;
+    background-image:
+      radial-gradient(circle at 22% 18%, rgba(201, 169, 110, 0.7) 0%, transparent 26%),
+      radial-gradient(circle at 78% 72%, rgba(197, 180, 212, 0.6) 0%, transparent 24%),
+      repeating-linear-gradient(25deg, rgba(255, 255, 255, 0.45) 0px, rgba(255, 255, 255, 0.45) 2px, transparent 2px, transparent 14px);
+  }
+
+  h1,
+  .page-title {
+    font-size: clamp(2.5rem, 6vw, 3rem);
+    letter-spacing: 0.08em;
+    line-height: 1.25;
+  }
+
+  h2,
+  .page-subtitle {
+    font-size: clamp(1.55rem, 4.2vw, 2rem);
+    letter-spacing: 0.05em;
+    line-height: 1.35;
+  }
+
+  h3 {
+    font-size: clamp(1.2rem, 3.3vw, 1.4rem);
+    letter-spacing: 0.03em;
+    line-height: 1.4;
   }
 
   /* Mandala décoratif très léger — SVG en fond */
@@ -81,6 +117,51 @@
 
   .padma-fade-up {
     animation: padma-fade-up 420ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .padma-hero-halo {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .padma-hero-halo::before {
+    content: "";
+    position: absolute;
+    inset: -0.8rem -1rem auto;
+    height: 13rem;
+    z-index: -1;
+    pointer-events: none;
+    background: radial-gradient(circle at 50% 20%, rgba(201, 169, 110, 0.18) 0%, rgba(201, 169, 110, 0.08) 38%, transparent 76%);
+    filter: blur(12px);
+  }
+
+  .padma-section-separator {
+    position: relative;
+    height: 22px;
+  }
+
+  .padma-section-separator::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(201, 169, 110, 0.3) 18%, rgba(201, 169, 110, 0.3) 82%, transparent 100%);
+  }
+
+  .padma-section-separator::after {
+    content: "✦";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: rgba(201, 169, 110, 0.72);
+    font-size: 0.8rem;
+    background: #faf8f5;
+    padding: 0 7px;
+    border-radius: 999px;
   }
 }
 

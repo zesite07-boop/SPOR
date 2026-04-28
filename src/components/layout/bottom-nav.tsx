@@ -15,7 +15,7 @@ export function BottomNav() {
   return (
     <nav
       className={cn(
-        "fixed inset-x-0 bottom-0 z-50 mx-auto max-w-lg rounded-t-3xl border border-oasis-champagne/25 bg-white/90 pb-safe shadow-soft backdrop-blur-xl dark:border-oasis-lavender/20 dark:bg-oasis-night/92 print:hidden",
+        "fixed inset-x-0 bottom-0 z-50 mx-auto max-w-lg rounded-t-3xl border border-oasis-champagne/20 border-t-[1.5px] border-t-[#c9a96e66] bg-[#fbf9f6]/95 pb-safe shadow-[0_-8px_24px_rgba(44,62,80,0.12)] backdrop-blur-xl dark:border-oasis-lavender/20 dark:bg-oasis-night/92 print:hidden",
         "safe-area-pb"
       )}
       aria-label="Navigation principale Serey Padma by Celine"
@@ -37,8 +37,8 @@ export function BottomNav() {
                 className={cn(
                   "touch-min relative flex touch-manipulation flex-col items-center justify-center gap-0.5 rounded-xl px-1 py-2 text-[10px] font-medium tracking-wide transition-all duration-300 active:scale-[0.97] sm:text-[11px]",
                   active
-                    ? "text-oasis-reiki dark:text-oasis-champagne"
-                    : "text-oasis-night/55 hover:text-oasis-night dark:text-oasis-cream/55 dark:hover:text-oasis-cream"
+                    ? "text-[#c9a96e] dark:text-[#c9a96e]"
+                    : "text-[#7f7b77] hover:text-oasis-night dark:text-oasis-cream/55 dark:hover:text-oasis-cream"
                 )}
                 title={`Aller vers ${label} (Alt+${shortLabel})`}
               >
