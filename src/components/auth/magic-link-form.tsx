@@ -1,11 +1,19 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { Mail, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { createBrowserSupabaseClient } from "@/lib/supabase/client";
-import { isAllowedAdminEmail, startAdminSession, verifyTwoFactorCode } from "@/lib/security/twofa";
+import {
+  generateTwoFactorSetup,
+  getTwoFactorConfig,
+  isAllowedAdminEmail,
+  saveTwoFactorConfig,
+  startAdminSession,
+  verifyTwoFactorCode,
+} from "@/lib/security/twofa";
 
 function safeInternalPath(next: string | null): string {
   if (!next || !next.startsWith("/") || next.startsWith("//")) return "/";
@@ -25,6 +33,11 @@ export function MagicLinkForm({ allowedEmails = [] }: { allowedEmails?: string[]
   const [feedback, setFeedback] = useState<{ kind: "ok" | "err"; text: string } | null>(null);
   const [adminEmail, setAdminEmail] = useState<string | null>(null);
   const [totpCode, setTotpCode] = useState("");
+  const [twofaConfigured, setTwofaConfigured] = useState<boolean | null>(null);
+  const [showSetup, setShowSetup] = useState(false);
+  const [setupSecret, setSetupSecret] = useState("");
+  const [setupQr, setSetupQr] = useState("");
+  const [setupCode, setSetupCode] = useState("");
 
   const supabaseConfigured = useMemo(() => {
     return !!(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
@@ -61,6 +74,8 @@ export function MagicLinkForm({ allowedEmails = [] }: { allowedEmails?: string[]
 
     if (isAllowedAdminEmail(trimmed, allowedEmails)) {
       setAdminEmail(trimmed);
+      const cfg = await getTwoFactorConfig();
+      setTwofaConfigured(!!cfg?.enabled);
       setFeedback(null);
       return;
     }
@@ -150,6 +165,72 @@ export function MagicLinkForm({ allowedEmails = [] }: { allowedEmails?: string[]
           <p className="text-xs text-padma-night/55 dark:text-padma-cream/60">
             Modules réservés — entrez votre code d&apos;authentification.
           </p>
+          {twofaConfigured === false && (
+            <div className="rounded-xl border border-padma-champagne/35 bg-padma-cream/45 p-3 text-xs text-padma-night/72 dark:border-padma-lavender/30 dark:bg-padma-night/45 dark:text-padma-cream/78">
+              <p>Première connexion ? Configurez votre authentificateur.</p>
+              <button
+                type="button"
+                className="mt-1 underline decoration-padma-champagne/60 underline-offset-4"
+                onClick={() =>
+                  void (async () => {
+                    const setup = await generateTwoFactorSetup(adminEmail);
+                    setSetupSecret(setup.secret);
+                    setSetupQr(setup.qrDataUrl);
+                    setShowSetup(true);
+                  })()
+                }
+              >
+                Configurer la sécurité
+              </button>
+            </div>
+          )}
+          {showSetup && (
+            <div className="space-y-2 rounded-xl border border-padma-lavender/35 bg-white/75 p-3 dark:border-padma-lavender/30 dark:bg-padma-night/45">
+              <p className="text-xs text-padma-night/72 dark:text-padma-cream/78">
+                Scannez ce QR code avec Google Authenticator ou Microsoft Authenticator.
+              </p>
+              {setupQr && (
+                <Image
+                  src={setupQr}
+                  alt="QR setup 2FA"
+                  width={180}
+                  height={180}
+                  className="mx-auto rounded-lg border border-padma-champagne/35 bg-white p-2"
+                />
+              )}
+              <p className="break-all rounded-lg bg-white/70 px-2 py-1 text-[10px] text-padma-night/70 dark:bg-padma-night/60 dark:text-padma-cream/72">
+                Secret: {setupSecret}
+              </p>
+              <input
+                inputMode="numeric"
+                maxLength={6}
+                value={setupCode}
+                onChange={(e) => setSetupCode(e.target.value.replace(/\D+/g, "").slice(0, 6))}
+                placeholder="Code de vérification"
+                className="w-full rounded-xl border border-padma-champagne/40 bg-white px-3 py-2 text-sm dark:border-padma-lavender/35 dark:bg-padma-night/60 dark:text-padma-cream"
+              />
+              <Button
+                type="button"
+                variant="secondary"
+                className="w-full rounded-xl"
+                onClick={() =>
+                  void (async () => {
+                    await saveTwoFactorConfig({ secret: setupSecret, accountLabel: adminEmail });
+                    const checked = await verifyTwoFactorCode(setupCode);
+                    if (!checked.ok) {
+                      setFeedback({ kind: "err", text: "Code de setup invalide. Réessaie." });
+                      return;
+                    }
+                    setTwofaConfigured(true);
+                    setShowSetup(false);
+                    setFeedback({ kind: "ok", text: "Authentificateur configuré. Entre un code pour finaliser." });
+                  })()
+                }
+              >
+                Valider le setup
+              </Button>
+            </div>
+          )}
         </div>
       )}
 

@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
@@ -12,6 +13,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { isAdminSessionValid } from "@/lib/security/twofa";
 
 type LandingModule = {
   href: string;
@@ -62,6 +64,24 @@ const MODULES: LandingModule[] = [
 ];
 
 export function LandingPortalGrid({ hyperfocus }: { hyperfocus?: boolean }) {
+  const [showSensitive, setShowSensitive] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    void (async () => {
+      const valid = await isAdminSessionValid();
+      if (!cancelled) setShowSensitive(valid);
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const visibleModules = useMemo(
+    () => (showSensitive ? MODULES : MODULES.filter((m) => m.href !== "/rayonner" && m.href !== "/tresor")),
+    [showSensitive]
+  );
+
   return (
     <section className={cn("space-y-5", hyperfocus && "space-y-4")}>
       <div className="text-center">
@@ -76,7 +96,7 @@ export function LandingPortalGrid({ hyperfocus }: { hyperfocus?: boolean }) {
         </p>
       </div>
       <ul className="grid gap-3 sm:grid-cols-2">
-        {MODULES.map((m, i) => (
+        {visibleModules.map((m, i) => (
           <motion.li
             key={m.href}
             initial={{ opacity: 0, y: 10 }}
