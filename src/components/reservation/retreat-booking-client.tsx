@@ -1,0 +1,345 @@
+"use client";
+
+import { useMemo, useState } from "react";
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { ArrowLeft, Check, Plane, Shield, User } from "lucide-react";
+import type { PackageDays, RetreatDefinition } from "@/lib/reservation/catalog";
+import { computeQuote, euroToCents, SOLO_ROOM_SURCHARGE_EUR, AIRPORT_TRANSFER_EUR } from "@/lib/reservation/pricing";
+import type { PaymentMode } from "@/lib/db/schema";
+import { saveReservationDraft, updateReservation } from "@/lib/reservation/booking-local";
+import { saveLocalProfile } from "@/lib/db/profile-local";
+import { Button } from "@/components/ui/button";
+import { PackageSelector } from "@/components/reservation/package-selector";
+import { cn } from "@/lib/utils";
+import { useUiStore } from "@/stores/ui-store";
+
+function fmtRange(start: string, end: string) {
+  const a = new Date(start + "T12:00:00");
+  const b = new Date(end + "T12:00:00");
+  return `${a.toLocaleDateString("fr-FR", { day: "numeric", month: "long" })} — ${b.toLocaleDateString("fr-FR", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  })}`;
+}
+
+export function RetreatBookingClient({ retreat }: { retreat: RetreatDefinition }) {
+  const celebrate = useUiStore((s) => s.celebrate);
+  const defaultPkg = retreat.packages[1]?.days ?? retreat.packages[0]!.days;
+  const [pkgDays, setPkgDays] = useState<PackageDays>(defaultPkg);
+  const [participants, setParticipants] = useState(1);
+  const [soloRoom, setSoloRoom] = useState(false);
+  const [airportTransfer, setAirportTransfer] = useState(false);
+  const [paymentMode, setPaymentMode] = useState<PaymentMode>("deposit");
+  const [email, setEmail] = useState("");
+  const [birthDate, setBirthDate] = useState("");
+  const [allergies, setAllergies] = useState("");
+  const [intentions, setIntentions] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState<string | null>(null);
+
+  const quote = useMemo(
+    () =>
+      computeQuote({
+        retreat,
+        packageDays: pkgDays,
+        participants,
+        soloRoom,
+        airportTransfer,
+        mode: paymentMode,
+      }),
+    [retreat, pkgDays, participants, soloRoom, airportTransfer, paymentMode]
+  );
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setMessage(null);
+    if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
+      setMessage("Merci d’indiquer un e-mail valide pour la confirmation.");
+      return;
+    }
+    if (retreat.spotsLeft < participants) {
+      setMessage("Il ne reste pas assez de places pour ce groupe — réduis le nombre de personnes ou contacte-nous.");
+      return;
+    }
+
+    const id = crypto.randomUUID();
+    const totalCents = euroToCents(quote.subtotalEuro);
+    const dueNowCents = euroToCents(quote.dueNowEuro);
+
+    setLoading(true);
+    try {
+      const now = Date.now();
+      await saveReservationDraft({
+        id,
+        retreatId: retreat.id,
+        packageDays: pkgDays,
+        participants,
+        soloRoom,
+        airportTransfer,
+        allergies: allergies.trim() || undefined,
+        intentions: intentions.trim() || undefined,
+        birthDate: birthDate || undefined,
+        contactEmail: email.trim(),
+        paymentMode,
+        totalCents,
+        dueNowCents,
+        currency: "eur",
+        status: "checkout_pending",
+        createdAt: now,
+        updatedAt: now,
+      });
+
+      if (birthDate) {
+        await saveLocalProfile({ birthDate });
+      }
+
+      const res = await fetch("/api/stripe/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          bookingId: id,
+          retreatId: retreat.id,
+          packageDays: pkgDays,
+          participants,
+          soloRoom,
+          airportTransfer,
+          paymentMode,
+          email: email.trim(),
+          allergies: allergies.trim() || undefined,
+          intentions: intentions.trim() || undefined,
+          birthDate: birthDate || undefined,
+        }),
+      });
+
+      const data = (await res.json()) as {
+        url?: string;
+        sessionId?: string;
+        error?: string;
+        offline?: boolean;
+      };
+
+      if (res.ok && data.url) {
+        await updateReservation(id, {
+          stripeCheckoutSessionId: data.sessionId,
+          status: "checkout_created",
+        });
+        celebrate("Ta reservation est prete, ouverture du paiement securise ✦");
+        window.location.href = data.url;
+        return;
+      }
+
+      await updateReservation(id, { status: "draft" });
+      celebrate("Ta demande est bien sauvegardee localement ✦");
+      setMessage(
+        data.error === "stripe_unconfigured"
+          ? "Paiement en ligne non configure : ta pre-reservation est enregistree sur cet appareil. Nous te recontactons tres vite avec douceur."
+          : "Le paiement en ligne n'a pas pu demarrer - ta demande reste sauvegardee localement. Reessaie quand tu seras connecte ou ecris-nous."
+      );
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return (
+    <div className="pb-16">
+      <Link
+        href="/reservation"
+        className="mb-6 inline-flex items-center gap-2 text-xs font-medium text-padma-night/60 hover:text-padma-lavender dark:text-padma-cream/60"
+      >
+        <ArrowLeft className="h-3.5 w-3.5" aria-hidden />
+        Toutes les retraites
+      </Link>
+
+      <motion.header initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="mb-10 space-y-3">
+        <p className="font-display text-xs uppercase tracking-[0.28em] text-padma-pearl dark:text-padma-lavender/90">
+          {retreat.destinationLabel}
+        </p>
+        <h1 className="font-cinzel text-3xl font-normal tracking-wide text-padma-night dark:text-padma-cream">{retreat.title}</h1>
+        <p className="text-sm text-padma-night/75 dark:text-padma-cream/80">{retreat.subtitle}</p>
+        <p className="text-xs text-padma-night/55 dark:text-padma-cream/58">{fmtRange(retreat.startDate, retreat.endDate)}</p>
+      </motion.header>
+
+      <div className="grid gap-10 lg:grid-cols-[1fr_380px]">
+        <div className="space-y-8">
+          <section className="rounded-2xl border border-padma-pearl/35 bg-white/75 p-6 dark:border-padma-lavender/25 dark:bg-padma-night/50">
+            <h2 className="font-cinzel text-lg text-padma-night dark:text-padma-cream">Thème du voyage</h2>
+            <p className="mt-3 text-sm italic leading-relaxed text-padma-night/82 dark:text-padma-cream/85">{retreat.astroTheme}</p>
+            <p className="mt-2 text-sm text-padma-night/70 dark:text-padma-cream/75">{retreat.numeroTheme}</p>
+          </section>
+
+          <section>
+            <h2 className="mb-4 font-cinzel text-lg text-padma-night dark:text-padma-cream">Choisis ton immersion</h2>
+            <PackageSelector packages={retreat.packages} value={pkgDays} onChange={setPkgDays} />
+          </section>
+
+          <section className="rounded-2xl border border-padma-champagne/30 bg-padma-cream/40 p-6 dark:border-padma-lavender/20 dark:bg-padma-night/40">
+            <h2 className="font-cinzel text-lg text-padma-night dark:text-padma-cream">Inclus dans chaque formule</h2>
+            <ul className="mt-4 space-y-2">
+              {retreat.includedEverywhere.map((line) => (
+                <li key={line} className="flex gap-2 text-sm text-padma-night/80 dark:text-padma-cream/82">
+                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-padma-champagne" aria-hidden />
+                  {line}
+                </li>
+              ))}
+            </ul>
+            <p className="mt-4 text-xs text-padma-night/55 dark:text-padma-cream/60">
+              Programme Reiki &amp; oracle adapté à la durée : cercles, temps libre intérieur, marches et cuisine sacrée.
+            </p>
+          </section>
+        </div>
+
+        <aside className="space-y-6">
+          <form
+            onSubmit={(e) => void handleSubmit(e)}
+            className="rounded-[1.75rem] border border-padma-lavender/35 bg-gradient-to-b from-white/95 to-padma-lavender/10 p-6 shadow-soft dark:from-padma-night/70 dark:to-padma-lavender/10"
+          >
+            <h2 className="font-cinzel text-lg text-padma-night dark:text-padma-cream">Réserver ta place avec sérénité</h2>
+
+            <label className="mt-4 block text-xs uppercase tracking-wide text-padma-night/55 dark:text-padma-cream/55">
+              E-mail
+              <input
+                required
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="mt-1 w-full rounded-xl border border-padma-champagne/40 bg-white px-3 py-2 text-sm text-padma-night dark:border-padma-lavender/35 dark:bg-padma-night/60 dark:text-padma-cream"
+              />
+            </label>
+
+            <label className="mt-3 block text-xs uppercase tracking-wide text-padma-night/55 dark:text-padma-cream/55">
+              Date de naissance (profil Oracle)
+              <input
+                type="date"
+                value={birthDate}
+                onChange={(e) => setBirthDate(e.target.value)}
+                className="mt-1 w-full rounded-xl border border-padma-champagne/40 bg-white px-3 py-2 text-sm text-padma-night dark:border-padma-lavender/35 dark:bg-padma-night/60 dark:text-padma-cream"
+              />
+            </label>
+
+            <label className="mt-3 block text-xs uppercase tracking-wide text-padma-night/55 dark:text-padma-cream/55">
+              Nombre de personnes
+              <select
+                value={participants}
+                onChange={(e) => setParticipants(Number(e.target.value))}
+                className="mt-1 w-full rounded-xl border border-padma-champagne/40 bg-white px-3 py-2 text-sm text-padma-night dark:border-padma-lavender/35 dark:bg-padma-night/60 dark:text-padma-cream"
+              >
+                {[1, 2, 3, 4, 5, 6].map((n) => (
+                  <option key={n} value={n}>
+                    {n}
+                  </option>
+                ))}
+              </select>
+            </label>
+
+            <div className="mt-4 space-y-3 rounded-xl border border-padma-pearl/30 bg-white/60 p-3 dark:border-padma-lavender/20 dark:bg-padma-night/45">
+              <label className="flex cursor-pointer items-center gap-2 text-sm text-padma-night dark:text-padma-cream">
+                <input type="checkbox" checked={soloRoom} onChange={(e) => setSoloRoom(e.target.checked)} className="rounded border-padma-champagne" />
+                <User className="h-4 w-4 text-padma-lavender" aria-hidden />
+                Chambre solo (+{SOLO_ROOM_SURCHARGE_EUR} € / réservation)
+              </label>
+              <label className="flex cursor-pointer items-center gap-2 text-sm text-padma-night dark:text-padma-cream">
+                <input
+                  type="checkbox"
+                  checked={airportTransfer}
+                  onChange={(e) => setAirportTransfer(e.target.checked)}
+                  className="rounded border-padma-champagne"
+                />
+                <Plane className="h-4 w-4 text-padma-champagne" aria-hidden />
+                Transfert aéroport / gare (+{AIRPORT_TRANSFER_EUR} €)
+              </label>
+            </div>
+
+            <label className="mt-4 block text-xs uppercase tracking-wide text-padma-night/55 dark:text-padma-cream/55">
+              Allergies alimentaires
+              <textarea
+                rows={2}
+                value={allergies}
+                onChange={(e) => setAllergies(e.target.value)}
+                className="mt-1 w-full rounded-xl border border-padma-champagne/40 bg-white px-3 py-2 text-sm text-padma-night dark:border-padma-lavender/35 dark:bg-padma-night/60 dark:text-padma-cream"
+              />
+            </label>
+
+            <label className="mt-3 block text-xs uppercase tracking-wide text-padma-night/55 dark:text-padma-cream/55">
+              Intentions pour ce séjour
+              <textarea
+                rows={2}
+                value={intentions}
+                onChange={(e) => setIntentions(e.target.value)}
+                className="mt-1 w-full rounded-xl border border-padma-champagne/40 bg-white px-3 py-2 text-sm text-padma-night dark:border-padma-lavender/35 dark:bg-padma-night/60 dark:text-padma-cream"
+              />
+            </label>
+
+            <div className="mt-5 space-y-2">
+              <p className="text-xs uppercase tracking-wide text-padma-night/55 dark:text-padma-cream/55">Paiement</p>
+              <div className="flex flex-wrap gap-2">
+                <button
+                  type="button"
+                  onClick={() => setPaymentMode("deposit")}
+                  className={cn(
+                    "rounded-full px-4 py-2 text-xs font-medium transition",
+                    paymentMode === "deposit"
+                      ? "bg-padma-champagne/35 text-padma-night dark:bg-padma-lavender/30 dark:text-padma-cream"
+                      : "bg-white/70 text-padma-night/70 dark:bg-padma-night/50 dark:text-padma-cream/75"
+                  )}
+                >
+                  Acompte (solde avant le séjour)
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setPaymentMode("full")}
+                  className={cn(
+                    "rounded-full px-4 py-2 text-xs font-medium transition",
+                    paymentMode === "full"
+                      ? "bg-padma-champagne/35 text-padma-night dark:bg-padma-lavender/30 dark:text-padma-cream"
+                      : "bg-white/70 text-padma-night/70 dark:bg-padma-night/50 dark:text-padma-cream/75"
+                  )}
+                >
+                  Règlement intégral
+                </button>
+              </div>
+            </div>
+
+            <div className="mt-6 rounded-xl border border-padma-champagne/25 bg-padma-cream/50 p-4 text-sm dark:border-padma-lavender/20 dark:bg-padma-night/50">
+              <p className="flex justify-between text-padma-night/75 dark:text-padma-cream/78">
+                <span>Total séjour estimé</span>
+                <span className="font-medium">{quote.subtotalEuro} €</span>
+              </p>
+              {paymentMode === "deposit" && (
+                <p className="mt-2 flex justify-between text-xs text-padma-night/65 dark:text-padma-cream/70">
+                  <span>Solde restant (hors ligne / lien ultérieur)</span>
+                  <span>{quote.balanceEuro} €</span>
+                </p>
+              )}
+              <p className="mt-3 flex justify-between font-cinzel text-base text-padma-night dark:text-padma-cream">
+                <span>À payer maintenant</span>
+                <span>{quote.dueNowEuro} €</span>
+              </p>
+            </div>
+
+            {message && (
+              <p className="mt-4 rounded-xl border border-padma-champagne/40 bg-white/90 p-3 text-xs leading-relaxed text-padma-night dark:border-padma-lavender/30 dark:bg-padma-night/60 dark:text-padma-cream">
+                {message}
+              </p>
+            )}
+
+            <Button
+              type="submit"
+              variant="oracle"
+              disabled={loading}
+              className="font-cinzel mt-6 w-full rounded-2xl py-6 text-base tracking-wide"
+            >
+              {loading ? "Redirection securisee..." : "Continuer vers le paiement"}
+            </Button>
+
+            <p className="mt-4 flex items-start gap-2 text-[0.65rem] leading-relaxed text-padma-night/50 dark:text-padma-cream/55">
+              <Shield className="mt-0.5 h-3.5 w-3.5 shrink-0" aria-hidden />
+              Paiement traité par Stripe — TLS &amp; conformité PCI. Sans clé Stripe configurée, ta demande reste stockée localement (Dexie).
+            </p>
+          </form>
+        </aside>
+      </div>
+    </div>
+  );
+}

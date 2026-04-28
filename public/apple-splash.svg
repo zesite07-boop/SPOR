@@ -1,0 +1,25 @@
+<svg width="1170" height="2532" viewBox="0 0 1170 2532" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="splash" x1="120" y1="100" x2="1040" y2="2400" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F8F4ED" />
+      <stop offset="0.55" stop-color="#F1E6D7" />
+      <stop offset="1" stop-color="#E9DDF1" />
+    </linearGradient>
+    <linearGradient id="lotus" x1="400" y1="920" x2="780" y2="1600" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#D4AF88" />
+      <stop offset="1" stop-color="#C5B4D4" />
+    </linearGradient>
+  </defs>
+  <rect width="1170" height="2532" fill="url(#splash)" />
+  <g opacity="0.96">
+    <path d="M585 930C534 1010 510 1074 510 1130C510 1192 546 1241 585 1268C624 1241 660 1192 660 1130C660 1074 636 1010 585 930Z" fill="url(#lotus)"/>
+    <path d="M410 1060C481 1064 538 1080 578 1108C621 1142 640 1187 642 1232C589 1238 541 1220 505 1186C468 1151 444 1109 410 1060Z" fill="#DDBFA1"/>
+    <path d="M760 1060C689 1064 632 1080 592 1108C549 1142 530 1187 528 1232C581 1238 629 1220 665 1186C702 1151 726 1109 760 1060Z" fill="#DDBFA1"/>
+  </g>
+  <text x="585" y="1440" text-anchor="middle" fill="#2C3E50" font-size="74" font-family="Cinzel, serif" letter-spacing="7">
+    Serey Padma
+  </text>
+  <text x="585" y="1515" text-anchor="middle" fill="#4A7043" fill-opacity="0.85" font-size="30" font-family="Inter, sans-serif" letter-spacing="2">
+    sanctuaire reiki & oracle
+  </text>
+</svg>

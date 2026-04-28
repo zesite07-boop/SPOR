@@ -1,0 +1,40 @@
+"use client";
+
+import type { RetreatDefinition } from "@/lib/reservation/catalog";
+import type { LogisticsParticipant } from "@/lib/db/schema";
+import { buildGroceryList } from "@/lib/logistics/grocery-engine";
+import { totalPersonDays } from "@/lib/logistics/seed-logistics";
+
+export function LogisticsGroceryPanel({
+  retreat,
+  participants,
+}: {
+  retreat: RetreatDefinition;
+  participants: LogisticsParticipant[];
+}) {
+  const heads = participants.reduce((a, p) => a + Math.max(1, p.partySize), 0);
+  const pd = totalPersonDays(participants, retreat);
+  const allergiesPool = participants.map((p) => p.allergies ?? "").filter(Boolean);
+  const lines = buildGroceryList(pd, allergiesPool);
+
+  return (
+    <section className="rounded-2xl border border-padma-champagne/30 bg-white/80 p-5 dark:border-padma-lavender/25 dark:bg-padma-night/50">
+      <h3 className="font-cinzel text-lg text-padma-night dark:text-padma-cream">Liste courses indicative</h3>
+      <p className="mt-2 text-xs text-padma-night/65 dark:text-padma-cream/70">
+        Base : <strong>{heads}</strong> personne(s) × durée du séjour — ajuste selon producteur·rice &amp; saison.
+      </p>
+      <ul className="mt-4 space-y-2">
+        {lines.map((line, i) => (
+          <li
+            key={`${line.item}-${i}`}
+            className="flex flex-wrap justify-between gap-2 rounded-lg border border-padma-pearl/25 bg-padma-cream/40 px-3 py-2 text-sm dark:border-padma-lavender/15 dark:bg-padma-night/40"
+          >
+            <span className="text-padma-night dark:text-padma-cream">{line.item}</span>
+            <span className="font-medium text-padma-night/80 dark:text-padma-cream/85">{line.qty}</span>
+            {line.note && <p className="w-full text-xs text-padma-night/60 dark:text-padma-cream/65">{line.note}</p>}
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}

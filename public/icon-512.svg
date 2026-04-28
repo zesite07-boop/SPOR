@@ -1,0 +1,21 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="64" y1="40" x2="448" y2="472" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F8F4ED" />
+      <stop offset="0.55" stop-color="#F2E6D6" />
+      <stop offset="1" stop-color="#E7D9F0" />
+    </linearGradient>
+    <linearGradient id="petal" x1="170" y1="132" x2="342" y2="372" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#D4AF88" />
+      <stop offset="1" stop-color="#C5B4D4" />
+    </linearGradient>
+  </defs>
+  <rect x="16" y="16" width="480" height="480" rx="120" fill="url(#bg)" />
+  <g opacity="0.9">
+    <path d="M256 146C233 180 222 209 222 233C222 260 238 281 256 293C274 281 290 260 290 233C290 209 279 180 256 146Z" fill="url(#petal)"/>
+    <path d="M177 204C209 206 234 214 252 227C272 242 281 263 282 283C258 286 236 278 220 262C204 246 193 227 177 204Z" fill="#DDBFA1"/>
+    <path d="M335 204C303 206 278 214 260 227C240 242 231 263 230 283C254 286 276 278 292 262C308 246 319 227 335 204Z" fill="#DDBFA1"/>
+    <path d="M208 310C227 305 243 304 256 306C270 308 282 315 291 326C280 339 266 346 251 347C236 347 221 340 208 310Z" fill="#C9A7D8"/>
+  </g>
+  <circle cx="256" cy="256" r="214" stroke="#FFFFFF" stroke-opacity="0.38" stroke-width="2"/>
+</svg>

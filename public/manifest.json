@@ -1,0 +1,40 @@
+{
+  "name": "Serey Padma · Sanctuaire Reiki & Oracle",
+  "short_name": "Serey Padma",
+  "description": "Retraites Reiki, oracle quotidien et pilotage doux. Expérience premium, fluide et disponible hors ligne.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": ["standalone", "browser"],
+  "background_color": "#F8F4ED",
+  "theme_color": "#D4AF88",
+  "orientation": "portrait-primary",
+  "lang": "fr-FR",
+  "categories": ["lifestyle", "wellness", "productivity"],
+  "icons": [
+    {
+      "src": "/icon-192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Découvrir les retraites",
+      "short_name": "Retraites",
+      "url": "/reservation"
+    },
+    {
+      "name": "Oracle du jour",
+      "short_name": "Oracle",
+      "url": "/oracle"
+    }
+  ]
+}
