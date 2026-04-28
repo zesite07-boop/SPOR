@@ -16,6 +16,7 @@ import { loadOracleHistory, loadTodayDraw, saveOracleDraw } from "@/lib/oracle/p
 import { getMajorById } from "@/lib/oracle/tarot-major";
 import { useUiStore } from "@/stores/ui-store";
 import { cn } from "@/lib/utils";
+import { OracleCardTarot } from "@/components/oracle/oracle-card-tarot";
 
 function todayId(): string {
   const d = new Date();
@@ -169,30 +170,20 @@ export function DailyOracleDraw() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.35 }}
-                className="grid gap-3 sm:grid-cols-3"
+                className="grid grid-cols-2 gap-4 px-1 sm:grid-cols-3 sm:px-2"
               >
                 {rows.map(({ label, card }, i) =>
                   i < revealedCount ? (
-                  <motion.div
-                    key={`${card.id}-${label}`}
-                    initial={{ opacity: 0, y: 20, rotateY: 90 }}
-                    animate={{ opacity: 1, y: 0, rotateY: 0 }}
-                    transition={{ delay: i * 0.1, duration: 0.55 }}
-                    className="relative flex flex-col rounded-2xl border border-padma-champagne/40 bg-gradient-to-b from-padma-cream/95 to-padma-lavender/10 p-4 text-center"
-                  >
-                    <motion.div
-                      className="pointer-events-none absolute -inset-2 rounded-2xl bg-[radial-gradient(circle,rgba(201,169,110,0.22)_0%,transparent_68%)]"
-                      animate={{ opacity: [0.25, 0.65, 0.25] }}
-                      transition={{ duration: 1.8, repeat: Infinity }}
+                    <OracleCardTarot
+                      key={`${card.id}-${label}`}
+                      cardId={card.id}
+                      positionLabel={label}
+                      index={i}
+                      compact={false}
+                      className="w-full"
                     />
-                    <span className="font-display text-[0.65rem] uppercase tracking-[0.18em] text-padma-pearl">
-                      {label}
-                    </span>
-                    <span className="mt-3 font-cinzel text-lg text-padma-night">{card.name}</span>
-                    <span className="mt-2 text-xs leading-relaxed text-padma-night/70">{card.keyword}</span>
-                  </motion.div>
                   ) : (
-                    <div key={`back-${label}-${i}`} className="h-[128px] rounded-2xl border border-padma-lavender/25 bg-[#11182f]" />
+                    <div key={`back-${label}-${i}`} className="min-h-[200px] rounded-2xl border border-[#e0daf0] bg-[#11182f]" />
                   )
                 )}
               </motion.div>
@@ -203,7 +194,7 @@ export function DailyOracleDraw() {
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="rounded-2xl border border-padma-pearl/35 bg-white/70 p-4 text-sm leading-[1.75] text-padma-night/85"
+              className="rounded-2xl border border-padma-pearl/35 bg-white/70 p-4 pb-24 text-sm leading-[1.9] text-padma-night/85"
             >
               {text}
             </motion.p>

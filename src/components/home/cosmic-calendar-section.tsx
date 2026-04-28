@@ -87,20 +87,25 @@ export function CosmicCalendarSection() {
                     transition={{ delay: Math.min(i * 0.015, 0.35) }}
                     className={cn(
                       "flex min-w-[3.25rem] flex-col items-center rounded-2xl border px-2 py-2 text-center transition-colors",
-                      isToday && "border-padma-champagne/70 bg-padma-champagne/15 ring-1 ring-padma-lavender/40",
-                      !isToday && "border-padma-pearl/35 bg-white/60",
-                      major === "new" && "ring-1 ring-padma-pearl/60",
-                      major === "full" && "ring-1 ring-padma-champagne/70"
+                      isToday && "border-[#c9847a] bg-[#c9847a] text-white ring-1 ring-[#c9847a]",
+                      !isToday && "border-[#e0daf0] bg-[#f0eef8] text-[#3d3650]",
+                      major === "new" && "border-[#1a1625] bg-[#1a1625] text-white ring-1 ring-[#1a1625]",
+                      major === "full" && "border-[#7c6faf] bg-[#7c6faf] text-white ring-1 ring-[#7c6faf]"
                     )}
                     title={m.labelFr}
                   >
-                    <span className="text-[0.65rem] font-medium text-padma-night/55">
+                    <span
+                      className={cn(
+                        "text-[0.65rem] font-medium",
+                        isToday || major === "new" || major === "full" ? "text-white/90" : "text-[#7a7090]"
+                      )}
+                    >
                       {dayLabel(m.date)}
                     </span>
-                    <span className="mt-1 text-lg text-padma-night/85" aria-hidden>
+                    <span className="mt-1 text-lg" aria-hidden>
                       {MOON_GLYPH[m.phase]}
                     </span>
-                    <span className="mt-0.5 max-w-[3.25rem] truncate text-[0.55rem] leading-tight text-padma-night/45">
+                    <span className="mt-0.5 max-w-[3.25rem] truncate text-[0.55rem] leading-tight text-current/85">
                       {m.labelFr.replace("lune", "").trim()}
                     </span>
                   </motion.div>

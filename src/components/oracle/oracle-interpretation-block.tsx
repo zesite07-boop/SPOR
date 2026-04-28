@@ -17,7 +17,7 @@ export function OracleInterpretationBlock({ title = "Interprétation", text, cla
       animate={{ opacity: 1 }}
       transition={{ duration: 0.4 }}
       className={cn(
-        "rounded-2xl border border-padma-pearl/35 bg-white/75 p-5 shadow-inner",
+        "rounded-2xl border border-padma-pearl/35 bg-white/75 p-6 pb-24 shadow-inner",
         className
       )}
     >
@@ -25,7 +25,7 @@ export function OracleInterpretationBlock({ title = "Interprétation", text, cla
         <Sparkles className="h-4 w-4 text-padma-champagne" aria-hidden />
         {title}
       </p>
-      <p className="whitespace-pre-wrap text-sm leading-[1.85] text-padma-night/88">{text}</p>
+      <p className="whitespace-pre-wrap text-sm leading-[1.95] text-padma-night/88">{text}</p>
     </motion.div>
   );
 }

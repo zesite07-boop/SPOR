@@ -9,16 +9,16 @@ export function BrandMark({ compact, className }: { compact?: boolean; className
       <Image
         src="/serey_padma_lotus.png"
         alt="Serey Padma by Céline"
-        width={48}
-        height={48}
-        className={cn("w-auto rounded-xl object-contain", compact ? "h-11" : "h-12")}
+        width={52}
+        height={52}
+        className={cn("w-auto rounded-xl object-contain", compact ? "h-[52px]" : "h-[56px]")}
         priority={compact}
       />
       <div className="min-w-0">
-        <p className={cn("font-cinzel tracking-wide text-padma-night", compact ? "text-xs" : "text-sm")}>
+        <p className={cn("font-cinzel tracking-wide text-[#1a1625]", compact ? "text-sm" : "text-base")}>
           Serey Padma by Céline
         </p>
-        <p className={cn("font-sans font-light text-padma-night/65", compact ? "text-[0.62rem]" : "text-xs")}>
+        <p className={cn("font-sans font-light text-[#7c6faf]", compact ? "text-[0.68rem]" : "text-sm")}>
           Reiki · Oracle · Retreats
         </p>
       </div>

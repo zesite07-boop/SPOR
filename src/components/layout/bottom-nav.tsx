@@ -31,7 +31,7 @@ export function BottomNav() {
   return (
     <nav
       className={cn(
-        "fixed inset-x-0 bottom-0 z-50 mx-auto max-w-lg rounded-t-3xl border border-[#e8e4f0] border-t-[1.5px] border-t-[#e8e4f0] bg-white/95 pb-safe shadow-[0_-8px_24px_rgba(61,54,80,0.12)] backdrop-blur-xl print:hidden",
+        "fixed inset-x-0 bottom-0 z-50 mx-auto max-w-lg rounded-t-3xl border border-[#e0daf0] border-t border-t-[#e0daf0] bg-white/95 pb-safe shadow-[0_-6px_18px_rgba(124,111,175,0.14)] backdrop-blur-xl print:hidden",
         "safe-area-pb"
       )}
       aria-label="Navigation principale Serey Padma by Celine"
@@ -54,14 +54,14 @@ export function BottomNav() {
                   "touch-min relative flex touch-manipulation flex-col items-center justify-center gap-0.5 rounded-xl px-1 py-2 text-[10px] font-medium tracking-wide transition-all duration-300 active:scale-[0.97] sm:text-[11px]",
                   active
                     ? "text-[#c9847a]"
-                    : "text-[#7a7090] hover:text-[#1a1625]"
+                    : "text-[#9090a0] hover:text-[#1a1625]"
                 )}
                 title={`Aller vers ${label} (Alt+${shortLabel})`}
               >
                 {active && (
                   <motion.span
                     layoutId="tab-glow"
-                    className="absolute inset-x-1.5 -bottom-1 h-9 rounded-full bg-gradient-to-t from-oasis-champagne/25 to-transparent"
+                    className="absolute inset-x-3 bottom-0 h-[2px] rounded-full bg-[#bfa882]"
                     transition={{ type: "spring", stiffness: 380, damping: 32 }}
                   />
                 )}

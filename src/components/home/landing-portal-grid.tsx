@@ -107,17 +107,18 @@ export function LandingPortalGrid({ hyperfocus }: { hyperfocus?: boolean }) {
             <Link
               href={m.href}
               className={cn(
-                "padma-card group flex min-h-[88px] touch-manipulation items-start gap-3 p-4 transition-all duration-300 active:scale-[0.99]",
+                "group flex min-h-[88px] touch-manipulation items-start gap-3 rounded-2xl border border-[#e0daf0] bg-[#f8f7ff] p-4 shadow-[0_2px_12px_rgba(124,111,175,0.12)] transition-all duration-300 active:scale-[0.99]",
+                "hover:-translate-y-0.5 hover:border-[#7c6faf] hover:shadow-[0_8px_20px_rgba(124,111,175,0.22)]",
                 m.highlight &&
-                  "border-padma-lavender/35 bg-gradient-to-br from-white/95 to-padma-lavender/12"
+                  "border-[#c7bce6] bg-gradient-to-br from-[#f8f7ff] to-[#f1eefc]"
               )}
             >
-              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-padma-champagne/18 text-padma-night transition-colors group-hover:bg-padma-champagne/28">
+              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#eeeaf9] text-[#7c6faf] transition-colors group-hover:bg-[#e5dff7]">
                 <m.Icon className="h-5 w-5" aria-hidden />
               </span>
               <span className="min-w-0 text-left">
-                <span className="font-cinzel text-sm tracking-wide text-padma-night">{m.label}</span>
-                <span className="mt-1 block text-[0.8rem] leading-snug text-padma-night/68">
+                <span className="font-cinzel text-sm font-bold tracking-wide text-[#1a1625]">{m.label}</span>
+                <span className="mt-1 block text-[0.8rem] leading-snug text-[#3d3650]">
                   {m.line}
                 </span>
               </span>

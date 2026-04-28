@@ -273,17 +273,17 @@ export function OracleDrawsPanel({
             },
           }}
           className={cn(
-            "grid gap-3",
-            lastCards.length <= 3 ? "sm:grid-cols-3" : "sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+            "grid grid-cols-2 gap-4 px-1 sm:grid-cols-3 sm:px-2",
+            lastCards.length > 6 && "lg:grid-cols-3"
           )}
         >
           {lastCards.map((c, i) => (
-            <OracleCardTarot key={`${c.id}-${i}`} cardId={c.id} positionLabel={c.label} index={i} compact={lastCards.length > 4} />
+            <OracleCardTarot key={`${c.id}-${i}`} cardId={c.id} positionLabel={c.label} index={i} compact={false} />
           ))}
         </motion.div>
       )}
 
-      {lastText && <OracleInterpretationBlock text={lastText} />}
+      {lastText && <OracleInterpretationBlock text={lastText} className="pb-24" />}
     </div>
   );
 }
