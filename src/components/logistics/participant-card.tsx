@@ -10,11 +10,15 @@ export function ParticipantCard({
   hyperfocus,
   onRoomChange,
   onTransferChange,
+  paymentStatus,
+  selectedOptions,
 }: {
   p: LogisticsParticipant;
   hyperfocus?: boolean;
   onRoomChange: (room: string) => void;
   onTransferChange: (t: string) => void;
+  paymentStatus?: string;
+  selectedOptions?: string[];
 }) {
   return (
     <motion.div
@@ -71,6 +75,18 @@ export function ParticipantCard({
             className="mt-1 w-full rounded-lg border border-padma-champagne/40 bg-white px-2 py-1.5 text-sm dark:border-padma-lavender/35 dark:bg-padma-night/60 dark:text-padma-cream"
           />
         </label>
+      </div>
+      <div className="mt-3 grid gap-2 sm:grid-cols-2">
+        <div className="rounded-lg border border-padma-champagne/25 bg-white/70 px-2.5 py-2 text-xs dark:border-padma-lavender/20 dark:bg-padma-night/45">
+          <p className="font-medium text-padma-night/70 dark:text-padma-cream/75">Statut paiement</p>
+          <p className="mt-0.5 text-padma-night dark:text-padma-cream">{paymentStatus ?? "A confirmer"}</p>
+        </div>
+        <div className="rounded-lg border border-padma-champagne/25 bg-white/70 px-2.5 py-2 text-xs dark:border-padma-lavender/20 dark:bg-padma-night/45">
+          <p className="font-medium text-padma-night/70 dark:text-padma-cream/75">Options choisies</p>
+          <p className="mt-0.5 text-padma-night dark:text-padma-cream">
+            {selectedOptions && selectedOptions.length > 0 ? selectedOptions.join(" · ") : "Aucune option"}
+          </p>
+        </div>
       </div>
     </motion.div>
   );

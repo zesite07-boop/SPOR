@@ -22,16 +22,37 @@ import { cn } from "@/lib/utils";
 export function MarketingDashboard() {
   const hyperfocus = useUiStore((s) => s.hyperfocus);
   const celebrate = useUiStore((s) => s.celebrate);
+  const [tab, setTab] = useState<"queue" | "veille">("queue");
   const [format, setFormat] = useState<MarketingFormat>("feed_post");
   const [scenario, setScenario] = useState<MarketingScenario>("before_retreat");
   const [generated, setGenerated] = useState<GeneratedMarketing | null>(null);
   const [generating, setGenerating] = useState(false);
   const [queue, setQueue] = useState<MarketingQueueItem[]>([]);
-  const [veille] = useState(() => getVeilleBullets());
+  const [veilleSeed, setVeilleSeed] = useState(0);
+  const [veille, setVeille] = useState(() => getVeilleBullets());
 
   const refreshQueue = useCallback(async () => {
     setQueue(await loadMarketingQueue());
   }, []);
+
+  const refreshVeille = useCallback(() => {
+    const curated = [
+      { tag: "Reiki", text: "Micro-pratiques de recentrage en 2 minutes." },
+      { tag: "Reiki", text: "Contenus sur le toucher subtil et le repos nerveux." },
+      { tag: "Bien-etre", text: "Rituels matin/soir tres courts pour cerveau charge." },
+      { tag: "Bien-etre", text: "Soin feminin cyclique et ralentissement conscient." },
+      { tag: "Oracle", text: "Formats court: carte du jour + action concrete." },
+      { tag: "Oracle", text: "Interpretations poetiques sans jargon ésotérique." },
+      { tag: "Retreats", text: "Avant/apres retraite: transformation perceptible." },
+      { tag: "Retreats", text: "Recits terrain: chambres, repas, rythme reel." },
+      { tag: "Astrologie", text: "Lune et saison pour planifier les publications." },
+      { tag: "Numerologie", text: "Nombre du jour en langage simple et pro." },
+    ];
+    const start = veilleSeed % curated.length;
+    const rotated = [...curated.slice(start), ...curated.slice(0, start)].slice(0, 8);
+    setVeille(rotated);
+    setVeilleSeed((s) => s + 1);
+  }, [veilleSeed]);
 
   useEffect(() => {
     let alive = true;
@@ -41,6 +62,7 @@ export function MarketingDashboard() {
       setFormat(prefs.lastFormat);
       setScenario(prefs.lastScenario);
       await refreshQueue();
+      refreshVeille();
       const ctx = await buildMarketingContext();
       setGenerating(true);
       try {
@@ -53,7 +75,7 @@ export function MarketingDashboard() {
     return () => {
       alive = false;
     };
-  }, [refreshQueue]);
+  }, [refreshQueue, refreshVeille]);
 
   const runGenerate = useCallback(async () => {
     setGenerating(true);
@@ -102,10 +124,48 @@ export function MarketingDashboard() {
         <HyperfocusToolbar />
       </header>
 
-      <div className={cn("grid gap-6 lg:grid-cols-2", hyperfocus && "gap-4")}>
-        <MarketingQueueOverview items={queue} onToggle={handleToggle} hyperfocus={hyperfocus} />
-        <MarketingVeillePanel bullets={veille} hyperfocus={hyperfocus} />
-      </div>
+      <section className="space-y-3">
+        <div className="flex flex-wrap items-center gap-2">
+          <button
+            type="button"
+            onClick={() => setTab("queue")}
+            className={cn(
+              "touch-min rounded-full border px-3 py-1.5 text-xs transition",
+              tab === "queue"
+                ? "border-padma-champagne/50 bg-padma-champagne/20 text-padma-night dark:border-padma-lavender/45 dark:bg-padma-lavender/20 dark:text-padma-cream"
+                : "border-padma-champagne/30 bg-white/70 text-padma-night/75 dark:border-padma-lavender/30 dark:bg-padma-night/55 dark:text-padma-cream/80"
+            )}
+          >
+            File d&apos;attente
+          </button>
+          <button
+            type="button"
+            onClick={() => setTab("veille")}
+            className={cn(
+              "touch-min rounded-full border px-3 py-1.5 text-xs transition",
+              tab === "veille"
+                ? "border-padma-champagne/50 bg-padma-champagne/20 text-padma-night dark:border-padma-lavender/45 dark:bg-padma-lavender/20 dark:text-padma-cream"
+                : "border-padma-champagne/30 bg-white/70 text-padma-night/75 dark:border-padma-lavender/30 dark:bg-padma-night/55 dark:text-padma-cream/80"
+            )}
+          >
+            Veille
+          </button>
+          {tab === "veille" && (
+            <button
+              type="button"
+              onClick={refreshVeille}
+              className="touch-min rounded-full border border-padma-lavender/35 bg-white/75 px-3 py-1.5 text-xs text-padma-night dark:border-padma-lavender/30 dark:bg-padma-night/55 dark:text-padma-cream"
+            >
+              Recharger themes
+            </button>
+          )}
+        </div>
+        {tab === "queue" ? (
+          <MarketingQueueOverview items={queue} onToggle={handleToggle} hyperfocus={hyperfocus} />
+        ) : (
+          <MarketingVeillePanel bullets={veille} hyperfocus={hyperfocus} />
+        )}
+      </section>
 
       <section className={cn("mt-10 space-y-6", hyperfocus && "mt-8 space-y-4")}>
         <h2 className="font-cinzel text-xl tracking-wide text-padma-night dark:text-padma-cream">Générateur</h2>

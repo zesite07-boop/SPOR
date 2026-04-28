@@ -14,6 +14,7 @@ import type {
   LogisticsRetreatMeta,
   LogisticsRetreatStatus,
   LogisticsTask,
+  ReservationRecord,
 } from "@/lib/db/schema";
 import { db } from "@/lib/db/schema";
 import { Button } from "@/components/ui/button";
@@ -46,6 +47,7 @@ export function LogisticsRetreatDetail({ retreat }: { retreat: RetreatDefinition
   const [meta, setMeta] = useState<LogisticsRetreatMeta | null>(null);
   const [tasks, setTasks] = useState<LogisticsTask[]>([]);
   const [participants, setParticipants] = useState<LogisticsParticipant[]>([]);
+  const [reservations, setReservations] = useState<ReservationRecord[]>([]);
 
   const refresh = useCallback(async () => {
     await ensureRetreatLogistics(retreat);
@@ -55,8 +57,10 @@ export function LogisticsRetreatDetail({ retreat }: { retreat: RetreatDefinition
       db.logisticsParticipants.where("retreatId").equals(retreat.id).toArray(),
       db.logisticsMeta.get(retreat.id),
     ]);
+    const res = await db.reservations.where("retreatId").equals(retreat.id).toArray();
     setTasks(t);
     setParticipants(p.sort((a, b) => a.sortOrder - b.sortOrder));
+    setReservations(res);
     setMeta(m ?? { retreatId: retreat.id, status: "preparation", updatedAt: Date.now() });
   }, [retreat]);
 
@@ -285,10 +289,28 @@ export function LogisticsRetreatDetail({ retreat }: { retreat: RetreatDefinition
         <h2 className="font-cinzel text-xl text-padma-night dark:text-padma-cream">Participantes</h2>
         <div className={cn("grid gap-4 md:grid-cols-2", hyperfocus && "gap-3")}>
           {participants.map((p) => (
+            (() => {
+              const reservation = reservations.find((r) => r.id === p.sourceReservationId);
+              const selectedOptions = [
+                reservation?.soloRoom ? "Chambre solo" : null,
+                reservation?.airportTransfer ? "Transfert aeroport/gare" : null,
+              ].filter(Boolean) as string[];
+              const paymentStatus = reservation
+                ? reservation.status === "paid"
+                  ? "Paye"
+                  : reservation.status === "checkout_created"
+                    ? "Checkout cree"
+                    : reservation.status === "checkout_pending"
+                      ? "En attente paiement"
+                      : reservation.status
+                : undefined;
+              return (
             <ParticipantCard
               key={p.id}
               p={p}
               hyperfocus={hyperfocus}
+              paymentStatus={paymentStatus}
+              selectedOptions={selectedOptions}
               onRoomChange={(room) =>
                 void (async () => {
                   await updateParticipantRoom(p.id, room);
@@ -302,6 +324,8 @@ export function LogisticsRetreatDetail({ retreat }: { retreat: RetreatDefinition
                 })()
               }
             />
+              );
+            })()
           ))}
         </div>
       </section>

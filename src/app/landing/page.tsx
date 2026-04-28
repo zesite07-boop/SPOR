@@ -1,17 +1,18 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Flower2, Heart, MoonStar, Sparkles, Star } from "lucide-react";
+import { BrandMark } from "@/components/layout/brand-mark";
 
 export const metadata: Metadata = {
   title: "Landing — Retraites Reiki et Oracle",
   description:
-    "Landing publique Serey Padma : retraites Reiki premium, oracle quotidien, témoignages et expérience élégante pensée mobile.",
+    "Landing publique Serey Padma by Céline : retraites Reiki premium, oracle quotidien, témoignages et expérience élégante pensée mobile.",
   openGraph: {
-    title: "Serey Padma — Retraites Reiki et Oracle",
+    title: "Serey Padma by Céline — Reiki · Oracle · Retreats",
     description:
       "Découvre un sanctuaire premium : retraites Reiki, guidance poétique, oracle quotidien et expérience fluide sur mobile.",
     url: "/landing",
-    images: [{ url: "/icon-512.svg", width: 512, height: 512, alt: "Serey Padma - landing premium" }],
+    images: [{ url: "/serey_padma_lotus.png", width: 1024, height: 1024, alt: "Serey Padma by Céline - landing premium" }],
   },
 };
 
@@ -22,14 +23,14 @@ export default function LandingPage() {
         <section className="relative overflow-hidden rounded-[2rem] border border-padma-champagne/28 bg-white/70 p-7 shadow-soft backdrop-blur-md dark:border-padma-lavender/20 dark:bg-padma-night/50 md:p-10">
           <div className="pointer-events-none absolute -right-12 -top-16 h-64 w-64 rounded-full bg-padma-champagne/16 blur-2xl" />
           <div className="pointer-events-none absolute -bottom-16 -left-12 h-64 w-64 rounded-full bg-padma-lavender/18 blur-2xl" />
-          <p className="relative z-10 font-cinzel text-[0.72rem] uppercase tracking-[0.35em] text-padma-pearl dark:text-padma-lavender/85">
-            Serey Padma
-          </p>
+          <div className="relative z-10">
+            <BrandMark />
+          </div>
           <h1 className="relative z-10 mt-4 max-w-3xl font-cinzel text-4xl leading-tight text-padma-night dark:text-padma-cream md:text-6xl">
             Un lotus digital pour rayonner, accueillir et guider avec une elegance sereine.
           </h1>
           <p className="relative z-10 mt-5 max-w-2xl text-lg leading-relaxed text-padma-night/78 dark:text-padma-cream/82">
-            Serey Padma unit elegance, organisation et spiritualite concrete : tu accueilles, tu guides, tu rayonnes, avec fluidite.
+            Serey Padma by Celine unit elegance, organisation et spiritualite concrete : tu accueilles, tu guides, tu rayonnes, avec fluidite.
           </p>
           <div className="relative z-10 mt-8 flex flex-wrap gap-3">
             <Link
@@ -125,6 +126,10 @@ export default function LandingPage() {
             </article>
           </div>
         </section>
+        <footer className="pb-10 text-center text-xs text-padma-night/60 dark:text-padma-cream/65">
+          <p className="font-cinzel">Serey Padma by Céline</p>
+          <p className="mt-1">Reiki · Oracle · Retreats</p>
+        </footer>
       </div>
     </main>
   );

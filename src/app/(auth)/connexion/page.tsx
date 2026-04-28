@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Suspense } from "react";
 import { MagicLinkForm } from "@/components/auth/magic-link-form";
+import { BrandMark } from "@/components/layout/brand-mark";
 
 /**
  * Page de connexion **Serey Padma** — magic link uniquement.
@@ -12,9 +13,7 @@ export default function ConnexionPage() {
       <div className="w-full max-w-md">
         {/* Halo décoratif doux */}
         <div className="pointer-events-none mb-10 flex flex-col items-center text-center">
-          <p className="font-cinzel text-[0.65rem] uppercase tracking-[0.45em] text-padma-pearl dark:text-padma-lavender/90">
-            Serey Padma
-          </p>
+          <BrandMark />
           <h1 className="mt-3 font-cinzel text-3xl font-normal tracking-[0.08em] text-padma-night dark:text-padma-cream sm:text-[2rem]">
             Entrer dans le sanctuaire
           </h1>

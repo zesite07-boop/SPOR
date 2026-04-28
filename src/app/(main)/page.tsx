@@ -33,8 +33,11 @@ export default function AccueilPage() {
           transition={{ duration: 0.45, delay: 0.05 }}
           className="font-cinzel text-3xl font-normal tracking-[0.08em] text-padma-night dark:text-padma-cream sm:text-4xl"
         >
-          Serey Padma
+          Serey Padma by Céline
         </motion.h1>
+        <p className="font-display text-xs uppercase tracking-[0.22em] text-padma-night/58 dark:text-padma-cream/65">
+          Reiki · Oracle · Retreats
+        </p>
         <p className="max-w-prose text-[1.05rem] leading-relaxed text-padma-night/82 dark:text-padma-cream/85">
           Un ecrin numerique pour respirer avec la Lune, honorer les transits et recevoir un oracle bienveillant - meme quand la
           connexion fait une pause.

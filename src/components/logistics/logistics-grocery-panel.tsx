@@ -16,6 +16,7 @@ export function LogisticsGroceryPanel({
   const pd = totalPersonDays(participants, retreat);
   const allergiesPool = participants.map((p) => p.allergies ?? "").filter(Boolean);
   const lines = buildGroceryList(pd, allergiesPool);
+  const retreatSuggestions = retreat.includedEverywhere.slice(0, 4);
 
   return (
     <section className="rounded-2xl border border-padma-champagne/30 bg-white/80 p-5 dark:border-padma-lavender/25 dark:bg-padma-night/50">
@@ -32,6 +33,14 @@ export function LogisticsGroceryPanel({
             <span className="text-padma-night dark:text-padma-cream">{line.item}</span>
             <span className="font-medium text-padma-night/80 dark:text-padma-cream/85">{line.qty}</span>
             {line.note && <p className="w-full text-xs text-padma-night/60 dark:text-padma-cream/65">{line.note}</p>}
+          </li>
+        ))}
+        {retreatSuggestions.map((s) => (
+          <li
+            key={`retreat-${s}`}
+            className="rounded-lg border border-padma-lavender/25 bg-padma-lavender/8 px-3 py-2 text-sm text-padma-night/85 dark:border-padma-lavender/20 dark:bg-padma-night/40 dark:text-padma-cream/85"
+          >
+            Suggestion retreat : {s}
           </li>
         ))}
       </ul>

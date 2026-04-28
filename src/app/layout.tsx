@@ -31,13 +31,13 @@ const siteUrl =
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Serey Padma — retraites Reiki & oracle",
-    template: "%s · Serey Padma",
+    default: "Serey Padma by Céline — Reiki · Oracle · Retreats",
+    template: "%s · Serey Padma by Céline",
   },
   description:
-    "Serey Padma est un sanctuaire digital premium : retraites Reiki, oracle quotidien, astrologie sensible et pilotage doux, avec mode hors ligne PWA.",
+    "Serey Padma by Céline est un sanctuaire digital premium : Reiki, Oracle, Retreats et pilotage doux, avec mode hors ligne PWA.",
   keywords: [
-    "Serey Padma",
+    "Serey Padma by Céline",
     "retraite Reiki",
     "oracle",
     "bien-être",
@@ -46,8 +46,8 @@ export const metadata: Metadata = {
     "France",
     "Portugal",
   ],
-  authors: [{ name: "Serey Padma" }],
-  creator: "Serey Padma",
+  authors: [{ name: "Serey Padma by Céline" }],
+  creator: "Serey Padma by Céline",
   manifest: "/manifest.json",
   icons: {
     icon: [{ url: "/icon-192.svg", type: "image/svg+xml" }, { url: "/icon-512.svg", type: "image/svg+xml" }],
@@ -56,31 +56,31 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "Serey Padma",
+    title: "Serey Padma by Céline",
     startupImage: ["/apple-splash.svg"],
   },
   openGraph: {
     type: "website",
     locale: "fr_FR",
     url: "/",
-    siteName: "Serey Padma",
-    title: "Serey Padma — retraites Reiki, oracle et élégance holistique",
+    siteName: "Serey Padma by Céline",
+    title: "Serey Padma by Céline — Reiki · Oracle · Retreats",
     description:
       "Un sanctuaire numérique haut de gamme pour respirer avec la Lune, organiser tes retraites et rayonner avec cohérence, même sans réseau.",
     images: [
       {
-        url: "/icon-512.svg",
-        width: 512,
-        height: 512,
-        alt: "Serey Padma - lotus et énergie douce",
+        url: "/serey_padma_lotus.png",
+        width: 1024,
+        height: 1024,
+        alt: "Serey Padma by Céline - lotus et énergie douce",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Serey Padma — retraites Reiki & oracle",
+    title: "Serey Padma by Céline — Reiki · Oracle · Retreats",
     description: "Retraites, oracle et présence au quotidien avec un design premium, doux et professionnel.",
-    images: ["/icon-512.svg"],
+    images: ["/serey_padma_lotus.png"],
   },
   robots: {
     index: true,

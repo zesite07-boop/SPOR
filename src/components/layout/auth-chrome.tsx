@@ -6,6 +6,7 @@ import { LogOut, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { createBrowserSupabaseClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
+import { BrandMark } from "@/components/layout/brand-mark";
 
 type AuthChromeProps = {
   /** `true` si les clés Supabase publiques sont présentes (auth cloud possible). */
@@ -45,6 +46,9 @@ export function AuthChrome({ cloudAuthAvailable, sessionEmail }: AuthChromeProps
       <div className="mx-auto flex max-w-2xl flex-wrap items-center justify-between gap-2 px-4 py-2.5 md:gap-3 md:py-3">
         <div className="flex min-w-0 flex-1 items-center gap-2">
           <Sparkles className="h-4 w-4 shrink-0 text-padma-champagne dark:text-padma-lavender" aria-hidden />
+          <div className="hidden sm:block">
+            <BrandMark compact />
+          </div>
           {!cloudAuthAvailable && showDemoBadge && (
             <>
               <span className="hidden rounded-full border border-padma-champagne/35 bg-white/65 px-2 py-0.5 font-display text-[0.6rem] uppercase tracking-[0.12em] text-padma-night/72 shadow-sm dark:border-padma-lavender/30 dark:bg-padma-night/55 dark:text-padma-cream/75 sm:inline">

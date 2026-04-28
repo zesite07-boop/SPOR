@@ -5,9 +5,12 @@ import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { NAV_TABS } from "@/components/layout/nav-tabs";
+import { useUiStore } from "@/stores/ui-store";
 
 export function BottomNav() {
   const pathname = usePathname();
+  const points = useUiStore((s) => s.energyPoints);
+  const badges = useUiStore((s) => s.badges);
 
   return (
     <nav
@@ -15,8 +18,13 @@ export function BottomNav() {
         "fixed inset-x-0 bottom-0 z-50 mx-auto max-w-lg rounded-t-3xl border border-oasis-champagne/25 bg-white/90 pb-safe shadow-soft backdrop-blur-xl dark:border-oasis-lavender/20 dark:bg-oasis-night/92 print:hidden",
         "safe-area-pb"
       )}
-      aria-label="Navigation principale Serey Padma"
+      aria-label="Navigation principale Serey Padma by Celine"
     >
+      <div className="px-2 pt-1 text-center">
+        <span className="inline-flex items-center gap-1 rounded-full border border-padma-champagne/30 bg-white/70 px-2 py-0.5 text-[0.62rem] text-padma-night/75 dark:border-padma-lavender/30 dark:bg-padma-night/65 dark:text-padma-cream/80">
+          Energie {points} · Badges {badges.length}
+        </span>
+      </div>
       <ul className="flex items-stretch justify-between gap-0.5 px-1 py-2 sm:px-2">
         {NAV_TABS.map(({ href, label, shortLabel, Icon }) => {
           const active =
