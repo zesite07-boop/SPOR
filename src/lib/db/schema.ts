@@ -191,6 +191,23 @@ export interface NotificationPrefs {
   updatedAt: number;
 }
 
+export interface TwoFactorConfig {
+  id: string;
+  secretEncrypted: string;
+  issuer: string;
+  accountLabel: string;
+  enabled: boolean;
+  createdAt: number;
+  updatedAt: number;
+}
+
+export interface TwoFactorSession {
+  id: string;
+  verifiedAt: number;
+  expiresAt: number;
+  updatedAt: number;
+}
+
 export type OracleSessionDrawType =
   | "chakra_full"
   | "chakra_focus"
@@ -228,6 +245,8 @@ export class OasisDB extends Dexie {
   marketingPrefs!: EntityTable<MarketingPrefs, "id">;
   reminderNotifications!: EntityTable<ReminderNotification, "id">;
   notificationPrefs!: EntityTable<NotificationPrefs, "id">;
+  twoFactorConfig!: EntityTable<TwoFactorConfig, "id">;
+  twoFactorSession!: EntityTable<TwoFactorSession, "id">;
 
   constructor() {
     super("oasis-oracle-reiki");
@@ -315,6 +334,26 @@ export class OasisDB extends Dexie {
       marketingPrefs: "id, updatedAt",
       reminderNotifications: "id, scheduledAt, retreatId, participantId, firedAt, updatedAt",
       notificationPrefs: "id, updatedAt",
+    });
+    this.version(9).stores({
+      profiles: "id, email, updatedAt",
+      events: "id, startAt, updatedAt",
+      syncQueue: "id, createdAt",
+      oracleDraws: "id, drawnAt",
+      oracleSessions: "id, drawnAt, drawType",
+      reservations: "id, createdAt, retreatId, status",
+      logisticsMeta: "retreatId, status, updatedAt",
+      logisticsTasks: "id, retreatId, section, dayIndex, sortOrder, updatedAt",
+      logisticsParticipants: "id, retreatId, sortOrder, updatedAt",
+      treasureWidgetLayout: "id, updatedAt",
+      treasureSimulatorSettings: "id, updatedAt",
+      treasureGamification: "id, updatedAt",
+      marketingQueue: "id, done, sortOrder, updatedAt",
+      marketingPrefs: "id, updatedAt",
+      reminderNotifications: "id, scheduledAt, retreatId, participantId, firedAt, updatedAt",
+      notificationPrefs: "id, updatedAt",
+      twoFactorConfig: "id, enabled, updatedAt",
+      twoFactorSession: "id, expiresAt, updatedAt",
     });
   }
 }

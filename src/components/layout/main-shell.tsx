@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { usePathname } from "next/navigation";
 import { CelebrationPulse } from "@/components/layout/celebration-pulse";
 import { KeyboardShortcuts } from "@/components/layout/keyboard-shortcuts";
+import { TwoFactorRouteGuard } from "@/components/security/twofa-route-guard";
 import { useUiStore } from "@/stores/ui-store";
 import { cn } from "@/lib/utils";
 
@@ -15,6 +16,7 @@ export function MainShell({ children }: { children: React.ReactNode }) {
     <>
       <KeyboardShortcuts />
       <CelebrationPulse />
+      <TwoFactorRouteGuard />
       <div
         className={cn(
           "min-h-dvh pb-[max(7rem,env(safe-area-inset-bottom))] transition-[padding,box-shadow,filter] duration-400 ease-out md:pb-24",

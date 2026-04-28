@@ -6,10 +6,14 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Flower2, Sparkles } from "lucide-react";
 import { getNotificationPrefs, requestNotificationPermission, setNotificationsEnabled } from "@/lib/notifications/reminders";
+import { disableTwoFactorWithCode, getTwoFactorConfig } from "@/lib/security/twofa";
 
 export default function BienEtrePage() {
   const [notifPermission, setNotifPermission] = useState<NotificationPermission | "default">("default");
   const [notifEnabled, setNotifEnabledState] = useState(true);
+  const [twofaEnabled, setTwofaEnabled] = useState(false);
+  const [disableCode, setDisableCode] = useState("");
+  const [twofaStatus, setTwofaStatus] = useState<string | null>(null);
 
   useEffect(() => {
     void (async () => {
@@ -18,6 +22,8 @@ export default function BienEtrePage() {
         setNotifEnabledState(prefs.enabled);
         setNotifPermission(prefs.permission);
       }
+      const cfg = await getTwoFactorConfig();
+      setTwofaEnabled(!!cfg?.enabled);
     })();
   }, []);
 
@@ -93,6 +99,53 @@ export default function BienEtrePage() {
             </Button>
             <p className="text-xs text-padma-night/65 dark:text-padma-cream/70">{notifEnabled ? "Rappels actifs" : "Rappels suspendus"}</p>
           </div>
+        </CardContent>
+      </Card>
+      <Card className="border-padma-lavender/35 bg-white/85 dark:bg-padma-night/60">
+        <CardHeader>
+          <CardTitle className="font-cinzel text-xl font-normal tracking-wide text-padma-night dark:text-padma-cream">Sécurité</CardTitle>
+          <CardDescription>Modules protégés : Rayonner (`/rayonner`) et Trésor (`/tresor`). Session 2FA valable 8h.</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-3">
+          <p className="text-sm text-padma-night/75 dark:text-padma-cream/80">2FA : {twofaEnabled ? "Activé" : "Désactivé"}</p>
+          <div className="flex flex-wrap gap-2">
+            <Button asChild type="button" variant="oracle" className="rounded-2xl font-cinzel">
+              <Link href="/auth/2fa/setup">Configurer le 2FA</Link>
+            </Button>
+          </div>
+          {twofaEnabled && (
+            <div className="space-y-2 rounded-xl border border-padma-champagne/35 bg-padma-cream/45 p-3 dark:border-padma-lavender/30 dark:bg-padma-night/45">
+              <p className="text-xs text-padma-night/70 dark:text-padma-cream/75">Désactivation sécurisée : entrez un code TOTP valide.</p>
+              <input
+                inputMode="numeric"
+                maxLength={6}
+                value={disableCode}
+                onChange={(e) => setDisableCode(e.target.value.replace(/\D+/g, "").slice(0, 6))}
+                placeholder="000000"
+                className="w-full rounded-xl border border-padma-champagne/40 bg-white px-3 py-2 text-sm dark:border-padma-lavender/35 dark:bg-padma-night/60 dark:text-padma-cream"
+              />
+              <Button
+                type="button"
+                variant="secondary"
+                className="rounded-2xl"
+                onClick={() =>
+                  void (async () => {
+                    const res = await disableTwoFactorWithCode(disableCode);
+                    if (res.ok) {
+                      setTwofaEnabled(false);
+                      setTwofaStatus("2FA désactivé.");
+                      setDisableCode("");
+                    } else {
+                      setTwofaStatus("Code invalide, désactivation refusée.");
+                    }
+                  })()
+                }
+              >
+                Désactiver le 2FA
+              </Button>
+              {twofaStatus && <p className="text-xs text-padma-night/75 dark:text-padma-cream/78">{twofaStatus}</p>}
+            </div>
+          )}
         </CardContent>
       </Card>
     </section>
