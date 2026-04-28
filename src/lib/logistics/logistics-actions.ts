@@ -41,3 +41,14 @@ export async function updateParticipantTransfer(id: string, transferStatus: stri
   if (!p) return;
   await db.logisticsParticipants.put({ ...p, transferStatus, updatedAt: Date.now() });
 }
+
+export async function updateParticipantOracle(id: string, patch: { oracleNote?: string; birthDate?: string; name?: string }) {
+  if (!db) return;
+  const p = await db.logisticsParticipants.get(id);
+  if (!p) return;
+  await db.logisticsParticipants.put({
+    ...p,
+    ...patch,
+    updatedAt: Date.now(),
+  });
+}

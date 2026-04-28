@@ -2,7 +2,13 @@
 
 import { motion } from "framer-motion";
 import { Sparkles, User } from "lucide-react";
+import { useMemo, useState } from "react";
+import { jsPDF } from "jspdf";
 import type { LogisticsParticipant } from "@/lib/db/schema";
+import { lifePathNumber, soulUrgeNumber } from "@/lib/oracle/numerology-extended";
+import { getMajorById } from "@/lib/oracle/tarot-major";
+import { Button } from "@/components/ui/button";
+import { updateParticipantOracle } from "@/lib/logistics/logistics-actions";
 import { cn } from "@/lib/utils";
 
 export function ParticipantCard({
@@ -20,6 +26,73 @@ export function ParticipantCard({
   paymentStatus?: string;
   selectedOptions?: string[];
 }) {
+  const [openOracle, setOpenOracle] = useState(false);
+  const [oracleName, setOracleName] = useState(p.name);
+  const [oracleBirthDate, setOracleBirthDate] = useState(p.birthDate ?? "");
+
+  const profile = useMemo(() => {
+    if (!oracleBirthDate) return null;
+    const d = new Date(`${oracleBirthDate}T12:00:00`);
+    if (Number.isNaN(d.getTime())) return null;
+    const lifePath = lifePathNumber(d);
+    const soul = soulUrgeNumber(oracleName) ?? 0;
+    const arcana = getMajorById((lifePath + soul) % 22);
+    const message = `Chere ${oracleName || "participante"}, ton chemin de vie ${lifePath} et ton nombre d'ame ${soul || "?"} t'invitent a ${arcana.keyword}. ${arcana.gentle}`;
+    return {
+      lifePath,
+      soul,
+      arcana: arcana.name,
+      message,
+    };
+  }, [oracleBirthDate, oracleName]);
+
+  async function saveOracleToParticipant() {
+    await updateParticipantOracle(p.id, {
+      name: oracleName || p.name,
+      birthDate: oracleBirthDate || undefined,
+      oracleNote: profile?.message,
+    });
+  }
+
+  async function downloadOraclePdf() {
+    if (!profile) return;
+    await saveOracleToParticipant();
+    const doc = new jsPDF({ unit: "mm", format: "a4" });
+    const w = doc.internal.pageSize.getWidth();
+    const m = 14;
+    doc.setFillColor(248, 244, 237);
+    doc.roundedRect(m, 10, w - m * 2, 30, 2, 2, "F");
+    doc.setDrawColor(212, 175, 136);
+    doc.roundedRect(m, 10, w - m * 2, 30, 2, 2, "S");
+    doc.setFont("times", "bold");
+    doc.setFontSize(16);
+    doc.text("Serey Padma by Céline", m + 2, 18);
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(9);
+    doc.text("Votre Profil Oracle - prepare avec amour par Céline", m + 2, 24);
+    doc.setFont("times", "bold");
+    doc.setFontSize(13);
+    doc.text(oracleName, m + 2, 32);
+    doc.setFont("helvetica", "normal");
+    doc.setTextColor(44, 62, 80);
+    let y = 50;
+    for (const line of [
+      `Chemin de Vie: ${profile.lifePath}`,
+      `Nombre d'Ame: ${profile.soul}`,
+      `Arcane dominant: ${profile.arcana}`,
+      "",
+      profile.message,
+    ]) {
+      const wrapped = doc.splitTextToSize(line, w - m * 2);
+      doc.text(wrapped, m, y);
+      y += wrapped.length * 6;
+    }
+    doc.setFontSize(8);
+    doc.setTextColor(212, 175, 136);
+    doc.text(`Serey Padma by Céline · ${new Date().toLocaleDateString("fr-FR")}`, m, 288);
+    doc.save(`profil-oracle-${oracleName || p.name}.pdf`);
+  }
+
   return (
     <motion.div
       layout
@@ -88,6 +161,48 @@ export function ParticipantCard({
           </p>
         </div>
       </div>
+      <div className="mt-3">
+        <Button type="button" variant="secondary" className="w-full rounded-xl" onClick={() => setOpenOracle((v) => !v)}>
+          Generer son Oracle
+        </Button>
+      </div>
+      {openOracle && (
+        <div className="mt-3 rounded-xl border border-padma-champagne/30 bg-white/75 p-3 dark:border-padma-lavender/20 dark:bg-padma-night/45">
+          <label className="block text-xs uppercase tracking-wide text-padma-night/60 dark:text-padma-cream/60">
+            Prenom
+            <input
+              value={oracleName}
+              onChange={(e) => setOracleName(e.target.value)}
+              className="mt-1 w-full rounded-lg border border-padma-champagne/40 bg-white px-2 py-1.5 text-sm dark:border-padma-lavender/35 dark:bg-padma-night/60 dark:text-padma-cream"
+            />
+          </label>
+          <label className="mt-2 block text-xs uppercase tracking-wide text-padma-night/60 dark:text-padma-cream/60">
+            Date de naissance
+            <input
+              type="date"
+              value={oracleBirthDate}
+              onChange={(e) => setOracleBirthDate(e.target.value)}
+              className="mt-1 w-full rounded-lg border border-padma-champagne/40 bg-white px-2 py-1.5 text-sm dark:border-padma-lavender/35 dark:bg-padma-night/60 dark:text-padma-cream"
+            />
+          </label>
+          {profile && (
+            <div className="mt-3 rounded-lg border border-padma-lavender/25 bg-padma-cream/35 p-2 text-xs dark:bg-padma-night/40">
+              <p>Chemin de Vie : {profile.lifePath}</p>
+              <p>Nombre d&apos;Ame : {profile.soul}</p>
+              <p>Arcane dominant : {profile.arcana}</p>
+              <p className="mt-1">{profile.message}</p>
+            </div>
+          )}
+          <div className="mt-3 grid grid-cols-2 gap-2">
+            <Button type="button" onClick={() => void saveOracleToParticipant()} className="rounded-xl">
+              Sauver profil
+            </Button>
+            <Button type="button" variant="secondary" onClick={() => void downloadOraclePdf()} className="rounded-xl">
+              Export PDF cadeau
+            </Button>
+          </div>
+        </div>
+      )}
     </motion.div>
   );
 }

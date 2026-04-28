@@ -3,8 +3,9 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { CalendarHeart, Download, Link2 } from "lucide-react";
+import { CalendarHeart, Download, Link2, MoonStar } from "lucide-react";
 import { jsPDF } from "jspdf";
+import JSZip from "jszip";
 import { retreatSlug, type RetreatDefinition } from "@/lib/reservation/catalog";
 import { countDaysInclusive } from "@/lib/logistics/default-planning";
 import { ensureRetreatLogistics } from "@/lib/logistics/seed-logistics";
@@ -26,6 +27,7 @@ import { LogisticsGroceryPanel } from "@/components/logistics/logistics-grocery-
 import { LogisticsStatusBadge } from "@/components/logistics/logistics-status-badge";
 import { useUiStore } from "@/stores/ui-store";
 import { cn } from "@/lib/utils";
+import { getMajorById } from "@/lib/oracle/tarot-major";
 
 function dayTitle(startIso: string, dayIndex: number) {
   const d = new Date(startIso + "T12:00:00");
@@ -48,6 +50,7 @@ export function LogisticsRetreatDetail({ retreat }: { retreat: RetreatDefinition
   const [tasks, setTasks] = useState<LogisticsTask[]>([]);
   const [participants, setParticipants] = useState<LogisticsParticipant[]>([]);
   const [reservations, setReservations] = useState<ReservationRecord[]>([]);
+  const [journalBusy, setJournalBusy] = useState(false);
 
   const refresh = useCallback(async () => {
     await ensureRetreatLogistics(retreat);
@@ -100,6 +103,98 @@ export function LogisticsRetreatDetail({ retreat }: { retreat: RetreatDefinition
   async function copyPublicUrl() {
     const url = `${window.location.origin}/r/${retreatSlug(retreat)}`;
     await navigator.clipboard.writeText(url);
+  }
+
+  function isRetreatActiveNow() {
+    const now = new Date();
+    const start = new Date(retreat.startDate + "T00:00:00");
+    const end = new Date(retreat.endDate + "T23:59:59");
+    return now >= start && now <= end;
+  }
+
+  function ymd(d: Date) {
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+  }
+
+  async function buildJournalPdf(p: LogisticsParticipant): Promise<ArrayBuffer> {
+    const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
+    const w = doc.internal.pageSize.getWidth();
+    const m = 14;
+    doc.setFillColor(248, 244, 237);
+    doc.roundedRect(m, 12, w - m * 2, 28, 2, 2, "F");
+    doc.setDrawColor(212, 175, 136);
+    doc.roundedRect(m, 12, w - m * 2, 28, 2, 2, "S");
+    doc.setFont("times", "bold");
+    doc.setFontSize(16);
+    doc.text("Serey Padma by Céline", m + 2, 20);
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(10);
+    doc.text("Journal de retraite - souvenir personnalise", m + 2, 26);
+    doc.setFontSize(9);
+    doc.text(`${p.name} · ${retreat.title}`, m + 2, 32);
+
+    const firstKey = retreat.startDate;
+    const lastKey = retreat.endDate;
+    const firstDraw = (await db?.oracleDraws.get(firstKey)) ?? null;
+    const lastDraw = (await db?.oracleDraws.get(lastKey)) ?? null;
+    const firstArcana = getMajorById((firstDraw?.cardIds?.[0] ?? 0) % 22);
+    const endArcana = getMajorById((lastDraw?.cardIds?.[0] ?? 19) % 22);
+
+    let y = 50;
+    const lines = [
+      `Participante : ${p.name}`,
+      `Retraite : ${retreat.title}`,
+      `Dates : ${retreat.startDate} -> ${retreat.endDate}`,
+      "",
+      `Tirage du premier jour : ${firstArcana.name}`,
+      `Intention initiale : ${p.intentions ?? "Intentions non renseignees"}`,
+      `Energie de fin de sejour : ${endArcana.name}`,
+      "",
+      "Message de cloture :",
+      "Merci d'avoir marche dans ce cercle. Que la lumiere recueillie ici continue de t'accompagner, avec douceur et confiance. - Céline",
+    ];
+    doc.setTextColor(44, 62, 80);
+    for (const line of lines) {
+      const wrapped = doc.splitTextToSize(line, w - m * 2);
+      doc.text(wrapped, m, y);
+      y += wrapped.length * 6;
+    }
+    doc.setFontSize(8);
+    doc.setTextColor(212, 175, 136);
+    doc.text(`Serey Padma by Céline · ${new Date().toLocaleDateString("fr-FR")}`, m, 288);
+    return doc.output("arraybuffer");
+  }
+
+  async function generateJournalsZip() {
+    if (!participants.length) return;
+    setJournalBusy(true);
+    try {
+      const zip = new JSZip();
+      for (const p of participants) {
+        const buf = await buildJournalPdf(p);
+        const safe = p.name.toLowerCase().replace(/[^a-z0-9]+/gi, "-");
+        zip.file(`journal-${safe}.pdf`, buf);
+      }
+      const blob = await zip.generateAsync({ type: "blob" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      const key = ymd(new Date());
+      a.download = `journaux-retraite-${retreat.id}-${key}.zip`;
+      a.click();
+      URL.revokeObjectURL(a.href);
+    } finally {
+      setJournalBusy(false);
+    }
+  }
+
+  async function downloadSingleJournal(p: LogisticsParticipant) {
+    const buf = await buildJournalPdf(p);
+    const blob = new Blob([buf], { type: "application/pdf" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = `journal-${p.name.toLowerCase().replace(/[^a-z0-9]+/gi, "-")}.pdf`;
+    a.click();
+    URL.revokeObjectURL(a.href);
   }
 
   function downloadPdf() {
@@ -245,6 +340,18 @@ export function LogisticsRetreatDetail({ retreat }: { retreat: RetreatDefinition
             <Link2 className="h-4 w-4" aria-hidden />
             Copier URL publique
           </Button>
+          {isRetreatActiveNow() ? (
+            <Button asChild type="button" variant="secondary" size="sm" className="print:hidden rounded-full">
+              <Link href={`/mode-retraite/${retreat.id}`}>
+                <MoonStar className="h-4 w-4" aria-hidden />
+                Activer le mode retraite
+              </Link>
+            </Button>
+          ) : null}
+          <Button type="button" variant="secondary" size="sm" className="print:hidden rounded-full" onClick={() => void generateJournalsZip()}>
+            <Download className="h-4 w-4" aria-hidden />
+            {journalBusy ? "Generation..." : "Generer les journaux"}
+          </Button>
         </div>
         <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
           <div className="flex flex-wrap items-center gap-3">
@@ -337,6 +444,15 @@ export function LogisticsRetreatDetail({ retreat }: { retreat: RetreatDefinition
             })()
           ))}
         </div>
+        {participants.length > 0 && (
+          <div className="mt-3 flex flex-wrap gap-2">
+            {participants.map((p) => (
+              <Button key={`journal-${p.id}`} type="button" variant="secondary" size="sm" className="rounded-full" onClick={() => void downloadSingleJournal(p)}>
+                Journal {p.name}
+              </Button>
+            ))}
+          </div>
+        )}
       </section>
 
       <section className={cn("mt-12 grid gap-10 lg:grid-cols-2", hyperfocus && "mt-8 gap-6")}>
