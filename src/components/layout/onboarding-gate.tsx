@@ -5,6 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { db } from "@/lib/db/schema";
+import { requestNotificationPermission, setNotificationPermissionState } from "@/lib/notifications/reminders";
 import { saveLocalProfile } from "@/lib/db/profile-local";
 
 const ONBOARDING_KEY = "onboarding-done";
@@ -17,6 +18,7 @@ export function OnboardingGate({ children }: { children: React.ReactNode }) {
   const [step, setStep] = useState(0);
   const [name, setName] = useState("");
   const [birthDate, setBirthDate] = useState("");
+  const [notifBusy, setNotifBusy] = useState(false);
 
   const skipForPath = useMemo(() => pathname === "/landing" || pathname.startsWith("/api"), [pathname]);
 
@@ -102,8 +104,45 @@ export function OnboardingGate({ children }: { children: React.ReactNode }) {
                   onChange={(e) => setBirthDate(e.target.value)}
                   className="w-full rounded-xl border border-padma-champagne/40 bg-white/90 px-3 py-2.5 text-sm text-padma-night dark:border-padma-lavender/35 dark:bg-padma-night/60 dark:text-padma-cream"
                 />
-                <Button type="button" variant="oracle" className="w-full rounded-2xl font-cinzel" onClick={() => void finish()}>
-                  Entrer dans l&apos;accueil personnalise
+                <Button type="button" variant="oracle" className="w-full rounded-2xl font-cinzel" onClick={() => setStep(3)}>
+                  Continuer
+                </Button>
+              </div>
+            )}
+            {step === 3 && (
+              <div className="space-y-4">
+                <h2 className="text-center font-cinzel text-xl text-padma-night dark:text-padma-cream">Activer les rappels locaux ?</h2>
+                <p className="text-center text-sm text-padma-night/70 dark:text-padma-cream/75">
+                  Recois les rappels J-7, soldes et suivis post-retraite, meme hors ligne.
+                </p>
+                <Button
+                  type="button"
+                  variant="oracle"
+                  className="w-full rounded-2xl font-cinzel"
+                  disabled={notifBusy}
+                  onClick={() =>
+                    void (async () => {
+                      setNotifBusy(true);
+                      await requestNotificationPermission();
+                      setNotifBusy(false);
+                      await finish();
+                    })()
+                  }
+                >
+                  {notifBusy ? "Activation..." : "Activer les rappels"}
+                </Button>
+                <Button
+                  type="button"
+                  variant="secondary"
+                  className="w-full rounded-2xl"
+                  onClick={() =>
+                    void (async () => {
+                      await setNotificationPermissionState("default", true);
+                      await finish();
+                    })()
+                  }
+                >
+                  Passer pour maintenant
                 </Button>
               </div>
             )}

@@ -28,6 +28,7 @@ import { LogisticsStatusBadge } from "@/components/logistics/logistics-status-ba
 import { useUiStore } from "@/stores/ui-store";
 import { cn } from "@/lib/utils";
 import { getMajorById } from "@/lib/oracle/tarot-major";
+import { syncReminderSchedule } from "@/lib/notifications/reminders";
 
 function dayTitle(startIso: string, dayIndex: number) {
   const d = new Date(startIso + "T12:00:00");
@@ -54,6 +55,7 @@ export function LogisticsRetreatDetail({ retreat }: { retreat: RetreatDefinition
 
   const refresh = useCallback(async () => {
     await ensureRetreatLogistics(retreat);
+    await syncReminderSchedule();
     if (!db) return;
     const [t, p, m] = await Promise.all([
       db.logisticsTasks.where("retreatId").equals(retreat.id).toArray(),

@@ -10,6 +10,7 @@ import { computeQuote, euroToCents, SOLO_ROOM_SURCHARGE_EUR, AIRPORT_TRANSFER_EU
 import type { PaymentMode } from "@/lib/db/schema";
 import { saveReservationDraft, updateReservation } from "@/lib/reservation/booking-local";
 import { saveLocalProfile } from "@/lib/db/profile-local";
+import { syncReminderSchedule } from "@/lib/notifications/reminders";
 import { Button } from "@/components/ui/button";
 import { PackageSelector } from "@/components/reservation/package-selector";
 import { cn } from "@/lib/utils";
@@ -92,6 +93,7 @@ export function RetreatBookingClient({ retreat }: { retreat: RetreatDefinition }
         createdAt: now,
         updatedAt: now,
       });
+      await syncReminderSchedule();
       setContractReady(true);
 
       if (birthDate) {

@@ -169,6 +169,28 @@ export interface MarketingPrefs {
   updatedAt: number;
 }
 
+export type ReminderType = "retreat_j_minus_7" | "balance_j_minus_14" | "retreat_j_plus_3";
+
+export interface ReminderNotification {
+  id: string;
+  type: ReminderType;
+  retreatId: string;
+  participantId?: string;
+  scheduledAt: number;
+  title: string;
+  body: string;
+  firedAt?: number;
+  updatedAt: number;
+}
+
+export interface NotificationPrefs {
+  id: string;
+  enabled: boolean;
+  askedOnboarding: boolean;
+  permission: "default" | "granted" | "denied";
+  updatedAt: number;
+}
+
 export type OracleSessionDrawType =
   | "chakra_full"
   | "chakra_focus"
@@ -204,6 +226,8 @@ export class OasisDB extends Dexie {
   treasureGamification!: EntityTable<TreasureGamificationState, "id">;
   marketingQueue!: EntityTable<MarketingQueueItem, "id">;
   marketingPrefs!: EntityTable<MarketingPrefs, "id">;
+  reminderNotifications!: EntityTable<ReminderNotification, "id">;
+  notificationPrefs!: EntityTable<NotificationPrefs, "id">;
 
   constructor() {
     super("oasis-oracle-reiki");
@@ -273,6 +297,24 @@ export class OasisDB extends Dexie {
       treasureGamification: "id, updatedAt",
       marketingQueue: "id, done, sortOrder, updatedAt",
       marketingPrefs: "id, updatedAt",
+    });
+    this.version(8).stores({
+      profiles: "id, email, updatedAt",
+      events: "id, startAt, updatedAt",
+      syncQueue: "id, createdAt",
+      oracleDraws: "id, drawnAt",
+      oracleSessions: "id, drawnAt, drawType",
+      reservations: "id, createdAt, retreatId, status",
+      logisticsMeta: "retreatId, status, updatedAt",
+      logisticsTasks: "id, retreatId, section, dayIndex, sortOrder, updatedAt",
+      logisticsParticipants: "id, retreatId, sortOrder, updatedAt",
+      treasureWidgetLayout: "id, updatedAt",
+      treasureSimulatorSettings: "id, updatedAt",
+      treasureGamification: "id, updatedAt",
+      marketingQueue: "id, done, sortOrder, updatedAt",
+      marketingPrefs: "id, updatedAt",
+      reminderNotifications: "id, scheduledAt, retreatId, participantId, firedAt, updatedAt",
+      notificationPrefs: "id, updatedAt",
     });
   }
 }

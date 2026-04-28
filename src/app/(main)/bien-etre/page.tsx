@@ -1,9 +1,26 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Flower2, Sparkles } from "lucide-react";
+import { getNotificationPrefs, requestNotificationPermission, setNotificationsEnabled } from "@/lib/notifications/reminders";
 
 export default function BienEtrePage() {
+  const [notifPermission, setNotifPermission] = useState<NotificationPermission | "default">("default");
+  const [notifEnabled, setNotifEnabledState] = useState(true);
+
+  useEffect(() => {
+    void (async () => {
+      const prefs = await getNotificationPrefs();
+      if (prefs) {
+        setNotifEnabledState(prefs.enabled);
+        setNotifPermission(prefs.permission);
+      }
+    })();
+  }, []);
+
   return (
     <section className="space-y-6 pb-8">
       <header className="space-y-2">
@@ -33,6 +50,49 @@ export default function BienEtrePage() {
           <p className="text-sm text-oasis-night/70 dark:text-oasis-cream/75">
             Les calculs restent locaux ; les textes sont poétiques et jamais culpabilisants.
           </p>
+        </CardContent>
+      </Card>
+      <Card className="border-padma-champagne/35 bg-white/85 dark:bg-padma-night/60">
+        <CardHeader>
+          <CardTitle className="font-cinzel text-xl font-normal tracking-wide text-padma-night dark:text-padma-cream">
+            Notifications locales PWA
+          </CardTitle>
+          <CardDescription>Rappels J-7, soldes et suivis post-retraite, sans API externe.</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-3">
+          <p className="text-sm text-padma-night/75 dark:text-padma-cream/80">Permission actuelle : {notifPermission}</p>
+          {notifPermission !== "granted" && (
+            <Button
+              type="button"
+              variant="oracle"
+              className="rounded-2xl font-cinzel"
+              onClick={() =>
+                void (async () => {
+                  const p = await requestNotificationPermission();
+                  setNotifPermission(p);
+                })()
+              }
+            >
+              Activer les rappels
+            </Button>
+          )}
+          <div className="flex items-center gap-3">
+            <Button
+              type="button"
+              variant="secondary"
+              className="rounded-2xl"
+              onClick={() =>
+                void (async () => {
+                  const next = !notifEnabled;
+                  await setNotificationsEnabled(next);
+                  setNotifEnabledState(next);
+                })()
+              }
+            >
+              {notifEnabled ? "Desactiver les rappels" : "Reactiver les rappels"}
+            </Button>
+            <p className="text-xs text-padma-night/65 dark:text-padma-cream/70">{notifEnabled ? "Rappels actifs" : "Rappels suspendus"}</p>
+          </div>
         </CardContent>
       </Card>
     </section>
